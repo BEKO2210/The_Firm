@@ -20,7 +20,15 @@ answers:
   q12_brand_secondary: "#3B82F6"  # Blue-500 — accent, trustworthy
   q13_visibility: "public"  # Landing Page indexed, Transparency Report public, OSS visible
   q14_sprint_model: "adaptive"  # KI wählt Scrum/Kanban basierend auf Workload-Volatilität
-  q15_acquisition_channels: null
+  q15_acquisition_channels:
+    - inbound
+    - content-marketing
+    - oss-reputation
+    - ethical-outbound
+    - referral-program
+    - paid-ads
+    - partnerships
+    - events
   q16_touchpoints: null
   q17_salary_transparency: null
   q18_equity_model: null
