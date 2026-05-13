@@ -1,8 +1,11 @@
 ticket_id: "TCK-20260513-0001"
 title: "Friseur & Beauty-Salon Buchungsplattform — Web + iOS + Android, Multi-Tenant SaaS"
-status: "in_discovery"
+status: "awaiting_contract_signature"
+variant_chosen: "Premium MVP"
 created_real: "2026-05-13"
 created_sim: "Day 1, 14:00 (Sprint 1 · Q1 2026)"
+last_updated_real: "2026-05-13"
+last_updated_sim: "Day 1, 15:00"
 principal: "Belkis Aslani"
 source: "inbox/friseur_booking_app_projektauftrag_belkis_aslani.md"
 
