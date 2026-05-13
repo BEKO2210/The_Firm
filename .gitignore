@@ -1,18 +1,21 @@
-# Node / Next.js
+# Node / Next.js (when Dashboard MVP exists, Phase 2)
 node_modules/
 .next/
 out/
 dist/
 
-# Secrets (per CLAUDE.md §25)
-.firm/secrets.yaml
+# Secrets
+.firma/secrets.yaml
 .env
 .env.local
 .env.production
 
-# Logs (build only — audit.log is checked in)
+# Local caches
+.firma/cache/
+
+# Logs
 *.log
-!logs/*.log
+!.firma/audit.log
 
 # OS
 .DS_Store

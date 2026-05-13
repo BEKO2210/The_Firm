@@ -1,0 +1,24 @@
+# Firma OS · config.yaml
+firm:
+  name: ""
+  principal: ""
+
+tokens:
+  budget_per_run_default: 4000
+  budget_per_run_hard_cap: 15000
+
+approvals:
+  policy: strict   # strict | relaxed
+  auto_approve_internal_writes: false
+
+integrations:
+  stripe:
+    enabled: false
+  resend:
+    enabled: false
+  pdfcraft:
+    enabled: false
+
+dashboard:
+  port: 3000
+  open_browser_on_start: true

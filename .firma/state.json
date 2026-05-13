@@ -1,0 +1,60 @@
+{
+  "schema_version": 2,
+  "firm": {
+    "name": null,
+    "principal": null,
+    "since_real": "2026-05-13T23:18:46.488Z"
+  },
+  "real": {
+    "bank_account": null,
+    "stripe_account": null,
+    "monthly_revenue_eur": 0,
+    "monthly_costs_eur": {
+      "tools_subscriptions": 0,
+      "hosting": 0,
+      "other": 0
+    },
+    "customers": [],
+    "active_engagements": [],
+    "outstanding_invoices": []
+  },
+  "sim": {
+    "_warning": "Diese Daten sind NICHT real. Sie sind Planning-/Forecast-Daten.",
+    "forecast_revenue_eur_month_3": 0,
+    "forecast_costs_eur_month_3": 0,
+    "planning_scenarios": [
+      "lean",
+      "standard",
+      "premium"
+    ]
+  },
+  "tokens": {
+    "budget_per_run_default": 4000,
+    "budget_per_run_hard_cap": 15000,
+    "spend_today": 0,
+    "spend_this_week": 0,
+    "warnings": []
+  },
+  "approvals": {
+    "pending": 0,
+    "decided_today": 0
+  },
+  "tickets": {
+    "open": 0,
+    "in_progress": 0,
+    "blocked": 0
+  },
+  "inbox": {
+    "unread": 0,
+    "awaiting_action": 0
+  },
+  "agents": {
+    "active": 0,
+    "last_run_real": null
+  },
+  "audit": {
+    "chain_entries": 0,
+    "chain_intact": true
+  },
+  "generated_at_real": "2026-05-13T23:18:46.508Z"
+}
