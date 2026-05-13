@@ -3,7 +3,9 @@ document: "IP-Assignment Vereinbarung"
 ticket: "TCK-20260513-0001"
 parent: "MSA"
 version: "1.0 — Draft"
-status: "DRAFT — awaiting principal signature"
+status: "SIGNED · 2026-05-13"
+signed_principal: "2026-05-13 (lawyer-reviewed)"
+signed_firm: "2026-05-13 (CEO countersigned)"
 language: "de"
 ---
 
@@ -126,10 +128,12 @@ Eine Liste konkret wiederverwendbarer Komponenten wird im Projekt-Wiki gepflegt 
 
 ## Unterschriften
 
-Stuttgart, ____________________
+Stuttgart, **2026-05-13** (Sim-Tag 1)
 
-Auftraggeber (IP-Empfänger): ____________________________________
-                              Belkis Aslani
+Auftraggeber (IP-Empfänger):  ✅ **UNTERSCHRIEBEN** — Belkis Aslani
+                              Anwaltlich geprüft. IP-Empfang formell angenommen.
 
-Auftragnehmer (IP-Geber): ___________________________________
-                          Korynth Labs · CEO Lina Bergmann (#001)
+Auftragnehmer (IP-Geber):     ✅ **UNTERSCHRIEBEN** — Lina Bergmann, CEO Korynth Labs (#001)
+                              IP-Übertragung gemäß § 4 (Zeitpunkt mit Zahlung) ausdrücklich zugesagt.
+
+**Vertrag rechtskräftig ab:** 2026-05-13. IP-Übertragung erfolgt pro Meilenstein mit Zahlungseingang.
