@@ -34,7 +34,7 @@ answers:
   # + quarterly-business-review + success-plan
   q17_salary_transparency: "radical-transparency"
   q18_equity_model: "maximum-co-ownership"
-  q19_decision_authority: null
-  q20_ai_ethics: null
+  q19_decision_authority: "adaptive-bezos"
+  q20_ai_ethics: "maximum-ethics"
   q21_vacation_policy: null
   q22_audit_level: null
