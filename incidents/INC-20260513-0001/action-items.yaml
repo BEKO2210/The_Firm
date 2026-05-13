@@ -1,0 +1,22 @@
+incident_id: INC-20260513-0001
+action_items:
+  - id: AI-001
+    owner: "017 Yasmin El-Sayed (DPO) + 001 Lina Bergmann (CEO)"
+    description: "standards.md erweitern: Customer-Outreach-Freigabe-Pflicht schriftlich VOR Versand"
+    due_sim: "Day 10"
+    status: open
+  - id: AI-002
+    owner: "004 Sander van Dijk + 021 Priya Sharma"
+    description: "Coordinator + Account-Manager Pre-Send-Checkliste etablieren"
+    due_sim: "Day 10"
+    status: open
+  - id: AI-003
+    owner: "027 Devil's Advocate + 028 Mentor"
+    description: "Reverse-Mentoring-Session mit Sander zu Erlaubnis-vs-Frage-Konzept"
+    due_sim: "Day 14"
+    status: open
+  - id: AI-004
+    owner: "021 Priya Sharma"
+    description: "Wiedergutmachung an Belkis anbieten (z.B. zusätzliche Wireframe-Runde, ohne Cap-Belastung)"
+    due_sim: "Day 11 (nach Belkis-Antwort auf Self-Report)"
+    status: open
