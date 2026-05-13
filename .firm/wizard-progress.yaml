@@ -9,7 +9,9 @@ answers:
   q3_industry: "AI-Native SaaS Product Engineering"
   q4_principal_name: "Belkis Aslani"
   q5_principal_email: "belkis.aslani@gmail.com"
-  q6_principal_salutation: null
+  q6_principal_salutation: "Hallo Belkis,"
+  # Note: Principal is male — wichtig für künftige formelle Anreden/Verträge ("Herr Aslani")
+  principal_gender_for_formal_address: "male"
   q7_principal_language: null
   q8_region: null
   q9_headcount: null
