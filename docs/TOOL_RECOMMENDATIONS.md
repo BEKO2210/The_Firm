@@ -4,32 +4,48 @@ Bewertung externer Tools für Integration in Firma OS. Skala: P0 (sofort) → P3
 
 ## Zusammenfassung
 
-| Tool | Zweck | Priorität | Sofort sinnvoll? |
-|------|-------|:---------:|:----------------:|
-| **rtk-ai/rtk** | Token-Reduktion, Kontext-Kompression | P1 | ja, Phase 3 |
-| **ruvnet/ruflo** | Agent-Orchestration, Swarm | P2 | später (Phase 5) |
-| **vercel-labs/agent-browser** | UI-Test-Automation, Web-Agenten | P2 | wenn Dashboard läuft |
-| **safishamsi/graphify** | Graph-Visualisierung Beziehungen | P1 | ja, für /graph-Seite |
-| **bytedance/UI-TARS-desktop** | Desktop-UI-Automation | P3 | overkill |
-| **PDFCraftTool/pdfcraft** | PDF-Generierung Angebote/Rechnungen | **P0** | **ja, direkt monetarisierbar** |
-| **HKUDS/ViMax** | Multimodal Vision Analyse | P2 | bei Bild/Mockup-Reviews |
-| **screenpipe/screenpipe** | Lokale Screen-Aufzeichnung | P3 ❌ | nein, Datenschutz-Risiko |
-| **bytedance/deer-flow** | Multi-Agent Workflow | P2 | mit Ruflo bewerten |
-| **supertone-inc/supertonic** | Voice/Audio | P3 | nicht MVP |
-| **ClawBot / Kimi ClawBot** | GitHub-Repo-Audits | P1 | ja, automatisiert Audits |
-| **Link-Vault Belkis** | Curated Tool-Liste | **P0** | **ja, sofort scannen** |
+**Core-Stack** (im Blueprint, gestaffelter Rollout):
+
+| Tool | Zweck | Phase | Priorität |
+|------|-------|:-----:|:---------:|
+| **rtk-ai/rtk** | Token-Reduktion, Kontext-Kompression | **2** | **P0** |
+| **Interpreted-Context-Methodology** | Strukturierter Reasoning-Layer | 3 | P1 |
+| **MemPalace** | Persistentes Memory | 5 | P1 |
+| **ruvnet/ruflo** | Multi-Agent Orchestration | 6 | P2 |
+
+**Direkter Wert (parallel):**
+
+| Tool | Zweck | Phase | Priorität |
+|------|-------|:-----:|:---------:|
+| **PDFCraftTool/pdfcraft** | PDF-Generierung Angebote/Rechnungen | 4 | **P0** |
+
+**Erweiterungen (nach Bedarf):**
+
+| Tool | Zweck | Phase | Priorität |
+|------|-------|:-----:|:---------:|
+| **safishamsi/graphify** | Graph-Visualisierung Beziehungen | 8 | P1 |
+| **vercel-labs/agent-browser** | UI-Test-Automation | 8 | P2 |
+| **ClawBot / Kimi ClawBot** | GitHub-Repo-Audits | 8 | P2 |
+| **HKUDS/ViMax** | Multimodal Vision Analyse | 8+ | P2 |
+| **bytedance/deer-flow** | Multi-Agent Workflow | 8+ | P3 |
+| **supertone-inc/supertonic** | Voice/Audio | später | P3 |
+| **bytedance/UI-TARS-desktop** | Desktop-UI-Automation | optional | P3 |
+| **screenpipe/screenpipe** | Lokale Screen-Aufzeichnung | ❌ | verworfen |
+| **Link-Vault Belkis** | Curated Tool-Liste | sofort | scannen |
+
+Vollständige Architektur: [INTEGRATION_BLUEPRINT.md](INTEGRATION_BLUEPRINT.md).
 
 ---
 
-## 1. rtk-ai/rtk · P1 · Token-Kompression
+## 1. rtk-ai/rtk · **P0 · Phase 2** · Token-Kompression
 
 **Zweck:** Context-Engineering / Reduktion-Toolkit für LLM-Apps. Cached & komprimiert redundante Kontexte.
 
-**Use Case:** Bei jedem `firma`-Run werden gleiche State-Files gelesen. rtk könnte einen „Context-Fingerprint" pflegen und nur Deltas senden.
+**Use Case:** Bei jedem `firma`-Run werden gleiche State-Files gelesen. rtk pflegt einen „Context-Fingerprint" und sendet nur Deltas.
 
 **Erwartete Einsparung:** 40-60% Tokens bei langen Sessions.
 
-**Integration:** Phase 3. Vorab: rtk-Repo lesen, Beispiel-Setup verstehen, Quick-PoC in `scripts/firma/token-cache.mjs`.
+**Integration:** **Phase 2, parallel zum Dashboard MVP.** Adapter in `scripts/firma/token-cache.mjs`. Erst sofort sinnvoll, weil laufende Kosten direkt sinken.
 
 **Risiken:**
 - Korrektheits-Risiko: Cache-Invalidierung bei state.json-Updates muss sauber funktionieren
@@ -39,21 +55,55 @@ Bewertung externer Tools für Integration in Firma OS. Skala: P0 (sofort) → P3
 
 ---
 
-## 2. ruvnet/ruflo · P2 · Agent-Orchestration
+## 2. ruvnet/ruflo · P2 · **Phase 6** · Multi-Agent Orchestration
 
 **Zweck:** Swarm-/Hierarchie-Agent-Framework. Memory, Routing, Multi-Agent-Koordination.
 
 **Use Case:** Wenn Belkis mehrere parallele Workflows fährt (z.B. Lead-Akquise + Customer-Support + Code-Review), kann Ruflo Spezialagenten orchestrieren.
 
-**Warum erst P2:** Aktuell ist Single-Agent (Claude Code) ausreichend. Multi-Agent-Setup nur nach Validierung der Single-Agent-Workflows.
-
-**Integration:** Phase 5 der Migration.
+**Warum erst Phase 6:** Single-Agent (Claude Code) ist Default. Multi-Agent kommt erst, wenn echtes Volumen es rechtfertigt — frühestens nach MemPalace (Phase 5), damit die Agenten ein gemeinsames Gedächtnis haben.
 
 **Risiken:**
 - Komplexität-Explosion, wenn zu früh integriert
 - Doppelte Tool-Aufrufe → Token-Mehrverbrauch
 
 **Aufwand:** 1-2 Wochen für sinnvolle Integration.
+
+---
+
+## 2b. Interpreted-Context-Methodology · P1 · **Phase 3** · Reasoning-Layer
+
+**Repo:** https://github.com/RinDig/Interpreted-Context-Methdology
+
+**Zweck:** Strukturierter Reasoning-Layer über LLM-Calls. Macht Entscheidungs-Logik nachvollziehbar.
+
+**Use Case:** Triage-Entscheidungen (Ticket-Typ, Priorität, Customer-Klassifikation) werden mit klarer Begründungs-Kette geloggt.
+
+**Integration:** Phase 3 als PoC. Wenn der Mehrwert messbar ist (bessere Entscheidungen + Audit-Spur), produktiv übernehmen.
+
+**Risiken:**
+- Token-Mehrverbrauch durch strukturiertere Prompts → gegenrechnen mit rtk-ai
+- Lernkurve
+
+**Aufwand:** 1 Woche PoC.
+
+---
+
+## 2c. MemPalace · P1 · **Phase 5** · Persistentes Memory
+
+**Repo:** https://github.com/MemPalace/mempalace
+
+**Zweck:** Persistentes Memory über Sessions hinweg. Customer-, Ticket-, Entscheidungs-Wissen bleibt erhalten.
+
+**Use Case:** „Was haben wir letzten Monat mit Customer X besprochen?" — direkt abrufbar.
+
+**Integration:** Phase 5, wenn erste reale Customers existieren und sich Wiederholungs-Fragen häufen.
+
+**Risiken:**
+- Schema-Mapping zu `.firma/`-Strukturen muss klar sein
+- Privacy: was darf ins Memory, was nicht (DSGVO!)
+
+**Aufwand:** 1-2 Wochen.
 
 ---
 
@@ -191,39 +241,38 @@ Bewertung externer Tools für Integration in Firma OS. Skala: P0 (sofort) → P3
 
 ---
 
-## Priorisierungs-Empfehlung (was als nächstes integrieren)
+## Priorisierungs-Empfehlung (Reihenfolge der Integration)
 
-| Reihenfolge | Tool | Warum |
-|:-----------:|------|-------|
-| 1 | **PDFCraft** | Direkter monetärer Wert: Angebot-PDFs an Leads |
-| 2 | **Link-Vault scannen** | Mehr Klarheit über Belkis' Toolchain |
-| 3 | **rtk-ai** | Token-Verbrauch reduzieren = laufende Kosten senken |
-| 4 | **Graphify** | Dashboard-Wert |
-| 5 | **ClawBot** | Audit-Automatisierung |
-| 6 | **Ruflo** | erst bei wachsender Komplexität |
-| 7 | **agent-browser** | UI-Tests |
-| 8 | **ViMax** | bei UX-Bedarf |
-| 9 | **deer-flow** | mit Ruflo gemeinsam |
-| 10 | **supertonic** | später |
-| 11 | **UI-TARS-desktop** | optional |
-| 12 | **screenpipe** | nein |
+| # | Tool | Phase | Warum |
+|:-:|------|:-----:|-------|
+| 1 | **rtk-ai** | **2** | Token-Verbrauch reduzieren = laufende Kosten senken, sofort |
+| 2 | **Interpreted-CM** | 3 | Strukturierter Reasoning-Layer, nachvollziehbare Entscheidungen |
+| 3 | **PDFCraft** | 4 | Direkter monetärer Wert: Angebot-PDFs an Leads |
+| 4 | **MemPalace** | 5 | Persistentes Memory, wenn reale Customers existieren |
+| 5 | **Ruflo** | 6 | Multi-Agent, nur bei Volumen |
+| 6 | **Graphify** | 8 | Dashboard-Wert (`/graph`-Seite) |
+| 7 | **agent-browser** | 8 | UI-Tests |
+| 8 | **ClawBot** | 8 | Audit-Automatisierung |
+| 9 | **ViMax** | 8+ | bei UX-/Multimodal-Bedarf |
+| 10 | **deer-flow** | 8+ | mit Ruflo gemeinsam |
+| 11 | **supertonic** | später | Voice (nicht MVP) |
+| 12 | **UI-TARS-desktop** | optional | Desktop-Automation |
+| 13 | **screenpipe** | ❌ | DSGVO-Risiko, verworfen |
 
-## Konkrete erste Integration (Phase 1)
-
-**PDFCraft:**
+## Konkrete erste Integration (Phase 2): rtk-ai
 
 ```bash
 # 1. Repo clonen, lokal evaluieren
-git clone https://github.com/PDFCraftTool/pdfcraft tools/pdfcraft
+git clone https://github.com/rtk-ai/rtk tools/rtk
 
-# 2. Template-Datei für Salon-Angebot
-.firma/templates/quote-salon-website.html
+# 2. Adapter
+scripts/firma/token-cache.mjs
 
-# 3. CLI-Integration
-firma report quote --template salon-website --data quote-data.yaml --out reports/QT-2026-001.pdf
+# 3. CLI nutzt Cache transparent
+firma run --use-rtk
 
-# 4. Smoke-Test: ein echtes Angebot-PDF rendern
-firma test pdf
+# 4. Token-Report vor/nach
+firma token-report --period week
 ```
 
-Erwartetes Ergebnis: Angebot-PDF, das Belkis an Leads schicken kann (nach Approval).
+**Erwartetes Ergebnis:** 40-60 % Token-Einsparung bei Routine-Runs, messbar im Token-Report.

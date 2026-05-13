@@ -93,28 +93,40 @@ Details: [docs/RATIONALE.md](docs/RATIONALE.md).
 |------:|-----|:------:|
 | 0 | Initial Architecture | ✅ |
 | 1 | CLAUDE.md + State-Model + CLI v0.1 | ✅ |
-| 2 | Dashboard MVP | ⏳ |
-| 3 | Token-Optimierung (rtk-ai) | ⏳ |
+| 2 | Dashboard MVP **+ rtk-ai Integration** (Token sparen) | ⏳ |
+| 3 | Tiefer Token-Sparen + Interpreted-CM-PoC | ⏳ |
 | 4 | PDFCraft + erstes Angebot-PDF | ⏳ |
-| 5 | Multi-Agent (Ruflo, optional) | später |
-| 6 | Monetarisierung (echte Verkäufe) | laufend |
+| 5 | MemPalace (persistentes Memory) | ⏳ |
+| 6 | Ruflo (Multi-Agent live) | ⏳ |
+| 7 | Monetarisierung tief | laufend |
+| 8 | Erweiterungen (Graphify, agent-browser) | nach Bedarf |
 
-Vollständig: [docs/ROADMAP.md](docs/ROADMAP.md).
+Vollständig: [docs/ROADMAP.md](docs/ROADMAP.md) · Vision: [docs/INTEGRATION_BLUEPRINT.md](docs/INTEGRATION_BLUEPRINT.md).
 
-## Externe Tools (empfohlene Integrationen)
+## Externe Bausteine
 
-- **PDFCraft** — Angebot/Rechnung/Report PDFs (P0)
-- **rtk-ai** — Token-Verbrauch reduzieren (P1)
-- **graphify** — Beziehungs-Visualisierung im Dashboard (P1)
-- **Ruflo** — Multi-Agent on demand (P2)
+**Core-Stack** (im Blueprint, Phase 2–6):
 
-Vollständig: [docs/TOOL_RECOMMENDATIONS.md](docs/TOOL_RECOMMENDATIONS.md).
+| Repo | Rolle | Phase |
+|------|-------|:-----:|
+| [rtk-ai/rtk](https://github.com/rtk-ai/rtk) | Token-Kompression + Context-Engineering | **2** |
+| [Interpreted-Context-Methodology](https://github.com/RinDig/Interpreted-Context-Methdology) | strukturierter Reasoning-Layer | 3 |
+| [MemPalace](https://github.com/MemPalace/mempalace) | persistentes Memory | 5 |
+| [Ruflo](https://github.com/ruvnet/ruflo) | Multi-Agent-Orchestration | 6 |
+
+**Daneben für direkten Wert:**
+
+- [PDFCraft](https://github.com/PDFCraftTool/pdfcraft) — Angebots-/Rechnungs-PDFs (Phase 4)
+- [graphify](https://github.com/safishamsi/graphify) — Beziehungs-Visualisierung (Phase 8)
+- agent-browser, ViMax, ClawBot — Phase 8+
+
+Detail: [docs/TOOL_RECOMMENDATIONS.md](docs/TOOL_RECOMMENDATIONS.md) · Architektur: [docs/INTEGRATION_BLUEPRINT.md](docs/INTEGRATION_BLUEPRINT.md).
 
 ## Lizenz
 
 **Proprietär · Alle Rechte vorbehalten · © 2026 Belkis Aslani.**
 
-Firma OS ist kein Open-Source-Projekt. Keine Erlaubnis zur Nutzung, Modifikation, Verbreitung oder kommerziellen Verwendung ohne ausdrückliche schriftliche Genehmigung der Eigentümerin.
+Firma OS ist kein Open-Source-Projekt. Keine Erlaubnis zur Nutzung, Modifikation, Verbreitung oder kommerziellen Verwendung ohne ausdrückliche schriftliche Genehmigung des Eigentümers.
 
 Für Lizenz-Anfragen + kommerzielle Nutzung: belkis.aslani@gmail.com.
 

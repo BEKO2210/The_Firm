@@ -6,14 +6,14 @@
 
 ## Die Aufgabe
 
-Eine Einzelperson — Designer, Entwicklerin, Beraterin, oder Hybrid — will mit KI-Unterstützung ein Software-Geschäft betreiben. Sie braucht:
+Eine Einzelperson — Designer, Entwickler oder Berater — will mit KI-Unterstützung ein Software-Geschäft betreiben. Er braucht:
 
 - Übersicht über echte Kunden, Tickets, Mails, Aufgaben
 - Klarheit, wo Geld real ist und wo es Planung ist
 - Werkzeuge, die ohne Schulung bedienbar sind
-- Sicherheits-Garantien, damit kein Agent eigenmächtig in ihrem Namen handelt
+- Sicherheits-Garantien, damit kein Agent eigenmächtig in seinem Namen handelt
 - Kostenkontrolle bei KI-Tokens
-- Eine Plattform, die mit ihr wächst
+- Eine Plattform, die mitwächst
 
 Firma OS ist die Antwort.
 
@@ -144,7 +144,7 @@ Vollständige Bewertung: [TOOL_RECOMMENDATIONS.md](TOOL_RECOMMENDATIONS.md).
 
 **Proprietär · Alle Rechte vorbehalten · © 2026 Belkis Aslani.**
 
-Firma OS ist kein Open-Source-Projekt. Es ist kommerzielles Eigentum der Inhaberin. Nutzung, Modifikation, Verbreitung oder kommerzielle Verwendung nur mit ausdrücklicher schriftlicher Genehmigung.
+Firma OS ist kein Open-Source-Projekt. Es ist kommerzielles Eigentum des Inhabers. Nutzung, Modifikation, Verbreitung oder kommerzielle Verwendung nur mit ausdrücklicher schriftlicher Genehmigung.
 
 Für Lizenz-Anfragen: belkis.aslani@gmail.com.
 

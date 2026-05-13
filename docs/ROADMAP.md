@@ -1,22 +1,26 @@
-# Migration Plan
+# Roadmap
 
 ## Übersicht
 
-Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisierung.
+Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisierung. Externe Bausteine kommen pragmatisch dazu, nicht alle auf einmal.
 
-| Phase | Dauer | Output | Risiko |
+| Phase | Dauer | Output | Status |
 |------:|:-----:|--------|:------:|
-| 0 | sofort | Freeze + Audit (✅ dieser Run) | none |
-| 1 | 1-2 Tage | Neue CLAUDE.md + State-Model | low |
-| 2 | 3-5 Tage | CLI + Dashboard erste Iteration | medium |
-| 3 | 1 Woche | Token-Optimierung (rtk-ai) | low |
-| 4 | 1-2 Tage | PDFCraft + Erstes Angebot | low |
-| 5 | 1-2 Wochen | Ruflo Multi-Agent (optional) | medium |
-| 6 | laufend | Monetarisierung (echte Verkäufe) | hoch (kundenseitig) |
-| 7 | laufend | Tool-Integrationen weiter | low |
-| 8 | nach 60 Tagen | Clean-up + Archivierung | low |
+| 0 | sofort | Initial Architecture + Specs | ✅ |
+| 1 | 1-2 Tage | CLAUDE.md + State-Model + CLI v0.1 | ✅ |
+| 2 | 1-2 Wochen | Dashboard MVP **+ rtk-ai Integration** (Token sparen) | ⏳ |
+| 3 | 1 Woche | Tiefer Token-Sparen + Interpreted-CM PoC | ⏳ |
+| 4 | 1-2 Tage | PDFCraft + Erstes Angebot-PDF | ⏳ |
+| 5 | 1-2 Wochen | MemPalace (persistentes Memory) | ⏳ |
+| 6 | 1-2 Wochen | Ruflo (Multi-Agent live, wenn Volumen) | ⏳ |
+| 7 | laufend | Monetarisierung tief (echte Verkäufe) | laufend |
+| 8 | nach Bedarf | Erweiterungen (Graphify, agent-browser, …) | optional |
 
-## Phase 0 · Initial Architecture Specification
+**Architektur-Vision:** [INTEGRATION_BLUEPRINT.md](INTEGRATION_BLUEPRINT.md) zeigt, wie rtk-ai, Interpreted-CM, MemPalace und Ruflo am Ende zusammenwirken.
+
+---
+
+## Phase 0 · Initial Architecture ✅
 
 - [x] RATIONALE.md
 - [x] ARCHITECTURE.md
@@ -26,138 +30,155 @@ Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisi
 - [x] DASHBOARD.md
 - [x] CLI.md
 - [x] STATE_MODEL.md
-- [x] dieser ROADMAP.md
-- [ ] TESTING.md (in Arbeit)
-- [ ] RUN_SUMMARY.md (am Ende)
-- [ ] Neue CLAUDE.md
-- [ ] 8 Agent-Specs
-- [ ] First scripts
+- [x] ROADMAP.md
+- [x] TESTING.md
+- [x] INTEGRATION_BLUEPRINT.md
 
-**Freeze-Regel:** Bis Phase 1 startet, keine `weiter`-Calls und keine neuen Sim-Tickets.
+## Phase 1 · CLAUDE.md + State-Model + CLI v0.1 ✅
 
-## Phase 1 · Neue CLAUDE.md + State-Model
+- [x] Schlanke CLAUDE.md (≤ 400 Zeilen)
+- [x] `.firma/state.json` v2 Schema mit real/sim-Split
+- [x] `.firma/config.yaml`
+- [x] 8 Agent-Specs in `.firma/agents/`
+- [x] `scripts/firma/firma.mjs` (Single-File CLI)
+- [x] Commands lauffähig: `init`, `status`, `inbox`, `approvals`, `audit`, `help`, `version`
 
-- [ ] Backup alte CLAUDE.md → `archive/legacy/CLAUDE.before-firma-os-rebuild.md`
-- [ ] Neue CLAUDE.md mit Verweisen auf Sub-Dateien
-- [ ] state.json v2 Schema mit klarem real/sim-Split
-- [ ] Migration-Script `firma migrate-state`
-- [ ] Sim-Felder (pools, personality, hr/equity etc.) archivieren nach `archive/legacy/`
+## Phase 2 · Dashboard MVP + rtk-ai Integration
 
-**Aufwand:** 1-2 Tage. **Pre-conditions:** Phase 0 abgeschlossen.
+**Ziel:** Klickbares Dashboard läuft lokal · gleichzeitig erste Token-Einsparung durch rtk-ai.
 
-## Phase 2 · CLI + Dashboard erste Iteration
+**Dashboard MVP:**
 
-- [ ] `scripts/firma/firma.mjs` mit Commands: `status`, `inbox`, `start`, `audit`, `help`
-- [ ] Dashboard-Anpassungen:
-  - [ ] `/` Home liest aus state.json v2
-  - [ ] `/inbox` mit echten Files
-  - [ ] `/approvals` mit Approve/Reject
-  - [ ] `/tokens` mit Gauge
-- [ ] File-Watcher für Auto-Refresh
-- [ ] Mobile-Test
+- [ ] Next.js 15 Setup in `website/`
+- [ ] `/` Home liest aus `state.json` v2
+- [ ] `/inbox` mit echten Files
+- [ ] `/approvals` mit Approve/Reject + Audit-Log
+- [ ] `/tokens` mit Gauge
+- [ ] File-Watcher für Auto-Refresh (SSE)
+- [ ] Mobile-Test (375px Viewport)
 
-**Aufwand:** 3-5 Tage. **Pre-conditions:** Phase 1 abgeschlossen.
+**rtk-ai Integration (parallel):**
 
-## Phase 3 · Token-Optimierung
+- [ ] [rtk-ai/rtk](https://github.com/rtk-ai/rtk) Repo lokal evaluieren
+- [ ] PoC: Context-Fingerprint für wiederholt gelesene State-Files
+- [ ] Adapter in `scripts/firma/token-cache.mjs`
+- [ ] CLI: `firma run` nutzt rtk-Cache transparent
+- [ ] Smoke-Test: 1 Woche Token-Verbrauch vor/nach messen
+- [ ] Ziel: -40 % Tokens bei Routine-Runs
 
-- [ ] rtk-ai/rtk evaluieren + PoC
-- [ ] Delta-Diff für state.json-Reminders
-- [ ] Audit-Log auf real-relevante Events beschränken
-- [ ] Token-Budget Hard-Cap implementieren
+**Aufwand:** 1-2 Wochen. **Pre-conditions:** Phase 1 abgeschlossen.
+
+## Phase 3 · Tiefer Token-Sparen + Interpreted-CM PoC
+
+**Ziel:** rtk produktiv festklopfen · strukturierter Reasoning-Layer als zweite Ebene.
+
+- [ ] rtk-Adapter härten (Cache-Invalidierung sauber)
+- [ ] Audit-Log auf real-relevante Events beschränken (kein Sim-Rauschen)
+- [ ] Token-Budget Hard-Cap (4k default / 15k cap) im CLI durchsetzen
+- [ ] [Interpreted-Context-Methodology](https://github.com/RinDig/Interpreted-Context-Methdology) PoC
+  - [ ] Verstehen: was bringt der strukturierte Reasoning-Layer?
+  - [ ] Mini-PoC für einen Workflow (z.B. Triage-Entscheidung)
+  - [ ] Entscheidung: produktiv übernehmen oder verwerfen?
+- [ ] Token-Report-CLI: `firma token-report --period week`
 
 **Aufwand:** 1 Woche. **Pre-conditions:** Phase 2 abgeschlossen.
 
-## Phase 4 · PDFCraft + erstes Angebot
+## Phase 4 · PDFCraft + erstes Angebot-PDF
 
-- [ ] PDFCraft integriert
+**Ziel:** Direkter Geschäftswert — Angebote raus an Leads.
+
+- [ ] PDFCraft integriert (`tools/pdfcraft/`)
 - [ ] Template: Salon-Webseite-Angebot
 - [ ] Template: Rechnung
-- [ ] CLI: `firma report quote ...` + `firma report invoice ...`
+- [ ] Template: Status-Report
+- [ ] CLI: `firma report quote …` + `firma report invoice …`
 - [ ] **Erstes echtes Angebot-PDF an einen Lead generieren** (mit Approval)
 
-**Aufwand:** 1-2 Tage. **Pre-conditions:** Phase 2 abgeschlossen, Approval-Flow funktioniert.
+**Aufwand:** 1-2 Tage. **Pre-conditions:** Approval-Flow funktioniert (Phase 2).
 
-## Phase 5 · Multi-Agent (Ruflo) — optional
+## Phase 5 · MemPalace (persistentes Memory)
 
-Nur wenn Single-Agent-Workflow bewährt + Volumen rechtfertigt es.
+**Ziel:** Wissen über Customers, Tickets, Entscheidungen persistent halten — über Sessions hinweg.
 
-- [ ] Ruflo-Evaluation
+- [ ] [MemPalace](https://github.com/MemPalace/mempalace) Repo verstehen
+- [ ] Schema-Mapping: `.firma/customers/`, `.firma/tickets/` → MemPalace-Entities
+- [ ] Adapter in `scripts/firma/memory.mjs`
+- [ ] Migration: bestehende `.firma/`-Daten einlesen
+- [ ] Recall-Test: „Was haben wir mit Customer X letzten Monat besprochen?"
+
+**Aufwand:** 1-2 Wochen. **Pre-conditions:** Phase 4 läuft, erste reale Customers existieren.
+
+## Phase 6 · Ruflo (Multi-Agent live)
+
+**Nur wenn Volumen es rechtfertigt.** Single-Agent bleibt Default.
+
+- [ ] [Ruflo](https://github.com/ruvnet/ruflo) Evaluation
 - [ ] Multi-Agent-Setup: auditor + pricing + customer-success parallel
-- [ ] Pro-Agent-Token-Budget
+- [ ] Pro-Agent Token-Budget
+- [ ] Memory-Bridge zu MemPalace
 - [ ] Smoke-Test über 1 Woche
+- [ ] Entscheidung: produktiv oder verwerfen?
 
-**Aufwand:** 1-2 Wochen. **Pre-conditions:** Phase 4 abgeschlossen.
+**Aufwand:** 1-2 Wochen. **Pre-conditions:** Phase 5 abgeschlossen, mindestens 3 parallele reale Workflows aktiv.
 
-## Phase 6 · Monetarisierung
+## Phase 7 · Monetarisierung tief
 
-Realer Geschäftsbetrieb. Parallel zu allen anderen Phasen.
+Realer Geschäftsbetrieb. Läuft parallel zu allen Phasen ab Phase 4.
 
 - [ ] Landing-Page mit Paketen A–E
 - [ ] Stripe-Account + Test-Integration
 - [ ] Erste Cold-Outreach-Welle (mit Approvals!)
-- [ ] Erstes signiertes Angebot
+- [ ] Erstes signiertes Engagement
 - [ ] Erste echte Rechnung
 - [ ] Erste echte Zahlung
-- [ ] Erster Pilotsalon onboarded
+- [ ] Erster Pilot-Kunde onboarded
 
 **Aufwand:** laufend, 3-12 Monate je nach Markt.
 
-## Phase 7 · Tool-Integrationen vertieft
+## Phase 8 · Erweiterungen (nach Bedarf)
 
-Nach Priorität aus TOOL_RECOMMENDATIONS.md:
+Nach Priorität aus [TOOL_RECOMMENDATIONS.md](TOOL_RECOMMENDATIONS.md):
 
-1. Graphify für `/graph`
-2. ClawBot für automatisches Audit
-3. Agent-Browser für UI-Tests
-4. ViMax für Multimodal (bei Bedarf)
+- [ ] Graphify für `/graph` Beziehungs-View
+- [ ] agent-browser für UI-Smoke-Tests
+- [ ] ClawBot für automatisches Repo-Audit
+- [ ] ViMax bei Bedarf für Multimodal
 
 **Aufwand:** je Tool 2-7 Tage.
 
-## Phase 8 · Clean-up + Archivierung
+---
 
-Nach 60 Tagen Firma OS in Betrieb:
+## Wichtige Regeln während aller Phasen
 
-- [ ] Alte Dateien nach `archive/legacy/` (nicht löschen, archivieren)
-- [ ] Repo-Größe < 200 MB
-- [ ] Markdown-Count < 50
-- [ ] `state.json` < 100 Zeilen
-- [ ] Audit-Log nur reale Events
-- [ ] Reflektion: hat Belkis € verdient?
-
-## Wichtige Regeln während der Migration
-
-1. **Niemals löschen ohne Backup.** Alles nach `archive/legacy/`.
-2. **Approval-Flow ist sofort aktiv** ab Phase 1.
-3. **Token-Budget per Phase**:
-   - Phase 0: bereits passiert
-   - Phase 1: ~50k Tokens (Setup)
-   - Phase 2-3: ~30k pro Tag
-   - Phase 4+: ~10k pro Tag (Goal)
-4. **Reale vs Sim**: Bei jedem Run wird klar markiert. Wenn unklar → annehmen es ist Sim, bis bestätigt.
-5. **Hard-Stop-Rule** bleibt absolut. Kein externer Versand ohne Approval.
+1. **Approval-Flow ist absolut** — keine externen Aktionen ohne schriftliche Freigabe.
+2. **Token-Budget per Phase:**
+   - Phase 2-3: Ziel < 30k pro Tag
+   - Phase 4+: Ziel < 10k pro Tag
+3. **Real vs Sim**: Bei jedem Run klar markiert. Wenn unklar → annehmen es ist Sim, bis bestätigt.
+4. **Externe Bausteine staffeln**: rtk-ai jetzt, andere erst wenn ihr Mehrwert messbar ist.
+5. **Reversibilität**: Jede Integration muss abschaltbar bleiben (Adapter-Pattern, Feature-Flag).
 
 ## Rollback-Plan
 
-Falls Migration fehlschlägt:
+Falls eine Integration fehlschlägt:
 
-- Alle alten Daten sind in `archive/legacy/` → rollback durch Restore
-- Git-History bleibt intakt → `git reset --hard <pre-migration-commit>` möglich (nicht empfohlen, lieber forward fix)
-- Notfall: alte CLAUDE.md ist in `archive/legacy/CLAUDE.before-firma-os-rebuild.md`
+- Adapter abschalten (Feature-Flag in `.firma/config.yaml`)
+- Git-History bleibt intakt → letzten guten Stand checken
+- Firma OS Kern (CLI + state.json) läuft auch ohne externe Bausteine
 
-## Erfolgs-Kriterien für vollständige Migration
+## Erfolgs-Kriterien für v0.1
 
-- [ ] Nicht-Techniker macht 10-Minuten-Onboarding-Test erfolgreich (siehe TESTING.md)
-- [ ] Token-Verbrauch pro Run < 4k
-- [ ] CLAUDE.md ≤ 300 Zeilen
-- [ ] Erstes echtes Angebot raus (Phase 4)
-- [ ] Approval-Flow durchlaufen
-- [ ] Real-Audit-Log enthält < 10 Sim-Events
+- [ ] `firma init` läuft fehlerfrei ✅
+- [ ] `firma status` liefert plausible Ausgabe ✅
+- [ ] Dashboard MVP läuft (Phase 2)
+- [ ] Token-Verbrauch pro Routine-Run < 4k (Phase 3)
+- [ ] Erstes echtes Angebot-PDF raus (Phase 4)
+- [ ] Approval-Flow ≥ 5× durchlaufen
 - [ ] Repo-Größe < 200 MB
+- [ ] CLAUDE.md ≤ 400 Zeilen
 
-## Was kommt NACH der Migration
+## Was kommt NACH v0.1
 
-Wenn alles oben erfüllt, ist Firma OS v0.1 erfolgreich. Dann:
-
-- **v0.2**: Mehrere Customers, Cohort-Reporting, MRR-Tracking
-- **v0.3**: Multi-Agent in Production (Ruflo)
-- **v1.0**: Multi-Tenancy für mehrere Firma-Owner (falls Belkis franchised)
+- **v0.2**: Mehrere Customers parallel, MRR-Tracking, MemPalace-Recall produktiv
+- **v0.3**: Multi-Agent in Production (Ruflo, falls Volumen)
+- **v1.0**: Stabiler Betrieb, mehrere bezahlte Kunden, Token-Verbrauch optimiert
