@@ -32,8 +32,8 @@ answers:
   q16_touchpoints: "adaptive"
   # Für Premium-Tier impliziert das: onboarding + delivery-emails + nps-after-delivery
   # + quarterly-business-review + success-plan
-  q17_salary_transparency: null
-  q18_equity_model: null
+  q17_salary_transparency: "radical-transparency"
+  q18_equity_model: "maximum-co-ownership"
   q19_decision_authority: null
   q20_ai_ethics: null
   q21_vacation_policy: null
