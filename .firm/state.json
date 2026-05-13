@@ -46,7 +46,7 @@
     "payroll_eur": 469170
   },
   "tickets": {
-    "active": 0,
+    "active": 1,
     "halted": 0,
     "max_parallel": 3
   },
@@ -67,7 +67,7 @@
     "on_vacation": 0
   },
   "ai_ethics": {
-    "decisions_logged": 1,
+    "decisions_logged": 4,
     "human_overrides": 0,
     "last_bias_audit_sim": "scheduled Q1-end (Day 90)"
   },
@@ -81,7 +81,7 @@
     "stale_flags": 0
   },
   "audit": {
-    "chain_entries": 2,
+    "chain_entries": 5,
     "drift_alerts": 0,
     "chain_intact": true
   },
@@ -95,6 +95,6 @@
     "charity_ytd_eur": 0,
     "volunteer_days_used": 0
   },
-  "generated_at_real": "2026-05-13T18:46:18Z",
+  "generated_at_real": "2026-05-13T18:53:43Z",
   "generated_at_sim": "Day 1, 14:00 (Sprint 1 · Q1 2026)"
 }
