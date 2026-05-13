@@ -92,6 +92,49 @@ Before ANY customer-facing outreach (cold outreach, marketing, surveys, status c
 
 Quelle: Incident INC-20260513-0001 (Cold-Outreach ohne Text-Freigabe an 3 Salons, Day 6-7).
 
+## 10. Hard-Stop-Rule (added Day 10 — verbindlich per Principal-Mail 2026-05-13T22:35Z)
+
+**Wortlaut des Principals (verbindlich):**
+
+> „Kein externer Kontakt, kein Outreach, keine Domainregistrierung, kein Toolkauf,
+>  keine neue Ausgabe und keine Kommunikation in meinem Namen ohne vorherige
+>  schriftliche Freigabe durch mich."
+
+### Was unter die Hard-Stop-Rule fällt
+
+- **Externer Kontakt** jeder Art: Salons, Sub-Processors, Marken-Anwalt, Designer-Mietshilfen, Versicherungen, Steuerberater, etc.
+- **Outreach** in jeder Form: Cold-Email, LinkedIn-Anschreiben, Telefon-Akquise, Postversand
+- **Domainregistrierung** (auch wenn nur ein Reservierungs-Hold)
+- **Toolkauf / Subscription** (auch kostenfreie Trial-Anmeldungen mit Auto-Renew)
+- **Neue Ausgaben** jeder Höhe (auch unter der 5%-Burn-Schwelle aus §31.2)
+- **Kommunikation im Namen des Principals**: Pressekontakte, Social-Posts, Veranstaltungs-Anmeldungen, etc.
+
+### Was NICHT unter die Rule fällt (intern + bereits genehmigt)
+
+- Interne Team-Arbeit (Standups, Code, Designs, Tests, Dokumentation)
+- Im SOW-001 + Maintenance-Vertrag bereits explizit budgetierte Posten
+- Wiederkehrende, bereits genehmigte Subprocessor-Nutzung
+- Wöchentliche Status-Kommunikation an Belkis (im Vertrag geregelt)
+
+### Pflicht-Workflow vor jeder freigabepflichtigen Aktion
+
+1. **Pre-Approval-Request-Mail** an Belkis mit:
+   - Was genau geplant ist (1-Liner)
+   - Warum (1-2 Sätze)
+   - Kosten (€) oder externe Aktion
+   - Verfasser + Zeitpunkt
+   - Klare Frage: „Genehmigst du diese Aktion? Bitte mit ‚freigegeben' oder ‚abgelehnt' antworten."
+2. **Warten** auf Belkis' schriftliche Antwort. Implizite, mündliche, geschlossene-Frage-Antworten reichen nicht.
+3. **Audit-Log-Eintrag**: `pre_approval_received` mit Verweis auf Mail-ID, dann Aktion durchführen.
+
+### Konsequenz bei erneutem Verstoß
+
+- Erster Verstoß (INC-20260513-0001): kostenfreie Korrektur-Runde + Process-Patch + Mentor-Check für verantwortlichen MA
+- Zweiter Verstoß (theoretisch): Eskalation an Leadership-Quorum + verbindlicher Action-Plan an Belkis + ggf. SLA-Credit
+- Dritter Verstoß: außerordentliche Kündigung des SOW durch Principal möglich (gemäß MSA § 8.3)
+
+Quelle: Principal-Email 2026-05-13T22:35Z `EM-2026-05-13T22-35-00Z-principal-rules-and-remediation.md`.
+
 ---
 
 *This file grows over time. Postmortem standards-patches are appended chronologically.*
