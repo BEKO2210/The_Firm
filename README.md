@@ -1,93 +1,121 @@
-# Korynth Labs
+# Firma OS
 
-> *Turning intelligence into systems the world can use.*
+> Lean operating system for a 1-person AI-native software firm.
 
-**Industry:** AI-Native SaaS Product Engineering · **Region:** Deutschland / Stuttgart / Ludwigsburg (BW)
-**Founded:** Day 1 (2026-05-13 real)
-**Day** 1, 09:00 · **Sprint** 1 · **Q1 2026**
+Ein schlankes Betriebssystem für eine Einzelperson, die mit KI-Unterstützung echte Software-Dienstleistungen verkauft. Kein Theater, kein Sim-Loop. Klar getrennt: was ist real, was ist Plan.
 
 ---
 
-## Live status
+## Schnellstart
+
+```bash
+# 1. Repo klonen
+git clone <repo-url>
+cd <repo>
+
+# 2. CLI verfügbar machen
+chmod +x scripts/firma/firma.mjs
+sudo ln -sf $(pwd)/scripts/firma/firma.mjs /usr/local/bin/firma   # optional
+
+# 3. Initialisieren
+firma init
+
+# 4. Status anzeigen
+firma status
+```
+
+## Was Firma OS ist
 
 | | |
 |---|---|
-| Headcount | **50** (13 archetypes filled) |
-| Tier | Premium (1.3×) |
-| Active tickets | 0 / 3 max |
-| Bank | **€2,290,780** |
-| Monthly burn | €572,695 |
-| Runway | **4.0 months** 🟢 |
-| Margin target | 30% |
-| OKR Q1 progress | 0 / 19 KRs |
-| Open incidents | 0 |
-| Burnout ≥ 80 | 0 |
-| On vacation | 0 |
-| Audit chain | ✓ 1 entry, 0 drift alerts |
-| Visibility | public |
+| **Zielgruppe** | Eine Einzelperson, die Software / KI-Dienste verkauft + ausliefert |
+| **Größe** | Sehr klein. Eine `CLAUDE.md` (≤ 400 Zeilen). Repo unter 200 MB. |
+| **Architektur** | `.firma/` als Single Source of Truth · CLI · Dashboard (Phase 2) |
+| **Token-Budget** | Default 4.000 pro Run · Hard-Cap 15.000 |
+| **Sicherheit** | Externe Aktionen brauchen explizite Freigabe |
+| **Lizenz** | proprietär · alle Rechte vorbehalten · siehe [LICENSE](LICENSE) |
 
-## How to use
+## Repo-Struktur
 
-```bash
-# Open the operational dashboard
-cd website
-npm install
-npm run dev
-# → http://localhost:3000
+```
+.
+├── CLAUDE.md                        Top-level overview (kurz)
+├── README.md                        diese Datei
+├── docs/                            Architektur, Pricing, Roadmap, Testing
+│   ├── RATIONALE.md                 warum es existiert
+│   ├── ARCHITECTURE.md              wie es aufgebaut ist
+│   ├── STATE_MODEL.md               .firma/ Datenmodell
+│   ├── CLI.md                       vollständige CLI-Spec
+│   ├── DASHBOARD.md                 Dashboard-Spec
+│   ├── ROADMAP.md                   Aufbau-Phasen
+│   ├── TESTING.md                   Tests & Benchmarks
+│   ├── TOKEN_ECONOMY.md             Token-Verbrauch-Plan
+│   ├── PRICING_PLAYBOOK.md          realistische Pakete
+│   └── TOOL_RECOMMENDATIONS.md      externe Tools (PDFCraft, rtk-ai, ...)
+├── .firma/                          State (init via `firma init`)
+│   ├── state.json
+│   ├── config.yaml
+│   ├── agents/                      8 Agent-Specs
+│   ├── inbox/  tickets/  customers/
+│   ├── finance/{real,forecast,quotes}/
+│   ├── approvals/{pending,decided}/
+│   ├── reports/  tokens/  cache/
+│   └── templates/
+└── scripts/
+    └── firma/firma.mjs              Single-file CLI
 ```
 
-| URL | Purpose |
-|-----|---------|
-| http://localhost:3000/ | Landing |
-| http://localhost:3000/dashboard | Live ops dashboard |
-| http://localhost:3000/email | Email client (compose, inbox) |
-| http://localhost:3000/team | 50-person org chart |
-| http://localhost:3000/finance | Ledger, P&L, runway |
-| http://localhost:3000/hr | Salaries, burnout, vacations, equity |
-| http://localhost:3000/transparency | AI ethics statement, audits |
+## Grundprinzipien
 
-## Daily operation
+1. **Ehrlichkeit über Theater** — real vs. forecast immer klar getrennt.
+2. **Dashboard ist die Wahrheit** — klicken statt schreiben.
+3. **Einfachheit für Nicht-Techniker** — 10-Min-Onboarding-Test.
+4. **Markdown nur für Lesbares** — Zustand in JSON/YAML.
+5. **Externe Aktionen brauchen Approval** — Hard-Stop-Rule.
+6. **Token-Budget pro Run** — Sparsamkeit by default.
+7. **Single-Agent-Default** — Multi-Agent nur on demand.
+8. **Reversibilität + Rollback** — alles im Audit-Log.
+9. **Reale Wirtschaftlichkeit** — Pakete so kalibriert, dass verdient wird.
+10. **Repo-Hygiene** — keine Datei ohne Zweck.
 
-1. Compose an email in the dashboard at `/email` (or drop a file in `inbox/`).
-2. Run `/firma` in Claude Code.
-3. The firm processes your message, advances tickets, refreshes the dashboard.
+Details: [docs/RATIONALE.md](docs/RATIONALE.md).
 
-## Principles (non-negotiable)
+## Erste Schritte nach `firma init`
 
-- **12 hard gates** (A1–A6 sandbox→staging · B1–B6 staging→production). No gate may be skipped.
-- **Only the Releaser writes production.**
-- **Released versions are immutable.** New work = new version.
-- **Postmortem standards-patches auto-merge** into `workspace/knowledge-base/standards.md`. The firm gets better.
-- **Burnout ≥ 80 = forced rest.** No exceptions.
-- **AI decisions flagged critical require human-in-loop approval** before execution.
-- **10 anti-patterns enforced** (no burnout, micromanagement, politics, info-hoarding, blame, HiPPO, meeting overload, toxic customer tolerance, tech-debt denial, bikeshedding).
-- **Radical transparency** internally on salaries, performance, OKRs, finances.
+1. `.firma/config.yaml` öffnen + Firmennamen + Inhaber-Name eintragen.
+2. `firma status` — sollte deinen Firmennamen zeigen.
+3. `firma help` — alle Kommandos sehen.
+4. `docs/ROADMAP.md` lesen — was wann gebaut wird.
 
-## Files
+## Roadmap (kurz)
 
-- `CLAUDE.md` — the operating system specification (do not edit without principal approval).
-- `.firm/identity.yaml` — frozen firm identity (immutable post-bootstrap).
-- `.firm/state.json` — **single source of truth** for all dynamic numbers above.
-- `.firm/employees/_roster.yaml` — all 50 employees indexed.
-- `.firm/archetypes/` — 13 universal role definitions.
-- `.firm/industry-mapping/ai-native-saas.yaml` — archetype → concrete role mapping.
-- `.claude/agents/` — 28 subagent templates.
-- `.claude/commands/firma.md` — `/firma` slash command.
-- `pools/` — personal pools per employee.
-- `website/` — Next.js 15 dashboard.
-- `workspace/` — tickets, sprints, knowledge-base, knowledge-graph, communication.
-- `finance/` — ledger, invoices, payroll, reports, pricing, budgets, audits.
-- `hr/` — performance reviews, salaries, equity, vacations, burnout, onboarding curriculum.
-- `okrs/` — quarterly OKR plans.
-- `compliance/` — DSGVO + industry overlays + AI ethics statement.
-- `ai-ethics/` — public statement + bias audits.
-- `audits-public/` — annual transparency reports.
-- `logs/audit.log` — append-only SHA-256-hash-chained audit trail.
+| Phase | Was | Status |
+|------:|-----|:------:|
+| 0 | Initial Architecture | ✅ |
+| 1 | CLAUDE.md + State-Model + CLI v0.1 | ✅ |
+| 2 | Dashboard MVP | ⏳ |
+| 3 | Token-Optimierung (rtk-ai) | ⏳ |
+| 4 | PDFCraft + erstes Angebot-PDF | ⏳ |
+| 5 | Multi-Agent (Ruflo, optional) | später |
+| 6 | Monetarisierung (echte Verkäufe) | laufend |
 
-## Forking this CLAUDE.md
+Vollständig: [docs/ROADMAP.md](docs/ROADMAP.md).
 
-This file is the operating system of a digital firm. It is licensed MIT. Fork freely, but please credit the original. PRs welcome.
+## Externe Tools (empfohlene Integrationen)
 
----
+- **PDFCraft** — Angebot/Rechnung/Report PDFs (P0)
+- **rtk-ai** — Token-Verbrauch reduzieren (P1)
+- **graphify** — Beziehungs-Visualisierung im Dashboard (P1)
+- **Ruflo** — Multi-Agent on demand (P2)
 
-*Generated 2026-05-13T00:00:00Z from `.firm/state.json` — zero hardcoded numbers.*
+Vollständig: [docs/TOOL_RECOMMENDATIONS.md](docs/TOOL_RECOMMENDATIONS.md).
+
+## Lizenz
+
+**Proprietär · Alle Rechte vorbehalten · © 2026 Belkis Aslani.**
+
+Firma OS ist kein Open-Source-Projekt. Keine Erlaubnis zur Nutzung, Modifikation, Verbreitung oder kommerziellen Verwendung ohne ausdrückliche schriftliche Genehmigung der Eigentümerin.
+
+Für Lizenz-Anfragen + kommerzielle Nutzung: belkis.aslani@gmail.com.
+
+Siehe [LICENSE](LICENSE) für vollen Text.

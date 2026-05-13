@@ -1,0 +1,94 @@
+Firma OS — Proprietary License
+================================
+
+Copyright © 2026 Belkis Aslani. All rights reserved.
+Alle Rechte vorbehalten.
+
+
+1. EIGENTUM
+
+   Firma OS und sämtliche darin enthaltenen Materialien — Quellcode, Skripte,
+   Dokumentation, Spezifikationen, Schemata, Designs, Logos, Markennamen,
+   Datenmodelle, Agenten-Spezifikationen, Konfigurationsdateien — sind
+   ausschließliches Eigentum von Belkis Aslani („Eigentümerin").
+
+
+2. NUTZUNGSRECHTE — ENG BEGRENZT
+
+   Ohne ausdrückliche schriftliche Genehmigung der Eigentümerin ist NICHT
+   gestattet:
+
+   (a) Die Nutzung, Ausführung oder Installation von Firma OS oder Teilen
+       davon in irgendeiner Umgebung (privat, geschäftlich, akademisch).
+   (b) Die Vervielfältigung, Verbreitung, Weitergabe oder Veröffentlichung
+       (auch nicht ausschnittsweise).
+   (c) Die Modifikation, Anpassung, Übersetzung oder Erstellung abgeleiteter
+       Werke.
+   (d) Die Rückkonstruktion (Reverse Engineering), Dekompilierung oder
+       Disassemblierung.
+   (e) Die kommerzielle Nutzung — direkt oder indirekt — einschließlich
+       Verkauf, Vermietung, Lizenzierung an Dritte, oder Verwendung als
+       Bestandteil eigener kommerzieller Angebote.
+   (f) Die Entfernung oder Veränderung von Urheberrechtshinweisen,
+       Markenangaben oder dieser Lizenzbestimmung.
+
+
+3. KEINE OPEN-SOURCE-LIZENZ
+
+   Diese Software ist KEINE Open-Source-Software im Sinne der Open Source
+   Initiative (OSI) oder der Free Software Foundation (FSF). Sie wird nicht
+   unter MIT, Apache, BSD, GPL, AGPL oder einer anderen Open-Source-Lizenz
+   bereitgestellt.
+
+   Forking, Pull-Requests oder öffentliches Teilen sind nicht erlaubt, sofern
+   nicht von der Eigentümerin schriftlich genehmigt.
+
+
+4. LIZENZ-ANFRAGEN
+
+   Wer Firma OS nutzen, anpassen, weiterverbreiten oder kommerziell verwenden
+   möchte, kann eine Lizenz schriftlich anfragen unter:
+
+       Belkis Aslani
+       belkis.aslani@gmail.com
+       Stuttgart-Region, Deutschland
+
+   Lizenzen werden im Einzelfall verhandelt — typisch nach Use-Case, Umfang,
+   Branche, Dauer und Vergütungsmodell.
+
+
+5. HAFTUNGSAUSSCHLUSS
+
+   Diese Software wird „wie besehen" („as is") ohne jegliche Gewährleistung
+   bereitgestellt — weder ausdrücklich noch stillschweigend, einschließlich
+   aber nicht beschränkt auf Marktgängigkeit, Eignung für einen bestimmten
+   Zweck oder Nichtverletzung von Rechten Dritter.
+
+   In keinem Fall haftet die Eigentümerin für direkte, indirekte, zufällige,
+   besondere, Folge- oder strafbare Schäden, die sich aus der Nutzung dieser
+   Software ergeben.
+
+
+6. KÜNDIGUNG / WIDERRUF
+
+   Jede etwaige Lizenz endet automatisch, wenn der Lizenznehmer gegen einen
+   der vorstehenden Punkte verstößt. Bei Beendigung sind sämtliche Kopien
+   unverzüglich zu löschen und der Eigentümerin schriftlich zu bestätigen.
+
+
+7. ANWENDBARES RECHT
+
+   Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des
+   UN-Kaufrechts. Gerichtsstand: Stuttgart.
+
+
+8. SALVATORISCHE KLAUSEL
+
+   Sollten einzelne Bestimmungen dieser Lizenz unwirksam oder undurchführbar
+   sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.
+
+
+For inquiries about commercial use, partnerships, or licensing arrangements,
+please contact: belkis.aslani@gmail.com.
+
+— Belkis Aslani, 2026
