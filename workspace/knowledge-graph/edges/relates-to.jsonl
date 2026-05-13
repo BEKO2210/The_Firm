@@ -12,3 +12,9 @@
 {"from":"dec-005","to":"con-002","relation":"formalizes","sim":"Day 6"}
 {"from":"dec-005","to":"con-003","relation":"implemented-by","sim":"Day 6"}
 {"from":"pat-002","to":"dec-005","relation":"extracted-from","sim":"Day 6"}
+{"from":"dec-006","to":"con-001","relation":"uses","sim":"Day 7"}
+{"from":"con-004","to":"dec-002","relation":"depends-on","sim":"Day 7"}
+{"from":"con-004","to":"dec-005","relation":"depends-on","sim":"Day 7"}
+{"from":"con-005","to":"dec-002","relation":"implements","sim":"Day 8"}
+{"from":"con-005","to":"dec-005","relation":"implements","sim":"Day 8"}
+{"from":"con-005","to":"dec-006","relation":"prepares","sim":"Day 8"}
