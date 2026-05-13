@@ -1,0 +1,262 @@
+{
+  "schema": "firma-bench/rtk-vs-raw/1",
+  "methodology": {
+    "tokenizer": "tiktoken cl100k_base (GPT-4)",
+    "workload": "fixe Command-Liste, 3 warmup + 5 measured runs pro Command",
+    "mode": "A/B (raw control vs rtk treatment), identische cwd + env"
+  },
+  "timestamp": "2026-05-13T23:51:09.816Z",
+  "rtk_version": "rtk 0.34.3",
+  "node_version": "v22.22.2",
+  "repo": {
+    "root": "/home/user/The_Firm",
+    "branch": "claude/read-claude-md-IcJBG",
+    "commit": "40c9c63b7d565f8df03d483ae12a11e9cf9c90a9"
+  },
+  "commands": [
+    {
+      "name": "git_status",
+      "argv": [
+        "git",
+        "status"
+      ],
+      "raw": {
+        "tokens": 96,
+        "bytes": 336,
+        "ms_p50": 5.419227,
+        "ms_p99": 6.134446
+      },
+      "rtk": {
+        "tokens": 55,
+        "bytes": 164,
+        "ms_p50": 16.860189,
+        "ms_p99": 18.144884
+      },
+      "reduction": {
+        "tokens_pct": 42.708333333333336,
+        "bytes_pct": 51.19047619047619
+      }
+    },
+    {
+      "name": "git_log_20",
+      "argv": [
+        "git",
+        "log",
+        "-20",
+        "--oneline"
+      ],
+      "raw": {
+        "tokens": 528,
+        "bytes": 1677,
+        "ms_p50": 5.910529,
+        "ms_p99": 6.709628
+      },
+      "rtk": {
+        "tokens": 520,
+        "bytes": 1666,
+        "ms_p50": 14.895116,
+        "ms_p99": 15.440639
+      },
+      "reduction": {
+        "tokens_pct": 1.5151515151515138,
+        "bytes_pct": 0.6559332140727459
+      }
+    },
+    {
+      "name": "git_diff_head",
+      "argv": [
+        "git",
+        "diff",
+        "HEAD~3..HEAD",
+        "--stat"
+      ],
+      "raw": {
+        "tokens": 9735,
+        "bytes": 34682,
+        "ms_p50": 76.459875,
+        "ms_p99": 77.904402
+      },
+      "rtk": {
+        "tokens": 9735,
+        "bytes": 34681,
+        "ms_p50": 84.44609,
+        "ms_p99": 88.021744
+      },
+      "reduction": {
+        "tokens_pct": 0,
+        "bytes_pct": 0.0028833400611216753
+      }
+    },
+    {
+      "name": "ls_repo",
+      "argv": [
+        "ls",
+        "-la"
+      ],
+      "raw": {
+        "tokens": 336,
+        "bytes": 716,
+        "ms_p50": 4.201949,
+        "ms_p99": 4.770055
+      },
+      "rtk": {
+        "tokens": 64,
+        "bytes": 156,
+        "ms_p50": 14.396381,
+        "ms_p99": 14.91678
+      },
+      "reduction": {
+        "tokens_pct": 80.95238095238095,
+        "bytes_pct": 78.21229050279331
+      }
+    },
+    {
+      "name": "ls_firma",
+      "argv": [
+        "ls",
+        "-la",
+        ".firma"
+      ],
+      "raw": {
+        "tokens": 371,
+        "bytes": 805,
+        "ms_p50": 4.135303,
+        "ms_p99": 4.273004
+      },
+      "rtk": {
+        "tokens": 42,
+        "bytes": 143,
+        "ms_p50": 14.253822,
+        "ms_p99": 14.344579
+      },
+      "reduction": {
+        "tokens_pct": 88.67924528301887,
+        "bytes_pct": 82.2360248447205
+      }
+    },
+    {
+      "name": "tree_docs",
+      "argv": [
+        "bash",
+        "-lc",
+        "find docs -maxdepth 2 -type f | sort"
+      ],
+      "raw": {
+        "tokens": 92,
+        "bytes": 267,
+        "ms_p50": 118.645955,
+        "ms_p99": 120.315762
+      },
+      "rtk": {
+        "tokens": 92,
+        "bytes": 267,
+        "ms_p50": 158.633559,
+        "ms_p99": 170.70959
+      },
+      "reduction": {
+        "tokens_pct": 0,
+        "bytes_pct": 0
+      }
+    },
+    {
+      "name": "grep_todos",
+      "argv": [
+        "bash",
+        "-lc",
+        "grep -rn 'TODO\\|FIXME' scripts docs 2>/dev/null || true"
+      ],
+      "raw": {
+        "tokens": 56,
+        "bytes": 155,
+        "ms_p50": 124.431107,
+        "ms_p99": 135.676348
+      },
+      "rtk": {
+        "tokens": 56,
+        "bytes": 155,
+        "ms_p50": 152.708026,
+        "ms_p99": 160.210809
+      },
+      "reduction": {
+        "tokens_pct": 0,
+        "bytes_pct": 0
+      }
+    },
+    {
+      "name": "cat_state",
+      "argv": [
+        "cat",
+        ".firma/state.json"
+      ],
+      "raw": {
+        "tokens": 411,
+        "bytes": 1209,
+        "ms_p50": 4.419306,
+        "ms_p99": 5.620722
+      },
+      "rtk": {
+        "tokens": 411,
+        "bytes": 1209,
+        "ms_p50": 34.404203,
+        "ms_p99": 35.803788
+      },
+      "reduction": {
+        "tokens_pct": 0,
+        "bytes_pct": 0
+      }
+    },
+    {
+      "name": "wc_repo_md",
+      "argv": [
+        "bash",
+        "-lc",
+        "find . -name '*.md' -not -path './node_modules/*' -not -path './tools/*' -not -path './.git/*' | xargs wc -l 2>/dev/null"
+      ],
+      "raw": {
+        "tokens": 275,
+        "bytes": 732,
+        "ms_p50": 128.288573,
+        "ms_p99": 137.233385
+      },
+      "rtk": {
+        "tokens": 275,
+        "bytes": 732,
+        "ms_p50": 165.478677,
+        "ms_p99": 166.807687
+      },
+      "reduction": {
+        "tokens_pct": 0,
+        "bytes_pct": 0
+      }
+    },
+    {
+      "name": "find_mjs",
+      "argv": [
+        "bash",
+        "-lc",
+        "find scripts -name '*.mjs' | sort"
+      ],
+      "raw": {
+        "tokens": 52,
+        "bytes": 171,
+        "ms_p50": 122.085793,
+        "ms_p99": 126.41978
+      },
+      "rtk": {
+        "tokens": 52,
+        "bytes": 171,
+        "ms_p50": 148.660829,
+        "ms_p99": 151.708471
+      },
+      "reduction": {
+        "tokens_pct": 0,
+        "bytes_pct": 0
+      }
+    }
+  ],
+  "totals": {
+    "raw_tokens": 11952,
+    "rtk_tokens": 11302,
+    "reduction_pct": 5.438420348058903
+  }
+}

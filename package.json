@@ -1,0 +1,22 @@
+{
+  "name": "firma-os",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Firma OS · Lean operating system for a 1-person AI-native software firm",
+  "license": "SEE LICENSE IN LICENSE",
+  "bin": {
+    "firma": "scripts/firma/firma.mjs"
+  },
+  "scripts": {
+    "firma": "node scripts/firma/firma.mjs",
+    "test:smoke": "node scripts/firma/test/smoke-token-cache.mjs",
+    "bench:rtk": "node scripts/firma/benchmarks/rtk-vs-raw.mjs"
+  },
+  "dependencies": {
+    "tiktoken": "^1.0.20"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

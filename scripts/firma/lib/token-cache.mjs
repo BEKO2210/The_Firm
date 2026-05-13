@@ -1,26 +1,26 @@
-// Firma OS · Token-Cache (rtk-ai Adapter)
+// Firma OS · Token-Cache
 //
-// Vorbereitung für rtk-ai/rtk Integration (Phase 2).
-// Default-Modus: "local" — Content-Fingerprint via SHA-256, Disk-Cache in .firma/cache/token-cache/.
-// Wenn rtk-ai später installiert wird, kann mode="rtk" auf den echten Adapter umschalten.
+// Content-Fingerprint (SHA-256) + Disk-Cache für wiederkehrende State-Snapshots.
+// Zweck: identische .firma/state.json (oder andere Reminders) nicht mehrfach an das LLM
+// senden, sondern via Fingerprint referenzieren.
 //
-// API:
-//   const cache = await openCache({ root, mode })
-//   const fp    = cache.fingerprint(content)
-//   const hit   = await cache.recall(fp)              -> null | { content, meta }
-//   await cache.store(fp, content, meta)
-//   const stats = await cache.stats()                 -> { entries, hits, misses, bytes }
+// rtk-ai war ursprünglich als zweiter Modus geplant, ist aber konzeptionell etwas
+// anderes: ein Command-Output-Filter, kein KV-Cache. Daher lebt rtk in lib/rtk-exec.mjs.
+//
+// Modi:
+//   "local" (default) — SHA-256-Cache unter .firma/cache/token-cache/
+//   "noop"           — komplett inert, für Vergleichs-Benchmarks
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 
-const SUPPORTED_MODES = new Set(["noop", "local", "rtk"]);
+const SUPPORTED_MODES = new Set(["noop", "local"]);
 
 export async function openCache({ root, mode = "local" } = {}) {
   if (!root) throw new Error("token-cache: root path required");
   if (!SUPPORTED_MODES.has(mode)) {
-    throw new Error(`token-cache: unsupported mode '${mode}' (use: noop|local|rtk)`);
+    throw new Error(`token-cache: unsupported mode '${mode}' (use: noop|local)`);
   }
 
   const dir = path.join(root, ".firma", "cache", "token-cache");
@@ -36,10 +36,6 @@ export async function openCache({ root, mode = "local" } = {}) {
 
   async function recall(fp) {
     if (mode === "noop") return null;
-    if (mode === "rtk") {
-      // Hook: when rtk-ai is installed, delegate here.
-      return null;
-    }
     const entryPath = path.join(dir, fp + ".json");
     try {
       const raw = await fs.readFile(entryPath, "utf-8");
@@ -55,10 +51,6 @@ export async function openCache({ root, mode = "local" } = {}) {
 
   async function store(fp, content, meta = {}) {
     if (mode === "noop") return;
-    if (mode === "rtk") {
-      // Hook: delegate to rtk-ai store when integrated.
-      return;
-    }
     const entryPath = path.join(dir, fp + ".json");
     const payload = { content, meta: { ...meta, stored_at: new Date().toISOString() } };
     await fs.writeFile(entryPath, JSON.stringify(payload) + "\n");
