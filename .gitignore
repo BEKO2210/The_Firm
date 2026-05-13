@@ -10,8 +10,13 @@ dist/
 .env.local
 .env.production
 
-# Local caches
+# Local caches + per-run benchmark outputs (Snapshots leben in docs/benchmarks/)
 .firma/cache/
+.firma/benchmarks/
+
+# Third-party tools (cloned + built locally per Approval; see docs/INTEGRATION_BLUEPRINT.md)
+# Install via: bash scripts/firma/setup/install-rtk.sh
+tools/
 
 # Logs
 *.log

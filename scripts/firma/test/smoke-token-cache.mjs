@@ -42,6 +42,10 @@ await noop.store("xxx", "no-write");
 assert.equal(await noop.recall("xxx"), null, "noop mode must never recall");
 console.log("  noop ok");
 
+// unbekannter Modus muss früh fehlschlagen
+await assert.rejects(() => openCache({ root: tmp, mode: "ufo" }), /unsupported mode/);
+console.log("  unknown-mode rejection ok");
+
 // --- token-log ----------------------------------------------------------
 await logRun({ root: tmp, command: "status", tokens_in: 400, tokens_out: 120 });
 await logRun({ root: tmp, command: "status", tokens_in: 350, tokens_out: 110, cache_hits: 2, cache_misses: 0 });
