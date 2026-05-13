@@ -1,5 +1,5 @@
 import { readRoster, readFirmState } from "@/lib/firmState";
-export const dynamic = "force-dynamic";
+
 
 export default async function TeamPage() {
   const [s, roster] = await Promise.all([readFirmState(), readRoster()]);

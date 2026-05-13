@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { readFirmState } from "@/lib/firmState";
 
-export const dynamic = "force-dynamic";
+
 
 export default async function LandingPage() {
   const s = await readFirmState();

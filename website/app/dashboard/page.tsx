@@ -1,6 +1,6 @@
 import { readFirmState } from "@/lib/firmState";
 
-export const dynamic = "force-dynamic";
+
 
 function pill(label: string, type: "green" | "amber" | "red" | "blue") {
   return <span className={`pill pill-${type}`}>{label}</span>;
