@@ -1,5 +1,5 @@
 import { readFirmState } from "@/lib/firmState";
-export const dynamic = "force-dynamic";
+
 
 export default async function CustomerPage() {
   const s = await readFirmState();

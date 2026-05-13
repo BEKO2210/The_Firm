@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+
 
 const CHANNELS = [
   { name: "Inbound (SEO)", status: "Day 1: page deployed, no traffic yet" },

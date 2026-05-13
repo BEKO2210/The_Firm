@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
-export const dynamic = "force-dynamic";
+
 
 async function loadEmails(dir: string) {
   const root = path.resolve(process.cwd(), "..", "workspace", "communication", dir);

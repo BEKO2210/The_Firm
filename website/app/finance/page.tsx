@@ -1,7 +1,7 @@
 import { readFirmState } from "@/lib/firmState";
 import { promises as fs } from "fs";
 import path from "path";
-export const dynamic = "force-dynamic";
+
 
 export default async function FinancePage() {
   const s = await readFirmState();

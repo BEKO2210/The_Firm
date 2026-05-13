@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { readFirmState } from "@/lib/firmState";
-export const dynamic = "force-dynamic";
+
 
 export default async function OkrsPage() {
   const s = await readFirmState();
