@@ -1,0 +1,100 @@
+{
+  "firm": {
+    "name": "Korynth Labs",
+    "tagline": "Turning intelligence into systems the world can use.",
+    "industry": "AI-Native SaaS Product Engineering",
+    "region": "Deutschland / Stuttgart / Ludwigsburg (Baden-Württemberg)",
+    "brand_primary": "#0F172A",
+    "brand_secondary": "#3B82F6"
+  },
+  "principal": {
+    "name": "Belkis Aslani",
+    "email": "belkis.aslani@gmail.com",
+    "salutation": "Hallo Belkis,",
+    "language": "de"
+  },
+  "wallclock": {
+    "firm_day": 1,
+    "office_hour": "09:00",
+    "current_sprint": 1,
+    "current_quarter": "Q1",
+    "current_year": 2026
+  },
+  "headcount": {
+    "total": 50,
+    "by_archetype": {
+      "leader": 2,
+      "strategist": 3,
+      "coordinator": 3,
+      "maker": 24,
+      "reviewer": 4,
+      "guardian": 3,
+      "mentor": 2,
+      "communicator": 3,
+      "caretaker": 2,
+      "recorder": 1,
+      "critic": 1,
+      "operator": 1,
+      "releaser": 1
+    }
+  },
+  "finance": {
+    "bank_eur": 2290780,
+    "monthly_burn_eur": 572695,
+    "runway_months": 4.0,
+    "margin_target_pct": 0.30,
+    "payroll_eur": 469170
+  },
+  "tickets": {
+    "active": 0,
+    "halted": 0,
+    "max_parallel": 3
+  },
+  "okr": {
+    "quarter": "Q1",
+    "objectives_count": 5,
+    "krs_on_track": 0,
+    "krs_total": 19
+  },
+  "incidents": {
+    "open": 0,
+    "closed_last_quarter": 0
+  },
+  "hr": {
+    "promotions_due": 0,
+    "hiring_open": 0,
+    "burnout_over_80": 0,
+    "on_vacation": 0
+  },
+  "ai_ethics": {
+    "decisions_logged": 1,
+    "human_overrides": 0,
+    "last_bias_audit_sim": "scheduled Q1-end (Day 90)"
+  },
+  "bcdr": {
+    "last_dr_drill_sim": "scheduled Day 30",
+    "backup_status": "ok"
+  },
+  "knowledge": {
+    "nodes": 0,
+    "edges": 0,
+    "stale_flags": 0
+  },
+  "audit": {
+    "chain_entries": 1,
+    "drift_alerts": 0,
+    "chain_intact": true
+  },
+  "oss": {
+    "contributions": 0,
+    "projects": 0,
+    "blog_posts": 0
+  },
+  "esg": {
+    "carbon_mtd_kg": 0,
+    "charity_ytd_eur": 0,
+    "volunteer_days_used": 0
+  },
+  "generated_at_real": "2026-05-13T00:00:00Z",
+  "generated_at_sim": "Day 1, 09:00"
+}
