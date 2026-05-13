@@ -67,7 +67,7 @@ jobs:
         working-directory: website
         env:
           BUILD_TARGET: pages
-          NEXT_PUBLIC_BASE_PATH: /the_firm
+          NEXT_PUBLIC_BASE_PATH: /The_Firm
           NODE_ENV: production
         run: npm run build
 

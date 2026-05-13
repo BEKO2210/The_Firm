@@ -8,7 +8,7 @@
 // The CI workflow (.github/workflows/deploy-pages.yml) moves `app/api/`
 // aside before running the static build, then restores it after.
 const isPagesBuild = process.env.BUILD_TARGET === 'pages';
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? (isPagesBuild ? '/the_firm' : '');
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? (isPagesBuild ? '/The_Firm' : '');
 
 const nextConfig = {
   reactStrictMode: true,
