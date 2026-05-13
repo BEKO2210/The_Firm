@@ -74,6 +74,24 @@
 - 20% sprint capacity reserved for tech-debt reduction (§39.A.9).
 - 15-min timebox for trivial decisions; Lead breaks ties (§39.A.10).
 
+## 9. Customer-Outreach (added Day 9 via INC-20260513-0001 standards-patch)
+
+**Hartes-Stop-Rule: Asking the principal a question is NOT the same as receiving permission.**
+
+Before ANY customer-facing outreach (cold outreach, marketing, surveys, status comms outside scheduled cadence):
+
+1. **Schriftliche Text-Freigabe** des Principals **vor** Versand. Mündlich/implizit reicht nicht.
+2. **Coordinator (#004) + Account-Manager (#021) Doppel-Check** mit Pre-Send-Checkliste:
+   - [ ] Liegt Principal-Freigabe schriftlich vor (Email/Inbox-Ticket)?
+   - [ ] Ist der finalisierte Text identisch mit dem freigegebenen?
+   - [ ] DSGVO/UWG-Pflichtelemente vorhanden (Unsubscribe, Impressum)?
+   - [ ] Audit-Log-Eintrag vorbereitet (`customer_outreach_sent`)?
+3. **Nach Versand**: Audit-Log-Eintrag mit Verweis auf die Freigabe-Mail.
+
+**Bei Zweifel: lieber warten.** Verstöße werden als Anti-Pattern-Violations gegen §31.2 Maximum-Ethics getrackt.
+
+Quelle: Incident INC-20260513-0001 (Cold-Outreach ohne Text-Freigabe an 3 Salons, Day 6-7).
+
 ---
 
 *This file grows over time. Postmortem standards-patches are appended chronologically.*
