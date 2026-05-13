@@ -9,6 +9,8 @@ import path from "node:path";
 import url from "node:url";
 import process from "node:process";
 import { spawn } from "node:child_process";
+import { openCache } from "./lib/token-cache.mjs";
+import { logRun, readRuns, summarize } from "./lib/token-log.mjs";
 
 const HERE = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..", "..");
@@ -16,7 +18,7 @@ const FIRMA_DIR = path.join(ROOT, ".firma");
 const STATE_PATH = path.join(FIRMA_DIR, "state.json");
 const CONFIG_PATH = path.join(FIRMA_DIR, "config.yaml");
 
-const VERSION = "0.1.0";
+const VERSION = "0.2.0";
 
 // ----------------------------------------------------------------------------
 // Utilities
@@ -214,7 +216,7 @@ Verwendung:
   firma approvals             list pending approvals
   firma approve <id>          approve action (Phase 2)
   firma test                  smoke tests (Phase 2)
-  firma token-report          token usage (Phase 3)
+  firma token-report          token usage [--period day|week|month|all]
   firma version               print version
   firma help                  this help
 
@@ -224,6 +226,49 @@ Dokumentation:
   docs/CLI.md                 vollständige CLI-Spec
   docs/ROADMAP.md             was wann gebaut wird
 `);
+}
+
+async function cmdTokenReport(...args) {
+  const period = pickArg(args, "--period") || "week";
+  const sinceDays = { day: 1, week: 7, month: 30, all: null }[period];
+  if (sinceDays === undefined) {
+    console.error(`firma token-report: unbekannter --period '${period}' (day|week|month|all)`);
+    process.exit(1);
+  }
+  const runs = await readRuns({ root: ROOT, sinceDays });
+  const s = summarize(runs);
+  const cache = await openCache({ root: ROOT, mode: "local" });
+  const cs = await cache.stats();
+  const state = await readState();
+  const budget = state?.tokens?.budget_per_run_default ?? 4000;
+  const cap = state?.tokens?.budget_per_run_hard_cap ?? 15000;
+
+  console.log(`Firma OS · Token-Report (period: ${period})`);
+  console.log("");
+  console.log(`Runs:           ${s.total_runs}`);
+  console.log(`Tokens total:   ${s.total_tokens}`);
+  if (s.total_runs > 0) {
+    console.log(`Avg per run:    ${Math.round(s.total_tokens / s.total_runs)}  (budget ${budget} · cap ${cap})`);
+  }
+  console.log(`Cache hits:     ${s.cache_hits}`);
+  console.log(`Cache misses:   ${s.cache_misses}`);
+  if (s.cache_hit_rate != null) {
+    console.log(`Hit rate:       ${(s.cache_hit_rate * 100).toFixed(1)}%`);
+  }
+  console.log(`Cache entries:  ${cs.entries} (${(cs.bytes / 1024).toFixed(1)} KB, mode=${cs.mode})`);
+  if (s.by_command.length > 0) {
+    console.log("");
+    console.log("Top commands by tokens:");
+    for (const c of s.by_command.slice(0, 10)) {
+      console.log(`  ${c.tokens.toString().padStart(8)} tok · ${c.runs.toString().padStart(4)} runs · ${c.command}`);
+    }
+  }
+}
+
+function pickArg(args, name) {
+  const i = args.indexOf(name);
+  if (i === -1) return null;
+  return args[i + 1] ?? null;
 }
 
 async function cmdAudit() {
@@ -259,6 +304,7 @@ const handlers = {
   inbox: cmdInbox,
   approvals: cmdApprovals,
   audit: cmdAudit,
+  "token-report": cmdTokenReport,
   help: cmdHelp,
   "--help": cmdHelp,
   "-h": cmdHelp,
@@ -272,7 +318,7 @@ const stub = (name) => async () => {
   console.log("Siehe docs/CLI.md und docs/ROADMAP.md.");
 };
 
-for (const c of ["start", "triage", "plan", "run", "report", "approve", "test", "token-report"]) {
+for (const c of ["start", "triage", "plan", "run", "report", "approve", "test"]) {
   if (!handlers[c]) handlers[c] = stub(c);
 }
 

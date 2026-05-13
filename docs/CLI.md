@@ -60,10 +60,12 @@ Danach: `firma <cmd>` von überall im Repo.
 - Smoke-Tests: Dashboard läuft? State.json valid? Audit-chain intact?
 - Output: ✓/✗ pro Test
 
-### `firma token-report [--last 7d]`
-- Zeigt Token-Verbrauch
-- Top-Verbraucher
-- Empfehlungen für Reduktion
+### `firma token-report [--period day|week|month|all]`
+- Zeigt Token-Verbrauch aus `.firma/tokens/runs.jsonl`
+- Default: `--period week` (letzte 7 Tage)
+- Liefert: Runs, Total-Tokens, Avg per Run (vs Budget), Cache-Hit-Rate, Cache-Footprint
+- Top-10-Commands by Tokens
+- Details: [TOKEN_CACHE.md](TOKEN_CACHE.md)
 
 ### `firma approvals`
 - Liste pending approvals

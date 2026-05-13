@@ -37,7 +37,7 @@
 | `firma report <type>` | Stub (Phase 4 — PDFCraft) |
 | `firma approve <id>` | Stub (Phase 2) |
 | `firma test` | Stub (Phase 2) |
-| `firma token-report` | Stub (Phase 3) |
+| `firma token-report` | ✅ implementiert (Phase 2 · rtk-ai Adapter ready) |
 
 Stubs sagen klar „noch nicht implementiert, siehe ROADMAP".
 
