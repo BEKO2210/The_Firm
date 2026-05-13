@@ -18,7 +18,7 @@ answers:
   q10_tier: "Premium"  # 1.3× multiplier on regional salary base + hourly rate
   q11_brand_primary: "#0F172A"  # Slate-900 — serious, enterprise-grade
   q12_brand_secondary: "#3B82F6"  # Blue-500 — accent, trustworthy
-  q13_visibility: null
+  q13_visibility: "public"  # Landing Page indexed, Transparency Report public, OSS visible
   q14_sprint_model: null
   q15_acquisition_channels: null
   q16_touchpoints: null
