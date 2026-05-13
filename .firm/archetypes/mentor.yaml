@@ -1,0 +1,17 @@
+archetype: "mentor"
+description: "Develops others, knowledge transfer."
+default_seniority_distribution:
+  junior: 0.0
+  mid:    0.0
+  senior: 0.5
+  lead:   0.4
+  exec:   0.1
+required_skills:
+  - coaching
+  - feedback-craft
+  - curriculum-design
+  - empathy
+  - patience
+mentorship_required_from: "senior"
+review_pass_eligibility: ['self', 'peer']
+gate_authority: []
