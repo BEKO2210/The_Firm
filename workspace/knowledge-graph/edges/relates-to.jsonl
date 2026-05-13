@@ -3,3 +3,5 @@
 {"from":"con-002","to":"con-001","relation":"depends-on","sim":"Day 2"}
 {"from":"dec-002","to":"con-001","relation":"implements","sim":"Day 3"}
 {"from":"dec-002","to":"con-002","relation":"enables","sim":"Day 3"}
+{"from":"dec-003","to":"con-001","relation":"uses","sim":"Day 4"}
+{"from":"pat-001","to":"con-002","relation":"consumes","sim":"Day 4"}
