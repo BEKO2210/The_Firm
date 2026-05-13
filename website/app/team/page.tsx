@@ -1,4 +1,5 @@
 import { readRoster, readFirmState } from "@/lib/firmState";
+import Link from "next/link";
 
 
 export default async function TeamPage() {
@@ -12,18 +13,28 @@ export default async function TeamPage() {
     <div className="space-y-6">
       <header>
         <h1 className="text-3xl font-bold text-white">Team · {s.headcount.total} employees</h1>
-        <p className="text-slate-400 mt-1">Dynamic org chart from <code>.firm/employees/_roster.yaml</code>. All 13 archetypes represented.</p>
+        <p className="text-slate-400 mt-1">
+          Dynamic org chart from <code>.firm/employees/_roster.yaml</code>. All 13 archetypes represented.
+          Klick auf eine Karte für Details.
+        </p>
       </header>
       {order.filter(a => byArchetype[a]).map(arc => (
         <section key={arc} className="card">
           <h2 className="text-lg font-semibold text-white capitalize">{arc} ({byArchetype[arc].length})</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 mt-3">
             {byArchetype[arc].map(e => (
-              <div key={e.id} className="text-sm p-2 rounded bg-slate-900/50 border border-slate-800">
-                <div className="text-white font-medium">{e.name}</div>
+              <Link
+                key={e.id}
+                href={`/team/${e.id}`}
+                className="text-sm p-2 rounded bg-slate-900/50 border border-slate-800 hover:border-[#3B82F6] hover:bg-slate-900 transition-colors block"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div className="text-white font-medium">{e.name}</div>
+                  <div className="text-[0.6875rem] text-slate-500 tabular-nums">#{e.id}</div>
+                </div>
                 <div className="text-slate-400 text-xs">{e.role} · {e.seniority}</div>
                 <div className="text-slate-500 text-xs mt-1">{e.department}</div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
