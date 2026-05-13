@@ -9,3 +9,6 @@
 {"from":"con-003","to":"dec-002","relation":"implements","sim":"Day 5"}
 {"from":"con-003","to":"dec-003","relation":"implements","sim":"Day 5"}
 {"from":"dec-004","to":"con-001","relation":"uses","sim":"Day 5"}
+{"from":"dec-005","to":"con-002","relation":"formalizes","sim":"Day 6"}
+{"from":"dec-005","to":"con-003","relation":"implemented-by","sim":"Day 6"}
+{"from":"pat-002","to":"dec-005","relation":"extracted-from","sim":"Day 6"}
