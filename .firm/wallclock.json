@@ -1,13 +1,13 @@
 {
-  "firm_day": 7,
-  "firm_date_sim": "2026-01-09",
+  "firm_day": 8,
+  "firm_date_sim": "2026-01-12",
   "office_hour": "09:00",
   "current_sprint": 1,
-  "sprint_day": 7,
+  "sprint_day": 8,
   "current_quarter": "Q1",
   "current_year": 2026,
   "real_world_anchor": "2026-05-13T00:00:00Z",
-  "last_advanced_at": "2026-05-13T21:44:09Z",
+  "last_advanced_at": "2026-05-13T21:56:16Z",
   "calendar": {
     "remote_model": "async-first",
     "regional_holidays": [
