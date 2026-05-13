@@ -1,0 +1,24 @@
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+
+# Secrets (per CLAUDE.md §25)
+.firm/secrets.yaml
+.env
+.env.local
+.env.production
+
+# Logs (build only — audit.log is checked in)
+*.log
+!logs/*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,204 @@
+# Korynth Labs — Firm Identity
+# Generated: 2026-05-13 (Bootstrap Wizard v4.0.0)
+# IMMUTABLE post-bootstrap. Any change requires principal approval + version bump per CLAUDE.md §44.
+
+firm:
+  name: "Korynth Labs"
+  slug: "korynth-labs"
+  tagline: "Turning intelligence into systems the world can use."
+  industry: "AI-Native SaaS Product Engineering"
+  founded_real: "2026-05-13"
+  founded_sim: "Day 1"
+  region: "Deutschland / Stuttgart / Ludwigsburg (Baden-Württemberg)"
+  visibility: "public"
+  internal_language: "en"
+  brand_primary: "#0F172A"
+  brand_secondary: "#3B82F6"
+
+principal:
+  name: "Belkis Aslani"
+  email: "belkis.aslani@gmail.com"
+  salutation: "Hallo Belkis,"
+  formal_salutation: "Sehr geehrter Herr Aslani,"
+  gender: "male"
+  preferred_language: "de"
+  since_real: "2026-05-13"
+  since_sim: "Day 1"
+
+# Industry-derived (KI parsed Q3)
+industry_profile:
+  archetype_mapping_file: ".firm/industry-mapping/ai-native-saas.yaml"
+  compliance_overlays:
+    - "DSGVO"           # automatic for EEA
+    - "EU-AI-Act"       # 2024/1689 — applies to AI-native products
+    - "SOC-2-Type-II"   # SaaS trust signal
+    - "ISO-27001"       # InfoSec management
+    - "DSGVO-Auftragsverarbeitung"  # for B2B SaaS
+  tech_stack_defaults:
+    backend: ["TypeScript", "Python", "Go"]
+    frontend: ["Next.js 15", "React 19", "TypeScript"]
+    data: ["PostgreSQL", "Redis", "DuckDB", "S3-compatible"]
+    ml_ai: ["Anthropic Claude", "OpenAI", "Hugging Face", "LangChain", "embedded models"]
+    infra: ["Vercel", "AWS", "Cloudflare", "Supabase"]
+    observability: ["OpenTelemetry", "Sentry", "Grafana"]
+  standards:
+    code_quality: "ESLint + Prettier + strict TypeScript + ruff for Python"
+    testing: "Vitest / Jest, Playwright for E2E, pytest for Python, ≥80% coverage"
+    review: "2-pass mandatory (peer + critic); Trivial = self only"
+    docs: "ADRs for design decisions, RFCs for major changes, OpenAPI for APIs"
+
+# Region-derived (KI parsed Q8 — Stuttgart cluster, BW)
+region_profile:
+  country: "Germany"
+  state: "Baden-Württemberg"
+  city: "Stuttgart / Ludwigsburg"
+  currency: "EUR"
+  # Monthly gross salary base (regional BW market, premium-cluster ICs).
+  # Applied multiplier from tier (Premium = 1.3×) is recorded separately.
+  salary_base_eur_monthly:
+    junior: 4500
+    mid: 5800
+    senior: 7500
+    lead: 9500
+    exec: 13000
+  holidays_2026:
+    - "2026-01-01"  # Neujahr
+    - "2026-01-06"  # Heilige Drei Könige (BW)
+    - "2026-04-03"  # Karfreitag
+    - "2026-04-06"  # Ostermontag
+    - "2026-05-01"  # Tag der Arbeit
+    - "2026-05-14"  # Christi Himmelfahrt
+    - "2026-05-25"  # Pfingstmontag
+    - "2026-06-04"  # Fronleichnam (BW)
+    - "2026-10-03"  # Tag der Deutschen Einheit
+    - "2026-11-01"  # Allerheiligen (BW)
+    - "2026-12-25"  # 1. Weihnachtstag
+    - "2026-12-26"  # 2. Weihnachtstag
+  fiscal_year_start: "01-01"
+  tax_model:
+    vat_standard: 0.19         # 19% USt
+    vat_reduced: 0.07          # 7% USt
+    reverse_charge_eu_b2b: true
+    corporate_income_tax: 0.30 # KSt + Gewerbesteuer + SolZ ≈ 30%
+    payroll_tax_employer_share: 0.21  # SV-AG-Anteil
+
+# Operations
+operations:
+  starting_headcount: 50
+  service_tier: "Premium"
+  tier_multiplier: 1.3
+  sprint_model: "adaptive"
+  max_parallel_tickets: 3
+  pacing: "adaptive"
+  remote_model: "async-first"
+
+# Acquisition channels (offered AS A SERVICE for the principal's projects, per §27)
+acquisition_channels_enabled:
+  - "inbound"
+  - "content-marketing"
+  - "oss-reputation"
+  - "ethical-outbound"
+  - "referral-program"
+  - "paid-ads"
+  - "partnerships"
+  - "events"
+
+# Customer touchpoints (Premium tier default expansion per §23.1)
+touchpoints: "adaptive"
+touchpoints_default_for_premium:
+  - "onboarding"
+  - "delivery-emails"
+  - "nps-after-delivery"
+  - "quarterly-business-review"
+  - "success-plan"
+
+# Cultural / ethical settings
+culture:
+  salary_transparency: "radical-transparency"
+  equity_model: "maximum-co-ownership"
+  decision_authority: "adaptive-bezos"
+  ai_ethics_level: "maximum-ethics"
+  vacation_policy: "maximum-care"
+  external_audit_level: "maximum-transparency"
+  anti_patterns_enforced:
+    - "burnout"
+    - "micromanagement"
+    - "politics"
+    - "info-hoarding"
+    - "blame"
+    - "hippo"
+    - "meeting-overload"
+    - "toxic-customer"
+    - "tech-debt-denial"
+    - "bikeshedding"
+  diversity_policy: "auto-balanced"
+  conflict_resolution: "adaptive"
+  knowledge_management: "ki-graph-with-decay"
+  onboarding_level: "maximum-with-anti-failure-insurance"
+
+# Finance (autonomous per §17)
+finance:
+  pricing_models: ["t&m", "fixed", "retainer", "value", "outcome"]
+  pricing_selection: "adaptive"
+  margin_target: "autonomous-optimizing"
+  margin_baseline: 0.30
+  cash_reserve: "adaptive-3-to-12-months"
+  audit_level: "maximum-transparency"
+
+# Delivery
+delivery:
+  modes: ["local", "vercel", "netlify", "github_pages", "cloudflare_pages", "custom"]
+  selection: "per-ticket-customer-choice"
+
+# AI augmentation (per §26)
+ai_augmentation:
+  mode: "multi-ai-orchestrated"
+  primary: "claude"
+  specialists:
+    - "image-gen"
+    - "translation"
+    - "research"
+    - "code-completion"
+  human_in_loop_triggers:
+    - "production-release"
+    - "large-spend"          # > 5% monthly burn
+    - "contract"
+    - "crisis-comms"
+    - "ethical-edge-case"
+
+# Self-improvement
+self_improvement:
+  level: "maximum-learner"
+  sources:
+    - "postmortems"
+    - "sprint-retros"
+    - "nps-feedback"
+    - "external-best-practices"
+    - "customer-complaints"
+    - "self-audits"
+
+# Knowledge management
+knowledge_management:
+  type: "ki-graph"
+  decay_detection: true
+  quarterly_doc_reviews: true
+  public_subset_open_source: true
+
+# Open source strategy
+open_source_strategy:
+  level: "selective"
+  channels:
+    - "own-tools"
+    - "contributions"
+    - "tech-blog"
+    - "conference-talks"
+
+# IP ownership policy
+ip_ownership: "customer-owned"
+
+bootstrap:
+  version: "4.0.0"
+  completed_at_real: "2026-05-13T00:00:00Z"
+  completed_at_sim: "Day 1, 09:00"
+  by: "claude-code-bootstrap-wizard"
+  wizard_answers_archive: ".firm/wizard-progress.yaml"
