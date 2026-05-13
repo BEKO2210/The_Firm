@@ -16,8 +16,8 @@ export default async function LandingPage() {
           {s.firm.name} is an AI-native SaaS product engineering firm operating from {s.firm.region}.
         </p>
         <div className="mt-8 flex gap-3 justify-center flex-wrap">
-          <Link href="/dashboard" className="px-5 py-2.5 rounded-md bg-[#3B82F6] text-white font-medium hover:opacity-90">Open Dashboard</Link>
-          <Link href="/transparency" className="px-5 py-2.5 rounded-md border border-slate-700 text-slate-200 hover:bg-slate-900">Transparency Report</Link>
+          <Link href="/dashboard" className="btn btn-primary">Open Dashboard</Link>
+          <Link href="/transparency" className="btn btn-outline">Transparency Report</Link>
         </div>
       </section>
 
