@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #0F172A;
+  --color-brand-secondary: #3B82F6;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html, body {
+  background: #0a0f1c;
+  color: #e2e8f0;
+  font-family: var(--font-sans);
+}
+
+a { color: var(--color-brand-secondary); }
+a:hover { text-decoration: underline; }
+
+.card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  backdrop-filter: blur(4px);
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.metric-label {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.pill-green { background: rgba(16, 185, 129, 0.18); color: #34d399; }
+.pill-amber { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
+.pill-red   { background: rgba(220, 38, 38, 0.18); color: #f87171; }
+.pill-blue  { background: rgba(59, 130, 246, 0.18); color: #60a5fa; }

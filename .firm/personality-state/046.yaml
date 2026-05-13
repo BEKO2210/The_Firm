@@ -1,0 +1,26 @@
+# Personality state for Itzel Ramírez (id 046)
+# Base personality is fixed in the profile. This file tracks evolving deltas (±2 cap each).
+# Updates happen at ticket close, reverse-mentoring events, sabbatical resets, etc.
+
+base:
+  thoroughness: 4
+  skepticism: 3
+  warmth: 5
+  speed: 3
+  assertiveness: 4
+
+deltas:
+  thoroughness: 0
+  skepticism: 0
+  warmth: 0
+  speed: 0
+  assertiveness: 0
+
+effective:
+  thoroughness: 4
+  skepticism: 3
+  warmth: 5
+  speed: 3
+  assertiveness: 4
+
+history: []

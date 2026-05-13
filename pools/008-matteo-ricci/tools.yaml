@@ -1,0 +1,20 @@
+# Allowed tools for Matteo Ricci
+# Read-only at runtime; updated by Caretaker/CTO via formal change request.
+
+archetype: "coordinator"
+role: "Delivery Lead"
+
+primary_tools:
+  - "Claude (via Anthropic API)"
+  - "Git + GitHub"
+  - "Markdown / YAML"
+
+archetype_specific_tools: []
+
+ai_specialists_allowed:
+  - "Claude (primary)"
+  - "HuggingFace Hub (research)"
+  - "DeepL (translation, principal-facing only)"
+
+restricted:
+  - "Production write access (Releaser only — §13)"
