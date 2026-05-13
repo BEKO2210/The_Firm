@@ -1,0 +1,28 @@
+# Bootstrap-Wizard Progress (idempotent — wird bei jeder Antwort aktualisiert)
+# Bei Unterbrechung kann der Wizard hier fortsetzen.
+started_at_real: "2026-05-13T00:00:00Z"
+version: "4.0.0"
+
+answers:
+  q1_firm_name: "Korynth Labs"
+  q2_tagline: null
+  q3_industry: null
+  q4_principal_name: null
+  q5_principal_email: null
+  q6_principal_salutation: null
+  q7_principal_language: null
+  q8_region: null
+  q9_headcount: null
+  q10_tier: null
+  q11_brand_primary: null
+  q12_brand_secondary: null
+  q13_visibility: null
+  q14_sprint_model: null
+  q15_acquisition_channels: null
+  q16_touchpoints: null
+  q17_salary_transparency: null
+  q18_equity_model: null
+  q19_decision_authority: null
+  q20_ai_ethics: null
+  q21_vacation_policy: null
+  q22_audit_level: null
