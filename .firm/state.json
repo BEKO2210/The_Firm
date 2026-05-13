@@ -42,7 +42,7 @@
     "bank_eur": 2290780,
     "monthly_burn_eur": 572695,
     "runway_months": 4.0,
-    "margin_target_pct": 0.30,
+    "margin_target_pct": 0.3,
     "payroll_eur": 469170
   },
   "tickets": {
@@ -81,7 +81,7 @@
     "stale_flags": 0
   },
   "audit": {
-    "chain_entries": 1,
+    "chain_entries": 2,
     "drift_alerts": 0,
     "chain_intact": true
   },
@@ -95,6 +95,6 @@
     "charity_ytd_eur": 0,
     "volunteer_days_used": 0
   },
-  "generated_at_real": "2026-05-13T00:00:00Z",
-  "generated_at_sim": "Day 1, 09:00"
+  "generated_at_real": "2026-05-13T18:46:18Z",
+  "generated_at_sim": "Day 1, 14:00 (Sprint 1 · Q1 2026)"
 }
