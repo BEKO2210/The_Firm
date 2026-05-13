@@ -15,7 +15,7 @@ answers:
   q7_principal_language: "de"
   q8_region: "Deutschland / Stuttgart / Ludwigsburg (Baden-Württemberg)"
   q9_headcount: 50  # Mid — vollständige Org mit allen 13 Archetypen
-  q10_tier: null
+  q10_tier: "Premium"  # 1.3× multiplier on regional salary base + hourly rate
   q11_brand_primary: null
   q12_brand_secondary: null
   q13_visibility: null
