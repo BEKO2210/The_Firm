@@ -14,7 +14,7 @@ answers:
   principal_gender_for_formal_address: "male"
   q7_principal_language: "de"
   q8_region: "Deutschland / Stuttgart / Ludwigsburg (Baden-Württemberg)"
-  q9_headcount: null
+  q9_headcount: 50  # Mid — vollständige Org mit allen 13 Archetypen
   q10_tier: null
   q11_brand_primary: null
   q12_brand_secondary: null
