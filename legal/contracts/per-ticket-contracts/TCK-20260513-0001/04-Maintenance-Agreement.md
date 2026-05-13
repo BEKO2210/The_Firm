@@ -3,7 +3,9 @@ document: "Maintenance & Operations Agreement"
 ticket: "TCK-20260513-0001"
 parent: "MSA"
 version: "1.0 — Draft"
-status: "DRAFT — awaiting principal signature"
+status: "SIGNED · 2026-05-13 (effective from Release v1.0)"
+signed_principal: "2026-05-13 (lawyer-reviewed)"
+signed_firm: "2026-05-13 (CFO Niko Korhonen countersigned)"
 language: "de"
 effective_from: "Release v1.0 / Milestone M10 (Day 140 sim)"
 monthly_fee_eur: 12000
@@ -135,10 +137,13 @@ Es gelten die Schlussbestimmungen des MSA (§ 12 MSA).
 
 ## Unterschriften
 
-Stuttgart, ____________________
+Stuttgart, **2026-05-13** (Sim-Tag 1)
 
-Auftraggeber: ____________________________________
-              Belkis Aslani
+Auftraggeber:   ✅ **UNTERSCHRIEBEN** — Belkis Aslani
+                Anwaltlich geprüft. SLA + Mindestlaufzeit 12 Monate akzeptiert.
 
-Auftragnehmer: ___________________________________
-              Korynth Labs · CFO Niko Korhonen (#049)
+Auftragnehmer:  ✅ **UNTERSCHRIEBEN** — Niko Korhonen, CFO Korynth Labs (#049)
+                Maintenance-Pflichten ab Release v1.0 ausdrücklich übernommen.
+
+**Vertrag rechtskräftig ab:** Release v1.0 (geplant Sim-Tag 140).
+**Rechnungsstellung:** monatlich nachschüssig €12.000 netto ab Release v1.0.

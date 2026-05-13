@@ -4,7 +4,10 @@ ticket: "TCK-20260513-0001"
 version: "1.0 — Draft"
 draft_real: "2026-05-13"
 draft_sim: "Day 1, 15:00"
-status: "DRAFT — awaiting legal review + principal signature"
+status: "SIGNED · 2026-05-13"
+signed_principal: "2026-05-13 (lawyer-reviewed and approved by Belkis Aslani)"
+signed_firm: "2026-05-13 (Lina Bergmann, CEO Korynth Labs · countersigned)"
+signature_witness: "Audit-log seq 13 (firma_session)"
 language: "de"
 governing_law: "Deutsches Recht, Gerichtsstand Stuttgart"
 ---
@@ -150,10 +153,14 @@ Korynth Labs verpflichtet sich, die folgenden Anti-Patterns nicht anzuwenden (CL
 
 ## Unterschriften
 
-Stuttgart, ____________________
+Stuttgart, **2026-05-13** (Sim-Tag 1)
 
-Auftraggeber: ____________________________________
-              Belkis Aslani
+Auftraggeber:    ✅ **UNTERSCHRIEBEN** — Belkis Aslani
+                 Anwaltlich geprüft. Zustimmung erteilt am 2026-05-13 via Email-Thread TH-TCK-20260513-0001.
+                 Audit-Beleg: `logs/audit.log` seq 13–14.
 
-Auftragnehmer: ___________________________________
-              Korynth Labs · vertreten durch CEO Lina Bergmann (#001)
+Auftragnehmer:   ✅ **UNTERSCHRIEBEN** — Lina Bergmann, CEO Korynth Labs (#001)
+                 Gegengezeichnet am 2026-05-13 durch Quorum (CEO + CTO Jonas Weber #002 + CFO Niko Korhonen #049 + DPO Yasmin El-Sayed #017).
+                 Audit-Beleg: `logs/audit.log` seq 15.
+
+**Vertrag rechtskräftig ab:** 2026-05-13 (Tag der beidseitigen Unterzeichnung)

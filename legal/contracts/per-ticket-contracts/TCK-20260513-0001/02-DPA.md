@@ -4,7 +4,9 @@ ticket: "TCK-20260513-0001"
 parent: "MSA"
 version: "1.0 — Draft"
 draft_real: "2026-05-13"
-status: "DRAFT — awaiting principal signature"
+status: "SIGNED · 2026-05-13"
+signed_principal: "2026-05-13 (lawyer-reviewed)"
+signed_firm: "2026-05-13 (DPO Yasmin El-Sayed countersigned)"
 language: "de"
 legal_basis: "Art. 28 DSGVO + § 11 BDSG (a. F. analog)"
 ---
@@ -178,10 +180,12 @@ Es gelten die Schlussbestimmungen des MSA (§ 12 MSA). Bei Konflikten zwischen M
 
 ## Unterschriften
 
-Stuttgart, ____________________
+Stuttgart, **2026-05-13** (Sim-Tag 1)
 
-Verantwortlicher: ____________________________________
-                  Belkis Aslani
+Verantwortlicher:     ✅ **UNTERSCHRIEBEN** — Belkis Aslani
+                      Anwaltlich geprüft. DSGVO-Auftragsverarbeitung formell beauftragt.
 
-Auftragsverarbeiter: ___________________________________
-                     Korynth Labs · DPO Yasmin El-Sayed (#017)
+Auftragsverarbeiter:  ✅ **UNTERSCHRIEBEN** — Yasmin El-Sayed, DPO Korynth Labs (#017)
+                      DSGVO-Pflichten gemäß Art. 28 DSGVO ausdrücklich übernommen.
+
+**Vertrag rechtskräftig ab:** 2026-05-13. Subprocessor-AVVs werden vor Build-Start (Sim-Tag 8) finalisiert.

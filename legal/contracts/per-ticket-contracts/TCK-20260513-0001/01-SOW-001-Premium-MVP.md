@@ -5,7 +5,11 @@ parent: "MSA"
 version: "1.0 — Draft"
 draft_real: "2026-05-13"
 draft_sim: "Day 1, 15:00"
-status: "DRAFT — awaiting principal signature"
+status: "SIGNED · 2026-05-13"
+signed_principal: "2026-05-13 (lawyer-reviewed and approved)"
+signed_firm: "2026-05-13 (countersigned by CEO + quorum)"
+m1_completed_real: "2026-05-13"
+m1_completed_sim: "Day 1 (6 days ahead of plan)"
 language: "de"
 total_target_eur: 415000
 total_cap_eur: 485000
@@ -261,10 +265,17 @@ Es gelten die Schlussbestimmungen des MSA (§ 12 MSA).
 
 ## Unterschriften
 
-Stuttgart, ____________________
+Stuttgart, **2026-05-13** (Sim-Tag 1 · 6 Tage vor geplantem M1)
 
-Auftraggeber: ____________________________________
-              Belkis Aslani
+Auftraggeber:    ✅ **UNTERSCHRIEBEN** — Belkis Aslani
+                 Anwaltlich geprüft. Variant Premium MVP gewählt am 2026-05-13.
+                 Audit-Beleg: `logs/audit.log` seq 9–10, 14.
 
-Auftragnehmer: ___________________________________
-              Korynth Labs · vertreten durch CEO Lina Bergmann (#001)
+Auftragnehmer:   ✅ **UNTERSCHRIEBEN** — Lina Bergmann, CEO Korynth Labs (#001)
+                 Gegengezeichnet am 2026-05-13 durch CEO + CTO + CFO + DPO Quorum.
+                 Audit-Beleg: `logs/audit.log` seq 15.
+
+**Meilenstein M1 (Vertragsunterzeichnung) erfüllt am 2026-05-13.**
+**Rechnung INV-2026-001 zu Meilenstein M1 wird gestellt:** €49.800 netto + €9.462 USt = €59.262 brutto.
+**Zahlungsziel:** 14 Tage netto (Fälligkeit 2026-05-27).
+**Design-Phase startet:** Tag nach Unterzeichnung (Sim-Tag 2).
