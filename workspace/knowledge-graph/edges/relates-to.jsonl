@@ -5,3 +5,7 @@
 {"from":"dec-002","to":"con-002","relation":"enables","sim":"Day 3"}
 {"from":"dec-003","to":"con-001","relation":"uses","sim":"Day 4"}
 {"from":"pat-001","to":"con-002","relation":"consumes","sim":"Day 4"}
+{"from":"con-003","to":"dec-001","relation":"implements","sim":"Day 5"}
+{"from":"con-003","to":"dec-002","relation":"implements","sim":"Day 5"}
+{"from":"con-003","to":"dec-003","relation":"implements","sim":"Day 5"}
+{"from":"dec-004","to":"con-001","relation":"uses","sim":"Day 5"}
