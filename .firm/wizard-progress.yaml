@@ -6,7 +6,7 @@ version: "4.0.0"
 answers:
   q1_firm_name: "Korynth Labs"
   q2_tagline: "Turning intelligence into systems the world can use."
-  q3_industry: null
+  q3_industry: "AI-Native SaaS Product Engineering"
   q4_principal_name: null
   q5_principal_email: null
   q6_principal_salutation: null
