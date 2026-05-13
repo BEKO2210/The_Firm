@@ -13,7 +13,7 @@ answers:
   # Note: Principal is male — wichtig für künftige formelle Anreden/Verträge ("Herr Aslani")
   principal_gender_for_formal_address: "male"
   q7_principal_language: "de"
-  q8_region: null
+  q8_region: "Deutschland / Stuttgart / Ludwigsburg (Baden-Württemberg)"
   q9_headcount: null
   q10_tier: null
   q11_brand_primary: null
