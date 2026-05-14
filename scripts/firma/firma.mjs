@@ -12,6 +12,7 @@ import { spawn } from "node:child_process";
 import { openCache } from "./lib/token-cache.mjs";
 import { logRun, readRuns, summarize } from "./lib/token-log.mjs";
 import { renderTypst, isTypstAvailable, getTypstVersion } from "./lib/pdf.mjs";
+import { appendEvent, readChain, verifyChain } from "./lib/audit.mjs";
 
 const HERE = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..", "..");
@@ -135,9 +136,19 @@ dashboard:
 `;
   await fs.writeFile(CONFIG_PATH, config);
 
+  // Genesis-Eintrag der Audit-Kette — ab hier ist jedes reale Event verkettet.
+  await appendEvent({
+    root: ROOT,
+    event: "firma_init",
+    actor: "cli",
+    summary: "Firma OS initialisiert (.firma/ angelegt)",
+    data: { schema_version: state.schema_version },
+  });
+
   console.log("✓ .firma/ initialisiert");
   console.log("✓ state.json (v2 Schema) angelegt");
   console.log("✓ config.yaml angelegt");
+  console.log("✓ audit.log angelegt (hash-chained, Genesis-Eintrag)");
   console.log("");
   console.log("Nächste Schritte:");
   console.log("  1. .firma/config.yaml öffnen + Firmennamen eintragen");
@@ -213,6 +224,8 @@ Verwendung:
   firma plan                  next 7 days (Phase 2)
   firma run <agent>           run a specific agent (Phase 2)
   firma audit                 repo audit
+  firma audit chain           list hash-chained event log
+  firma audit chain --verify  verify audit chain integrity
   firma report quote          generate quote PDF [--data q.json --out path.pdf]
   firma approvals             list pending approvals
   firma approve <id>          approve action (Phase 2)
@@ -308,9 +321,26 @@ async function cmdReportQuote(args) {
   console.log(`✓ ${path.relative(ROOT, absOut)} (${(size / 1024).toFixed(1)} KB, ${ms}ms)`);
   console.log(`  template: scripts/firma/templates/quote.typ`);
   console.log(`  typst:    ${await getTypstVersion()}`);
+
+  await appendEvent({
+    root: ROOT,
+    event: "report_rendered",
+    actor: "cli",
+    summary: `Angebot ${data?.quote?.id || path.basename(absOut)} gerendert`,
+    data: {
+      type: "quote",
+      quote_id: data?.quote?.id || null,
+      out: path.relative(ROOT, absOut),
+      bytes: size,
+      pdf_standard: "a-2b",
+    },
+  });
 }
 
-async function cmdAudit() {
+async function cmdAudit(...args) {
+  if (args[0] === "chain") {
+    return cmdAuditChain(args.slice(1));
+  }
   console.log("Repo-Audit:");
   console.log("");
   // Repo size
@@ -329,6 +359,42 @@ async function cmdAudit() {
   });
   console.log("");
   console.log("Für vollständigen Audit: docs/RATIONALE.md lesen.");
+  console.log("Audit-Kette prüfen: firma audit chain --verify");
+}
+
+// firma audit chain            — listet die hash-chained Event-Kette
+// firma audit chain --verify   — verifiziert die Kette (Exit 1 bei Bruch)
+async function cmdAuditChain(args) {
+  if (args.includes("--verify")) {
+    const result = await verifyChain({ root: ROOT });
+    if (result.intact) {
+      console.log(`✓ Audit-Kette intakt — ${result.entries} Einträge, Kette ungebrochen.`);
+      return;
+    }
+    console.error(`✗ Audit-Kette GEBROCHEN — ${result.errors.length} Fehler:`);
+    for (const e of result.errors) {
+      console.error(`  Zeile ${e.line}: ${e.reason}`);
+    }
+    process.exit(1);
+  }
+
+  const chain = await readChain({ root: ROOT });
+  if (chain.length === 0) {
+    console.log("Audit-Log leer. Einträge entstehen bei realen Events (firma init, report quote, …).");
+    return;
+  }
+  console.log(`Audit-Kette · ${chain.length} Einträge:`);
+  console.log("");
+  for (const e of chain) {
+    if (e._parse_error) {
+      console.log(`  [Zeile ${e._line}] ⚠ PARSE-FEHLER`);
+      continue;
+    }
+    console.log(`  #${String(e.seq).padStart(3)} ${e.ts} · ${e.event} · ${e.actor}`);
+    console.log(`       ${e.summary}`);
+  }
+  console.log("");
+  console.log("Verifizieren: firma audit chain --verify");
 }
 
 // ----------------------------------------------------------------------------

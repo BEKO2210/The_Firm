@@ -22,6 +22,7 @@ Ein schlankes Betriebssystem für eine Einzelperson, die mit KI-Unterstützung e
 | A.2 | axe-core WCAG 2.1 AA (6 routes) | ✅ | [0 violations nach Fix](docs/benchmarks/axe-dashboard-2026-05-14.json) |
 | A.3 | Security-Audit (npm audit + Trivy) | ✅ | [0 CVEs / 0 Secrets nach Fix](docs/benchmarks/security-audit-2026-05-14.json) |
 | A.4 | PDF/A-2 Validierung (veraPDF) | ✅ | [PDF/A-2b PASS 6989/0 nach Fix](docs/benchmarks/pdfa-validation-2026-05-14.json) |
+| B | Dashboard als Herzstück (Mission Control) | 📋 geplant | [DASHBOARD_VISION.md](docs/DASHBOARD_VISION.md) — Vision + Wireframes + B.1–B.5-Plan |
 | 5 | MemPalace (persistentes Memory) | ⏸ Postponed | bis reale Customers Wiederholungs-Queries triggern |
 | 6 | Ruflo (Multi-Agent) | ⏸ Postponed | Single-Agent reicht bis Volumen es rechtfertigt |
 | 7 | Monetarisierung tief | laufend | — |
@@ -127,15 +128,15 @@ Screenshots werden via Playwright reproduziert: `cd website && npm start` + `nod
 ├── README.md                        diese Datei
 ├── LICENSE                          proprietär
 ├── package.json                     tiktoken + Scripts (test:smoke, bench:*)
-├── docs/                            14 .md + benchmarks/ + quotes/
+├── docs/                            15 .md + benchmarks/ + quotes/
 ├── website/                         Next.js 16 Dashboard (App Router)
 ├── scripts/firma/
 │   ├── firma.mjs                    Single-file CLI
-│   ├── lib/                         token-cache, token-log, rtk-exec, icm, pdf
-│   ├── benchmarks/                  rtk-vs-raw, icm-vs-monolithic
+│   ├── lib/                         token-cache, token-log, rtk-exec, icm, pdf, audit
+│   ├── benchmarks/                  rtk, icm, lighthouse, axe, security, pdfa
 │   ├── templates/                   quote.typ (Typst)
 │   ├── setup/                       install-rtk.sh, install-typst.sh
-│   └── test/                        4 Smoke-Tests (npm run test:smoke)
+│   └── test/                        5 Smoke-Tests (npm run test:smoke)
 ├── .firma/                          State (init via `firma init`)
 │   ├── state.json + config.yaml
 │   ├── agents/                      8 Agent-Specs
@@ -151,7 +152,7 @@ Screenshots werden via Playwright reproduziert: `cd website && npm start` + `nod
 ## Tests + Benchmarks (jeder Schritt verifiziert)
 
 ```bash
-npm run test:smoke         # 4 Smoke-Tests: token-cache, rtk-exec, icm, pdf
+npm run test:smoke         # 5 Smoke-Tests: token-cache, rtk-exec, icm, pdf, audit
 npm run bench:rtk          # A/B: raw vs rtk-Output (10 Commands)
 npm run bench:icm          # A/B: layered vs monolithic Loading
 npm run bench:lighthouse   # Lighthouse 12 auf /, /tools, /reports (3 runs/url)

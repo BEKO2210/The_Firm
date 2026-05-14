@@ -109,6 +109,22 @@ Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisi
 
 **Methodik:** Jeder Snapshot wird mit `npm run bench:<name>` reproduzierbar, landet in `docs/benchmarks/` mit stabilem JSON-Schema, und nennt Tool-Version + Methodology in der Datei selbst.
 
+## Iteration B · Dashboard als Herzstück (Mission Control)
+
+**Ziel:** Das Dashboard wird die zentrale Oberfläche, über die *alles* sichtbar und steuerbar ist — was läuft gerade, was kommt als Nächstes, wo steht das Geld, wo wartet eine Entscheidung. Kein CLI-Zwang, kein manuelles Datei-Ablegen, bedienbar auch ohne technisches Wissen.
+
+**Vollständige Vision + Wireframes:** [`DASHBOARD_VISION.md`](DASHBOARD_VISION.md). Geschnitten so, dass nach jedem PR etwas Sichtbares im Dashboard ist.
+
+- [x] **B.1** — Audit-Log als Event-Quelle: hash-chained JSONL (SHA-256 prev-hash) in `lib/audit.mjs`, verkettet in `firma init` + `firma report quote`, `firma audit chain [--verify]`, `smoke-audit.mjs` (append + verify + tamper-detection). Schema in `STATE_MODEL.md`. *(Ehemals Iteration C — zieht nach vorn, da Datenfundament für JETZT-Feed + Timeline.)*
+- [ ] **B.2** — Mission-Control-Layout (statisch): Status-Zeile (5 North-Star-KPI-Karten) + Zone JETZT/NÄCHSTES/LETZTES, server-side gerendert.
+- [ ] **B.3** — Live: `/api/events` SSE-Endpoint + File-Watcher, Timeline-Band aus `audit.log`.
+- [ ] **B.4** — GUI-Aktionen: Inbox-Item anlegen/triagieren, Approval approve/reject, Report-Wizard — alles via Server Actions, kein CLI nötig.
+- [ ] **B.5** — Vertriebs-Pipeline-Funnel + Vier-Säulen-Health-Kacheln.
+
+**Standard:** Single-Pane-of-Glass + KPI-Card-Schema + Timeline-Visualisierung + SSE-Echtzeit — etablierte Operations-/Agent-Dashboard-Muster (siehe `DASHBOARD_VISION.md` §2). WCAG 2.1 AA bleibt Pflicht (axe-core-Benchmark wacht).
+
+**Pre-condition:** Freigabe von `DASHBOARD_VISION.md` durch den Inhaber.
+
 ## Phase 5 · MemPalace · ⏸ Postponed
 
 **Entscheidung 2026-05-14:** zurückgestellt, bis es konkrete Wiederholungs-Queries gibt, die persistentes Memory rechtfertigen. Aktuell ist `.firma/customers/<slug>/` als Markdown-Folder ausreichend.

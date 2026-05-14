@@ -46,8 +46,10 @@ Danach: `firma <cmd>` von überall im Repo.
 - Token-Budget aus `.firma/config.yaml` wird respektiert
 
 ### `firma audit`
-- Führt das Repo-Audit aus (was diese Session manuell gemacht hat)
-- Output: `docs/firma-os-audit/<date>-audit.md`
+- Führt das Repo-Audit aus (Größe, Markdown-Count)
+- `firma audit chain` — listet das hash-chained Event-Log (`.firma/audit.log`)
+- `firma audit chain --verify` — verifiziert die Kette; Exit 1 + Zeilennummer bei Bruch
+- Schema + Hash-Verkettung: siehe [`STATE_MODEL.md`](STATE_MODEL.md) → Audit-Log v2
 
 ### `firma report [type]`
 - `firma report status` → 1-Seiter PDF aktueller Stand
