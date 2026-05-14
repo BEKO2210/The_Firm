@@ -95,7 +95,7 @@ Details: [docs/RATIONALE.md](docs/RATIONALE.md).
 | 1 | CLAUDE.md + State-Model + CLI v0.1 | ✅ |
 | 2 | Dashboard MVP (4 Seiten) **+ rtk-ai Integration + Benchmark** | ✅ |
 | 3 | Tiefer Token-Sparen + Interpreted-CM-PoC | ⏳ |
-| 4 | PDFCraft + erstes Angebot-PDF | ⏳ |
+| 4 | Typst + erstes Angebot-PDF (PDFCraft verworfen: AGPL + wrong tool) | ✅ |
 | 5 | MemPalace (persistentes Memory) | ⏳ |
 | 6 | Ruflo (Multi-Agent live) | ⏳ |
 | 7 | Monetarisierung tief | laufend |

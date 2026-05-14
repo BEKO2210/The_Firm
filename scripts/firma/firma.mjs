@@ -11,6 +11,7 @@ import process from "node:process";
 import { spawn } from "node:child_process";
 import { openCache } from "./lib/token-cache.mjs";
 import { logRun, readRuns, summarize } from "./lib/token-log.mjs";
+import { renderTypst, isTypstAvailable, getTypstVersion } from "./lib/pdf.mjs";
 
 const HERE = path.dirname(url.fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..", "..");
@@ -212,7 +213,7 @@ Verwendung:
   firma plan                  next 7 days (Phase 2)
   firma run <agent>           run a specific agent (Phase 2)
   firma audit                 repo audit
-  firma report <type>         generate PDF (Phase 4)
+  firma report quote          generate quote PDF [--data q.json --out path.pdf]
   firma approvals             list pending approvals
   firma approve <id>          approve action (Phase 2)
   firma test                  smoke tests (Phase 2)
@@ -271,6 +272,44 @@ function pickArg(args, name) {
   return args[i + 1] ?? null;
 }
 
+async function cmdReport(...args) {
+  const subType = args[0];
+  if (!subType) {
+    console.error("firma report <quote|invoice|weekly|status>");
+    process.exit(1);
+  }
+  if (subType === "quote") {
+    return cmdReportQuote(args.slice(1));
+  }
+  console.log(`firma report ${subType}: noch nicht implementiert (Phase 4+).`);
+  console.log("Siehe docs/CLI.md.");
+}
+
+async function cmdReportQuote(args) {
+  const dataPath = pickArg(args, "--data");
+  const outPath = pickArg(args, "--out");
+  if (!dataPath || !outPath) {
+    console.error("firma report quote --data <quote.json> --out <path/to/output.pdf>");
+    process.exit(1);
+  }
+  if (!(await isTypstAvailable())) {
+    console.error("Typst nicht installiert. Bitte zuerst: bash scripts/firma/setup/install-typst.sh");
+    process.exit(2);
+  }
+  const absData = path.resolve(ROOT, dataPath);
+  const absOut = path.resolve(ROOT, outPath);
+  const raw = await fs.readFile(absData, "utf-8");
+  const data = JSON.parse(raw);
+  const template = path.join(HERE, "templates", "quote.typ");
+  const t0 = Date.now();
+  await renderTypst({ template, data, outPath: absOut });
+  const ms = Date.now() - t0;
+  const size = (await fs.stat(absOut)).size;
+  console.log(`✓ ${path.relative(ROOT, absOut)} (${(size / 1024).toFixed(1)} KB, ${ms}ms)`);
+  console.log(`  template: scripts/firma/templates/quote.typ`);
+  console.log(`  typst:    ${await getTypstVersion()}`);
+}
+
 async function cmdAudit() {
   console.log("Repo-Audit:");
   console.log("");
@@ -304,6 +343,7 @@ const handlers = {
   inbox: cmdInbox,
   approvals: cmdApprovals,
   audit: cmdAudit,
+  report: cmdReport,
   "token-report": cmdTokenReport,
   help: cmdHelp,
   "--help": cmdHelp,
@@ -318,7 +358,7 @@ const stub = (name) => async () => {
   console.log("Siehe docs/CLI.md und docs/ROADMAP.md.");
 };
 
-for (const c of ["start", "triage", "plan", "run", "report", "approve", "test"]) {
+for (const c of ["start", "triage", "plan", "run", "approve", "test"]) {
   if (!handlers[c]) handlers[c] = stub(c);
 }
 
