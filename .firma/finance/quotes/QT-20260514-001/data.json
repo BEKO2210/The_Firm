@@ -1,0 +1,70 @@
+{
+  "firm": {
+    "name": "Firma OS · Belkis Aslani",
+    "principal": "Belkis Aslani",
+    "email": "belkis.aslani@gmail.com",
+    "address_lines": ["Stuttgart-Region", "Deutschland"]
+  },
+  "customer": {
+    "name": "Maria Kessler",
+    "company": "Hairdesign Stuttgart-West",
+    "email": "maria.kessler@hairdesign-stuttgart.de",
+    "address_lines": ["Stuttgart-West"]
+  },
+  "quote": {
+    "id": "QT-20260514-001",
+    "date": "2026-05-14",
+    "valid_until": "2026-06-13",
+    "currency": "EUR",
+    "subject": "Salon-Website Starter (Paket A)",
+    "intro": "Auf Basis Ihrer Anfrage vom 2026-05-14 lege ich Ihnen ein unverbindliches Angebot für eine schlanke Salon-Website vor. Das Angebot deckt die in Ihrer Anfrage genannten Inhalte ab (Startseite, Leistungsseite, Galerie) — Online-Terminbuchung ist als optionales Modul B separat ausgewiesen."
+  },
+  "line_items": [
+    {
+      "title": "Discovery + Konzept",
+      "description": "1 Termin (60 min, remote), Wireframe-Skizze, Inhalts-Sammlung",
+      "qty": "1",
+      "unit_price": "250,00",
+      "total": "250,00"
+    },
+    {
+      "title": "Design + Branding-Anpassung",
+      "description": "Farben, Schrift, Logo-Einbindung, 1 Korrektur-Runde",
+      "qty": "1",
+      "unit_price": "450,00",
+      "total": "450,00"
+    },
+    {
+      "title": "Umsetzung Webseite (4 Seiten)",
+      "description": "Startseite, Leistungen mit Preisen, Galerie ~10 Bilder, Kontakt",
+      "qty": "1",
+      "unit_price": "900,00",
+      "total": "900,00"
+    },
+    {
+      "title": "Hosting-Setup + Domain-Anbindung",
+      "description": "Bereitstellung auf Vercel/Netlify, DSGVO-Cookie-Banner, Impressum-Template",
+      "qty": "1",
+      "unit_price": "150,00",
+      "total": "150,00"
+    },
+    {
+      "title": "Schulung (optional)",
+      "description": "1h remote, wie Sie selbst Bilder + Preise tauschen",
+      "qty": "1",
+      "unit_price": "120,00",
+      "total": "120,00"
+    }
+  ],
+  "totals": {
+    "subtotal": "1.870,00",
+    "vat_rate": "19",
+    "vat_amount": "355,30",
+    "total": "2.225,30"
+  },
+  "footer": {
+    "iban": null,
+    "ust_id": null,
+    "note": "Online-Terminbuchung als Paket B separat: 1.500–3.000 EUR netto. Auf Wunsch nach Pilot-Phase nachrüstbar."
+  }
+}

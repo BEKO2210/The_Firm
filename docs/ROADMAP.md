@@ -10,7 +10,7 @@ Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisi
 | 1 | 1-2 Tage | CLAUDE.md + State-Model + CLI v0.1 | ✅ |
 | 2 | 1-2 Wochen | Dashboard MVP **+ rtk-ai Integration** (Token sparen) | ⏳ |
 | 3 | 1 Woche | Tiefer Token-Sparen + Interpreted-CM PoC | ⏳ |
-| 4 | 1-2 Tage | PDFCraft + Erstes Angebot-PDF | ⏳ |
+| 4 | 1-2 Tage | Typst + Erstes Angebot-PDF (PDFCraft verworfen wegen AGPL) | ✅ |
 | 5 | 1-2 Wochen | MemPalace (persistentes Memory) | ⏳ |
 | 6 | 1-2 Wochen | Ruflo (Multi-Agent live, wenn Volumen) | ⏳ |
 | 7 | laufend | Monetarisierung tief (echte Verkäufe) | laufend |
