@@ -10,8 +10,9 @@
   },
   "scripts": {
     "firma": "node scripts/firma/firma.mjs",
-    "test:smoke": "node scripts/firma/test/smoke-token-cache.mjs",
-    "bench:rtk": "node scripts/firma/benchmarks/rtk-vs-raw.mjs"
+    "test:smoke": "node scripts/firma/test/smoke-token-cache.mjs && node scripts/firma/test/smoke-rtk-exec.mjs && node scripts/firma/test/smoke-icm.mjs",
+    "bench:rtk": "node scripts/firma/benchmarks/rtk-vs-raw.mjs",
+    "bench:icm": "node scripts/firma/benchmarks/icm-vs-monolithic.mjs"
   },
   "dependencies": {
     "tiktoken": "^1.0.20"

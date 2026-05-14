@@ -1,0 +1,52 @@
+{
+  "schema": "firma-bench/icm-vs-monolithic/1",
+  "methodology": {
+    "tokenizer": "tiktoken cl100k_base (GPT-4)",
+    "workload": ".firma/icm/triage workspace (3 stages, real structure)",
+    "mode": "Sum of per-stage layered loading vs single monolithic load",
+    "caveat": "Misst nur Token-Last, NICHT Output-Qualität. Qualitätsbenchmark braucht echte LLM-Calls."
+  },
+  "timestamp": "2026-05-14T00:11:59.739Z",
+  "node_version": "v22.22.2",
+  "repo": {
+    "root": "/home/user/The_Firm",
+    "branch": "claude/read-claude-md-IcJBG",
+    "commit": "85ff736e9b470d667ca3038317809fc90d6e846b"
+  },
+  "workspace": {
+    "dir": ".firma/icm/triage",
+    "stages": 3
+  },
+  "per_stage": [
+    {
+      "stage": "01-classify",
+      "files": 4,
+      "tokens": 2750,
+      "bytes": 9359
+    },
+    {
+      "stage": "02-decide",
+      "files": 5,
+      "tokens": 2978,
+      "bytes": 10033
+    },
+    {
+      "stage": "03-action",
+      "files": 6,
+      "tokens": 3211,
+      "bytes": 10808
+    }
+  ],
+  "monolithic": {
+    "stage": "MONOLITHIC",
+    "files": 10,
+    "tokens": 4462,
+    "bytes": 15076
+  },
+  "totals": {
+    "layered_sum": 8939,
+    "monolithic": 4462,
+    "sum_vs_mono_pct": -100.33617212012551,
+    "peak_stage_vs_mono_pct": 28.03675481846706
+  }
+}
