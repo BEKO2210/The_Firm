@@ -8,12 +8,12 @@
     "chrome": "Google Chrome for Testing 148.0.7778.96",
     "caveat": "Performance hängt vom CPU/Network-Throttling-Profil ab. Nur Snapshots mit identischer schema-Version vergleichen."
   },
-  "timestamp": "2026-05-14T03:01:14.793Z",
+  "timestamp": "2026-05-14T11:44:27.060Z",
   "node_version": "v22.22.2",
   "repo": {
     "root": "/home/user/The_Firm",
     "branch": "claude/iteration-a-enterprise-bN3Gz",
-    "commit": "a968d95eefca3b549ef1f5325e5b76d88d076ae7"
+    "commit": "dd4b7fd40f4288e27d02c3bf9ea831ea81b4f509"
   },
   "target": {
     "app": "firma-os-dashboard",
@@ -37,12 +37,12 @@
         "seo": 1
       },
       "web_vitals_ms": {
-        "lcp": 438.22799999999995,
+        "lcp": 498.94100000000003,
         "tbt": 0,
         "cls": 0,
-        "fcp": 216.92950000000002,
-        "speed_index": 216.92950000000002,
-        "tti": 438.22799999999995
+        "fcp": 220.0319,
+        "speed_index": 221.25219166666722,
+        "tti": 498.9410000000001
       }
     },
     {
@@ -57,12 +57,12 @@
         "seo": 1
       },
       "web_vitals_ms": {
-        "lcp": 463.0942,
+        "lcp": 429.9324,
         "tbt": 0,
         "cls": 0,
-        "fcp": 214.248,
-        "speed_index": 214.248,
-        "tti": 463.0942
+        "fcp": 215.93239999999997,
+        "speed_index": 215.93239999999997,
+        "tti": 429.9324
       }
     },
     {
@@ -77,12 +77,12 @@
         "seo": 1
       },
       "web_vitals_ms": {
-        "lcp": 505.5432,
+        "lcp": 500.3168999999999,
         "tbt": 0,
         "cls": 0,
-        "fcp": 215.5432,
-        "speed_index": 215.5432,
-        "tti": 505.5432
+        "fcp": 212.4742,
+        "speed_index": 212.4742,
+        "tti": 500.3168999999999
       }
     }
   ],

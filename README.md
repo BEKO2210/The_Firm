@@ -20,6 +20,7 @@ Ein schlankes Betriebssystem für eine Einzelperson, die mit KI-Unterstützung e
 | 4 | Typst PDF-Rendering | ✅ | [QT-20260514-001.pdf](docs/quotes/QT-20260514-001.pdf) (48 KB, 98 ms) |
 | A.1 | Lighthouse CI auf Dashboard | ✅ | [100/100/100/100 mean, 3 routes × 3 runs](docs/benchmarks/lighthouse-dashboard-2026-05-14.json) |
 | A.2 | axe-core WCAG 2.1 AA (6 routes) | ✅ | [0 violations nach Fix](docs/benchmarks/axe-dashboard-2026-05-14.json) |
+| A.3 | Security-Audit (npm audit + Trivy) | ✅ | [0 CVEs / 0 Secrets nach Fix](docs/benchmarks/security-audit-2026-05-14.json) |
 | 5 | MemPalace (persistentes Memory) | ⏸ Postponed | bis reale Customers Wiederholungs-Queries triggern |
 | 6 | Ruflo (Multi-Agent) | ⏸ Postponed | Single-Agent reicht bis Volumen es rechtfertigt |
 | 7 | Monetarisierung tief | laufend | — |
@@ -154,6 +155,7 @@ npm run bench:rtk          # A/B: raw vs rtk-Output (10 Commands)
 npm run bench:icm          # A/B: layered vs monolithic Loading
 npm run bench:lighthouse   # Lighthouse 12 auf /, /tools, /reports (3 runs/url)
 npm run bench:axe          # axe-core WCAG 2.1 AA auf allen 6 Dashboard-Routen
+npm run bench:security     # npm audit + Trivy CVE-Scan (OWASP A06)
 ```
 
 Methodik: weltweit anerkannte Standards, jeder Snapshot reproduzierbar.
@@ -163,6 +165,7 @@ Methodik: weltweit anerkannte Standards, jeder Snapshot reproduzierbar.
 | Token-Last (rtk, icm) | **tiktoken cl100k_base** (GPT-4) | OpenAI · MIT | `docs/benchmarks/rtk-vs-raw-*.json`, `…/icm-vs-monolithic-*.json` |
 | Web Performance + A11y + SEO + BP | **Lighthouse 12** + Core Web Vitals + axe-core Subset | Google · Apache 2.0 / Deque · MPL 2.0 | `docs/benchmarks/lighthouse-dashboard-*.json` |
 | Accessibility (WCAG 2.1 A + AA, vollständig) | **axe-core 4** Standalone via Playwright | Deque · MPL 2.0 / W3C | `docs/benchmarks/axe-dashboard-*.json` |
+| Security / CVEs | **npm audit** + **Trivy** (OWASP Top 10 A06:2021) | GitHub Advisory DB / Aqua · Apache 2.0 | `docs/benchmarks/security-audit-*.json` |
 
 ---
 

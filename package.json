@@ -14,7 +14,8 @@
     "bench:rtk": "node scripts/firma/benchmarks/rtk-vs-raw.mjs",
     "bench:icm": "node scripts/firma/benchmarks/icm-vs-monolithic.mjs",
     "bench:lighthouse": "node scripts/firma/benchmarks/lighthouse-dashboard.mjs",
-    "bench:axe": "node scripts/firma/benchmarks/axe-dashboard.mjs"
+    "bench:axe": "node scripts/firma/benchmarks/axe-dashboard.mjs",
+    "bench:security": "node scripts/firma/benchmarks/security-audit.mjs"
   },
   "dependencies": {
     "tiktoken": "^1.0.20"
