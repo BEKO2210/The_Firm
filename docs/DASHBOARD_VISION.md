@@ -162,11 +162,16 @@ Geschnitten so, dass nach **jedem** PR etwas Sichtbares im Dashboard ist.
 - Smoke-Test für Append + Verify.
 - *Sichtbar:* noch nichts im GUI, aber `firma audit` zeigt die Kette.
 
-### B.2 · Mission-Control-Layout (statisch)
+### B.2 · Mission-Control-Layout (statisch) ✅
 - Home-Seite neu: Zone 1 (Status-Zeile) + Zone 2 (JETZT/NÄCHSTES/LETZTES),
-  zunächst aus vorhandenen Quellen + `audit.log` server-side gerendert.
-- KPI-Karten-Komponente nach Standard-Schema.
+  aus `state.json` + `audit.log` + Quotes server-side gerendert.
+- `getMissionControl()` in `lib/firma.ts` aggregiert die fünf KPIs + die drei
+  Spalten. Komponenten: `app/_components/KpiCard.tsx` (Schema Label→Wert→Δ→
+  Zeitraum), `app/_components/MissionColumns.tsx`.
+- Leere Zustände sind bewusst informativ (eine frisch initialisierte Firma ist
+  leer — kein Fake-Inhalt).
 - *Sichtbar:* die neue Oberfläche steht, Daten aktualisieren sich beim Reload.
+  Lighthouse 100/100/100/100, axe 0 Violations bestätigt.
 
 ### B.3 · Live (SSE + Timeline)
 - `/api/events` SSE-Endpoint + File-Watcher auf `.firma/`.

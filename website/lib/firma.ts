@@ -247,6 +247,188 @@ export async function listBenchmarks(): Promise<BenchmarkSnapshot[]> {
   return out;
 }
 
+// ─── Audit-Log (hash-chained Event-Quelle, Iteration B.1) ──────────
+
+export type AuditEvent = {
+  seq: number;
+  ts: string;
+  event: string;
+  actor: string;
+  summary: string;
+  data?: Record<string, unknown>;
+  prev_hash?: string;
+  hash?: string;
+};
+
+export async function readAuditChain(): Promise<AuditEvent[]> {
+  try {
+    const raw = await fs.readFile(path.join(FIRMA_DIR, "audit.log"), "utf-8");
+    return raw
+      .split("\n")
+      .filter((l) => l.trim().length > 0)
+      .map((line) => {
+        try { return JSON.parse(line) as AuditEvent; } catch { return null; }
+      })
+      .filter((x): x is AuditEvent => x !== null && typeof x.seq === "number");
+  } catch {
+    return [];
+  }
+}
+
+// ─── Mission Control · Aggregat für die Home-Seite (Iteration B.2) ──
+
+export type KpiStatus = "ok" | "warn" | "danger" | "neutral";
+
+export type Kpi = {
+  label: string;
+  value: string;
+  delta: string | null;      // null = keine Vergleichsdaten (ehrlich, kein Fake-Δ)
+  timeframe: string | null;
+  status: KpiStatus;
+  link: string | null;
+};
+
+export type NextItem = {
+  kind: "approval" | "inbox" | "plan";
+  label: string;
+  detail: string | null;
+  urgent: boolean;
+  link: string | null;
+};
+
+export type DoneItem = {
+  label: string;
+  detail: string | null;
+  ts: string | null;
+};
+
+export type MissionControl = {
+  kpis: Kpi[];
+  jetzt: AuditEvent[];        // jüngste Events, neueste zuerst
+  naechstes: NextItem[];
+  letztes: DoneItem[];
+};
+
+// Parst deutsche Zahlenformate wie "2.225,30" → 2225.3. Gibt null bei Unparsbarem.
+function parseDeNumber(s: string | null | undefined): number | null {
+  if (!s) return null;
+  const cleaned = s.replace(/[^\d.,-]/g, "").replace(/\./g, "").replace(",", ".");
+  const n = Number(cleaned);
+  return Number.isFinite(n) ? n : null;
+}
+
+function fmtEur(n: number): string {
+  return n.toLocaleString("de-DE");
+}
+
+export async function getMissionControl(): Promise<MissionControl | null> {
+  const state = await readState();
+  if (!state) return null;
+
+  const [chain, quotes, pendingApprovals, decidedApprovals, inboxFiles, planFiles] = await Promise.all([
+    readAuditChain(),
+    listQuotes(),
+    listFiles("approvals/pending", ".yaml"),
+    listFiles("approvals/decided", ".yaml"),
+    listFiles("inbox"),
+    listFiles("plan"),
+  ]);
+
+  // ── Zone 1 · die 5 North-Star-KPIs ──────────────────────────────
+  const openQuotesSum = quotes.reduce((acc, q) => acc + (parseDeNumber(q.total) ?? 0), 0);
+  const ticketsOffen = state.tickets.open + state.tickets.in_progress;
+  const tokenPct = state.tokens.budget_per_run_default > 0
+    ? state.tokens.spend_today / state.tokens.budget_per_run_default
+    : 0;
+
+  const kpis: Kpi[] = [
+    {
+      label: "Kontostand real",
+      value: state.real.bank_account ? `${fmtEur(state.real.monthly_revenue_eur)} EUR` : "nicht angebunden",
+      delta: null,
+      timeframe: null,
+      status: state.real.bank_account ? "ok" : "neutral",
+      link: null,
+    },
+    {
+      label: "Offene Angebote",
+      value: quotes.length > 0 ? `${fmtEur(openQuotesSum)} EUR` : "0 EUR",
+      delta: quotes.length > 0 ? `${quotes.length} Stk` : null,
+      timeframe: null,
+      status: quotes.length > 0 ? "ok" : "neutral",
+      link: "/reports",
+    },
+    {
+      label: "Tickets offen",
+      value: String(ticketsOffen),
+      delta: state.tickets.blocked > 0 ? `${state.tickets.blocked} blockiert` : null,
+      timeframe: null,
+      status: state.tickets.blocked > 0 ? "warn" : "neutral",
+      link: null,
+    },
+    {
+      label: "Approvals wartend",
+      value: String(pendingApprovals.length),
+      delta: pendingApprovals.length > 0 ? "Aktion nötig" : null,
+      timeframe: null,
+      status: pendingApprovals.length > 0 ? "danger" : "ok",
+      link: "/approvals",
+    },
+    {
+      label: "Token-Budget heute",
+      value: `${(tokenPct * 100).toFixed(0)} %`,
+      delta: `${fmtEur(state.tokens.spend_today)} / ${fmtEur(state.tokens.budget_per_run_default)}`,
+      timeframe: "heute",
+      status: tokenPct >= 1 ? "danger" : tokenPct >= 0.8 ? "warn" : "ok",
+      link: "/tokens",
+    },
+  ];
+
+  // ── Zone 2a · JETZT — jüngste Audit-Events ──────────────────────
+  const jetzt = [...chain].reverse().slice(0, 6);
+
+  // ── Zone 2b · NÄCHSTES — was Aufmerksamkeit braucht ─────────────
+  const naechstes: NextItem[] = [
+    ...pendingApprovals.map((f): NextItem => ({
+      kind: "approval",
+      label: f.replace(/\.yaml$/, ""),
+      detail: "wartet auf Freigabe",
+      urgent: true,
+      link: "/approvals",
+    })),
+    ...inboxFiles.filter((f) => !f.startsWith(".")).map((f): NextItem => ({
+      kind: "inbox",
+      label: f,
+      detail: "untriagiert",
+      urgent: false,
+      link: "/inbox",
+    })),
+    ...planFiles.filter((f) => !f.startsWith(".")).map((f): NextItem => ({
+      kind: "plan",
+      label: f,
+      detail: "geplant",
+      urgent: false,
+      link: null,
+    })),
+  ];
+
+  // ── Zone 2c · LETZTES — abgeschlossene Vorgänge ─────────────────
+  const letztes: DoneItem[] = [
+    ...decidedApprovals.map((f): DoneItem => ({
+      label: f.replace(/\.yaml$/, ""),
+      detail: "Approval entschieden",
+      ts: null,
+    })),
+    ...quotes.map((q): DoneItem => ({
+      label: q.id,
+      detail: `Angebot · ${q.customer ?? "?"} · ${q.total ?? "—"}`,
+      ts: q.created_at,
+    })),
+  ].slice(0, 8);
+
+  return { kpis, jetzt, naechstes, letztes };
+}
+
 export function summarizeRuns(runs: TokenRun[]) {
   const total = runs.reduce((a, r) => a + (r.tokens_total ?? 0), 0);
   const hits = runs.reduce((a, r) => a + (r.cache_hits ?? 0), 0);

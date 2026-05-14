@@ -22,7 +22,7 @@ Ein schlankes Betriebssystem für eine Einzelperson, die mit KI-Unterstützung e
 | A.2 | axe-core WCAG 2.1 AA (6 routes) | ✅ | [0 violations nach Fix](docs/benchmarks/axe-dashboard-2026-05-14.json) |
 | A.3 | Security-Audit (npm audit + Trivy) | ✅ | [0 CVEs / 0 Secrets nach Fix](docs/benchmarks/security-audit-2026-05-14.json) |
 | A.4 | PDF/A-2 Validierung (veraPDF) | ✅ | [PDF/A-2b PASS 6989/0 nach Fix](docs/benchmarks/pdfa-validation-2026-05-14.json) |
-| B | Dashboard als Herzstück (Mission Control) | 📋 geplant | [DASHBOARD_VISION.md](docs/DASHBOARD_VISION.md) — Vision + Wireframes + B.1–B.5-Plan |
+| B | Dashboard als Herzstück (Mission Control) | 🔨 in Arbeit | [DASHBOARD_VISION.md](docs/DASHBOARD_VISION.md) — B.1 Audit-Log ✅ · B.2 Mission-Control-Layout ✅ · B.3–B.5 folgen |
 | 5 | MemPalace (persistentes Memory) | ⏸ Postponed | bis reale Customers Wiederholungs-Queries triggern |
 | 6 | Ruflo (Multi-Agent) | ⏸ Postponed | Single-Agent reicht bis Volumen es rechtfertigt |
 | 7 | Monetarisierung tief | laufend | — |
