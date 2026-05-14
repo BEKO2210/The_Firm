@@ -123,9 +123,39 @@ Dashboard zeigt jeweils nur den passenden Bereich pro Seite (`/finance/real` vs 
 
 ## Audit-Log v2
 
-`.firma/audit.log` ist append-only JSONL. Hash-chained.
+`.firma/audit.log` ist append-only JSONL, **hash-chained** (implementiert in `scripts/firma/lib/audit.mjs`, Iteration B.1).
 
-Real-Welt-Events nur:
+### Entry-Schema (eine JSONL-Zeile)
+
+```jsonc
+{
+  "seq":       1,                              // fortlaufend ab 1
+  "ts":        "2026-05-14T12:00:00.000Z",     // ISO 8601
+  "event":     "firma_init",                   // Event-Typ (siehe Tabelle unten)
+  "actor":     "cli",                          // "cli" | "dashboard" | "agent:<name>"
+  "summary":   "Firma OS initialisiert",       // menschenlesbarer Einzeiler
+  "data":      { "schema_version": 2 },        // strukturierte Payload (frei)
+  "prev_hash": "0000…0000",                    // hash der Vorzeile (Genesis: 64×"0")
+  "hash":      "a1b2c3…"                       // SHA-256 über die kanonische Form OHNE hash
+}
+```
+
+### Hash-Verkettung
+
+- `hash` = SHA-256 über die **kanonische** JSON-Form (Keys rekursiv sortiert) aller Felder **außer** `hash`.
+- `prev_hash` jeder Zeile == `hash` der Vorzeile. Erste Zeile: `prev_hash` = 64×`"0"` (Genesis).
+- Wird eine alte Zeile manipuliert, stimmt ihr `hash` nicht mehr **und** alle Folge-Zeilen haben einen falschen `prev_hash` → die Bruchstelle ist eindeutig lokalisierbar.
+
+### Prüfen
+
+```bash
+firma audit chain            # listet die Kette
+firma audit chain --verify   # verifiziert; Exit 1 + Zeilennummer bei Bruch
+```
+
+`verifyChain()` prüft pro Zeile: parsebar · `hash` korrekt · `prev_hash` verkettet · `seq` fortlaufend.
+
+### Real-Welt-Events nur:
 
 | Event-Type | Beispiel-Trigger |
 |------------|------------------|

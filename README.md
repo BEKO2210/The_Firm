@@ -128,15 +128,15 @@ Screenshots werden via Playwright reproduziert: `cd website && npm start` + `nod
 ├── README.md                        diese Datei
 ├── LICENSE                          proprietär
 ├── package.json                     tiktoken + Scripts (test:smoke, bench:*)
-├── docs/                            14 .md + benchmarks/ + quotes/
+├── docs/                            15 .md + benchmarks/ + quotes/
 ├── website/                         Next.js 16 Dashboard (App Router)
 ├── scripts/firma/
 │   ├── firma.mjs                    Single-file CLI
-│   ├── lib/                         token-cache, token-log, rtk-exec, icm, pdf
-│   ├── benchmarks/                  rtk-vs-raw, icm-vs-monolithic
+│   ├── lib/                         token-cache, token-log, rtk-exec, icm, pdf, audit
+│   ├── benchmarks/                  rtk, icm, lighthouse, axe, security, pdfa
 │   ├── templates/                   quote.typ (Typst)
 │   ├── setup/                       install-rtk.sh, install-typst.sh
-│   └── test/                        4 Smoke-Tests (npm run test:smoke)
+│   └── test/                        5 Smoke-Tests (npm run test:smoke)
 ├── .firma/                          State (init via `firma init`)
 │   ├── state.json + config.yaml
 │   ├── agents/                      8 Agent-Specs
@@ -152,7 +152,7 @@ Screenshots werden via Playwright reproduziert: `cd website && npm start` + `nod
 ## Tests + Benchmarks (jeder Schritt verifiziert)
 
 ```bash
-npm run test:smoke         # 4 Smoke-Tests: token-cache, rtk-exec, icm, pdf
+npm run test:smoke         # 5 Smoke-Tests: token-cache, rtk-exec, icm, pdf, audit
 npm run bench:rtk          # A/B: raw vs rtk-Output (10 Commands)
 npm run bench:icm          # A/B: layered vs monolithic Loading
 npm run bench:lighthouse   # Lighthouse 12 auf /, /tools, /reports (3 runs/url)

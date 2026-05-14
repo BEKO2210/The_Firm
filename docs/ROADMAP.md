@@ -115,7 +115,7 @@ Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisi
 
 **Vollständige Vision + Wireframes:** [`DASHBOARD_VISION.md`](DASHBOARD_VISION.md). Geschnitten so, dass nach jedem PR etwas Sichtbares im Dashboard ist.
 
-- [ ] **B.1** — Audit-Log als Event-Quelle: hash-chained JSONL (SHA-256 prev-hash), `lib/audit.mjs` Writer, `firma audit chain --verify`, Smoke-Test. *(Ehemals Iteration C — zieht nach vorn, da Datenfundament für JETZT-Feed + Timeline.)*
+- [x] **B.1** — Audit-Log als Event-Quelle: hash-chained JSONL (SHA-256 prev-hash) in `lib/audit.mjs`, verkettet in `firma init` + `firma report quote`, `firma audit chain [--verify]`, `smoke-audit.mjs` (append + verify + tamper-detection). Schema in `STATE_MODEL.md`. *(Ehemals Iteration C — zieht nach vorn, da Datenfundament für JETZT-Feed + Timeline.)*
 - [ ] **B.2** — Mission-Control-Layout (statisch): Status-Zeile (5 North-Star-KPI-Karten) + Zone JETZT/NÄCHSTES/LETZTES, server-side gerendert.
 - [ ] **B.3** — Live: `/api/events` SSE-Endpoint + File-Watcher, Timeline-Band aus `audit.log`.
 - [ ] **B.4** — GUI-Aktionen: Inbox-Item anlegen/triagieren, Approval approve/reject, Report-Wizard — alles via Server Actions, kein CLI nötig.
