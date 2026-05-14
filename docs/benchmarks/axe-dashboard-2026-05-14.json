@@ -1,0 +1,154 @@
+{
+  "schema": "firma-bench/axe-dashboard/1",
+  "methodology": {
+    "tool": "axe-core 4.11.4 + @axe-core/playwright",
+    "standard": "WCAG 2.1 AA (W3C)",
+    "tags": [
+      "wcag2a",
+      "wcag2aa",
+      "wcag21a",
+      "wcag21aa"
+    ],
+    "runner": "Playwright Chromium headless, viewport 1280×900, waitUntil=networkidle",
+    "caveat": "Automatisierte Audits erfassen typischerweise ~57 % der WCAG-Issues (Deque). Manuelle Prüfung bleibt nötig für Tastatur-Navigation, Screen-Reader-Flows, kognitive Last."
+  },
+  "timestamp": "2026-05-14T02:59:07.707Z",
+  "node_version": "v22.22.2",
+  "repo": {
+    "root": "/home/user/The_Firm",
+    "branch": "claude/iteration-a-enterprise-bN3Gz",
+    "commit": "a968d95eefca3b549ef1f5325e5b76d88d076ae7"
+  },
+  "target": {
+    "app": "firma-os-dashboard",
+    "base_url": "http://localhost:3000",
+    "routes": [
+      "/",
+      "/inbox",
+      "/approvals",
+      "/tokens",
+      "/tools",
+      "/reports"
+    ]
+  },
+  "per_route": [
+    {
+      "route": "/",
+      "violations_count": 0,
+      "by_impact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "passes_count": 19,
+      "incomplete_count": 1,
+      "inapplicable_count": 42,
+      "violations": [],
+      "test_engine": {
+        "name": "axe-core",
+        "version": "4.11.4"
+      }
+    },
+    {
+      "route": "/inbox",
+      "violations_count": 0,
+      "by_impact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "passes_count": 17,
+      "incomplete_count": 1,
+      "inapplicable_count": 44,
+      "violations": [],
+      "test_engine": {
+        "name": "axe-core",
+        "version": "4.11.4"
+      }
+    },
+    {
+      "route": "/approvals",
+      "violations_count": 0,
+      "by_impact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "passes_count": 17,
+      "incomplete_count": 1,
+      "inapplicable_count": 44,
+      "violations": [],
+      "test_engine": {
+        "name": "axe-core",
+        "version": "4.11.4"
+      }
+    },
+    {
+      "route": "/tokens",
+      "violations_count": 0,
+      "by_impact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "passes_count": 17,
+      "incomplete_count": 1,
+      "inapplicable_count": 44,
+      "violations": [],
+      "test_engine": {
+        "name": "axe-core",
+        "version": "4.11.4"
+      }
+    },
+    {
+      "route": "/tools",
+      "violations_count": 0,
+      "by_impact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "passes_count": 19,
+      "incomplete_count": 1,
+      "inapplicable_count": 42,
+      "violations": [],
+      "test_engine": {
+        "name": "axe-core",
+        "version": "4.11.4"
+      }
+    },
+    {
+      "route": "/reports",
+      "violations_count": 0,
+      "by_impact": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "passes_count": 20,
+      "incomplete_count": 2,
+      "inapplicable_count": 41,
+      "violations": [],
+      "test_engine": {
+        "name": "axe-core",
+        "version": "4.11.4"
+      }
+    }
+  ],
+  "totals": {
+    "violations": 0,
+    "by_impact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    },
+    "incomplete": 7
+  }
+}
