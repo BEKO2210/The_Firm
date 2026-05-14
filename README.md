@@ -17,10 +17,11 @@ Ein schlankes Betriebssystem für eine Einzelperson, die mit KI-Unterstützung e
 | 2a | rtk-ai Integration + Benchmark | ✅ | [-5.4 % auf Workload](docs/benchmarks/rtk-vs-raw-2026-05-13.json) |
 | 2b | Dashboard MVP (4 + 2 Seiten) | ✅ | `website/` (Next.js 16 + Tailwind 4) |
 | 3 | ICM Folder-Pattern | ✅ | [-28 % Peak / +100 % Sum](docs/benchmarks/icm-vs-monolithic-2026-05-14.json) |
-| 4 | Typst PDF-Rendering | ✅ | [QT-20260514-001.pdf](docs/quotes/QT-20260514-001.pdf) (48 KB, 98 ms) |
+| 4 | Typst PDF-Rendering | ✅ | [QT-20260514-001.pdf](docs/quotes/QT-20260514-001.pdf) (PDF/A-2b, 51 KB, ~300 ms) |
 | A.1 | Lighthouse CI auf Dashboard | ✅ | [100/100/100/100 mean, 3 routes × 3 runs](docs/benchmarks/lighthouse-dashboard-2026-05-14.json) |
 | A.2 | axe-core WCAG 2.1 AA (6 routes) | ✅ | [0 violations nach Fix](docs/benchmarks/axe-dashboard-2026-05-14.json) |
 | A.3 | Security-Audit (npm audit + Trivy) | ✅ | [0 CVEs / 0 Secrets nach Fix](docs/benchmarks/security-audit-2026-05-14.json) |
+| A.4 | PDF/A-2 Validierung (veraPDF) | ✅ | [PDF/A-2b PASS 6989/0 nach Fix](docs/benchmarks/pdfa-validation-2026-05-14.json) |
 | 5 | MemPalace (persistentes Memory) | ⏸ Postponed | bis reale Customers Wiederholungs-Queries triggern |
 | 6 | Ruflo (Multi-Agent) | ⏸ Postponed | Single-Agent reicht bis Volumen es rechtfertigt |
 | 7 | Monetarisierung tief | laufend | — |
@@ -156,6 +157,7 @@ npm run bench:icm          # A/B: layered vs monolithic Loading
 npm run bench:lighthouse   # Lighthouse 12 auf /, /tools, /reports (3 runs/url)
 npm run bench:axe          # axe-core WCAG 2.1 AA auf allen 6 Dashboard-Routen
 npm run bench:security     # npm audit + Trivy CVE-Scan (OWASP A06)
+npm run bench:pdfa         # veraPDF PDF/A-2b Validierung der gerenderten PDFs
 ```
 
 Methodik: weltweit anerkannte Standards, jeder Snapshot reproduzierbar.
@@ -166,6 +168,7 @@ Methodik: weltweit anerkannte Standards, jeder Snapshot reproduzierbar.
 | Web Performance + A11y + SEO + BP | **Lighthouse 12** + Core Web Vitals + axe-core Subset | Google · Apache 2.0 / Deque · MPL 2.0 | `docs/benchmarks/lighthouse-dashboard-*.json` |
 | Accessibility (WCAG 2.1 A + AA, vollständig) | **axe-core 4** Standalone via Playwright | Deque · MPL 2.0 / W3C | `docs/benchmarks/axe-dashboard-*.json` |
 | Security / CVEs | **npm audit** + **Trivy** (OWASP Top 10 A06:2021) | GitHub Advisory DB / Aqua · Apache 2.0 | `docs/benchmarks/security-audit-*.json` |
+| PDF-Archivierung | **veraPDF** (ISO 19005-2:2011 · PDF/A-2b) | veraPDF Consortium · MPL 2.0 | `docs/benchmarks/pdfa-validation-*.json` |
 
 ---
 

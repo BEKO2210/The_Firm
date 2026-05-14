@@ -361,6 +361,61 @@ Ohne Trivy läuft der Benchmark trotzdem (npm-audit-only), markiert den Trivy-Bl
 
 ---
 
+## Benchmark 6 · PDF/A-2 Validierung der Typst-Outputs
+
+**Standard:** **ISO 19005-2:2011 (PDF/A-2 Level B)** — Format für revisionssichere Langzeitarchivierung.
+**Tool:** **veraPDF** (veraPDF Consortium, MPL 2.0) — die offizielle PDF/A-Referenz-Validierung, getragen von der PDF Association.
+**Begründung:** Angebote + Rechnungen unterliegen der GoBD und §147 AO (10 Jahre Aufbewahrungspflicht). PDF/A-2b garantiert: alle Fonts eingebettet, keine externen Abhängigkeiten, deterministisches Rendering über Jahrzehnte.
+
+**Harness:** `scripts/firma/benchmarks/pdfa-validation.mjs` · Run: `npm run bench:pdfa`.
+**Methodik:**
+
+- Sammelt alle gerenderten PDFs aus `.firma/finance/quotes/<id>/` + `docs/quotes/`.
+- Ruft veraPDF mit `--flavour 2b` (PDF/A-2 Level B) je Datei auf, parst den MRR-XML-Report.
+- veraPDF optional: `$VERAPDF_BIN` → `verapdf` in PATH → graceful skip.
+- Exit-Code ≠ 0 bei nicht-konformer PDF — CI-tauglich.
+
+### Ergebnis (Run 2026-05-14)
+
+| Datei | PDF/A-2b | Checks ✓ | Checks ✗ |
+|-------|:--------:|---------:|---------:|
+| `.firma/finance/quotes/QT-20260514-001/QT-20260514-001.pdf` | **PASS** | 6989 | 0 |
+| `docs/quotes/QT-20260514-001.pdf` | **PASS** | 6989 | 0 |
+
+### Honest finding
+
+Die **Baseline (vor dem Fix) scheiterte** — aber knapp:
+
+- Typst rendert **ohne** `--pdf-standard` strukturell sauberes PDF (6911 von 6912 Checks bestanden), stempelt aber **nicht** den PDF/A-Identifier.
+- Einzige Verletzung: **ISO 19005-2 clause 6.6.4 test 1** — die XMP-Metadaten enthielten keine `pdfaid:part` / `pdfaid:conformance`-Identifikation. Ohne die kann kein Archivsystem die Datei als PDF/A erkennen.
+
+**Fix:** `renderTypst()` in `scripts/firma/lib/pdf.mjs` setzt jetzt per Default `--pdf-standard a-2b`. Typst 0.14.2 (krilla-PDF-Backend) erzeugt damit die vollständige XMP-Identifikation + `OutputIntent`. Re-Render → **6989/0, isCompliant=true** auf beiden PDFs.
+
+Der Default ist bewusst `a-2b`, nicht opt-in: jedes Angebot/jede Rechnung ist damit ab Rendering archivsicher. `pdfStandard: null` übergeben, falls ausnahmsweise Standard-PDF gewünscht ist.
+
+### Wichtiger Disclaimer
+
+> **Level B** ('basic') prüft die **visuelle** Reproduzierbarkeit über die Zeit. **Level A** ('accessible') würde zusätzlich einen Tagged-PDF-Strukturbaum fordern (Screen-Reader-Tauglichkeit des PDFs). Typst 0.14.2 erzeugt **kein** PDF/A-2a — Level A ist daher bewusst nicht Teil dieses Benchmarks. Für die Archivierungs-Pflicht (GoBD) ist Level B ausreichend; für barrierefreie PDF-Dokumente wäre A nötig.
+
+### Stable Snapshot
+
+`docs/benchmarks/pdfa-validation-2026-05-14.json` (Provenance: veraPDF-Version + commit-hash + node-version + per-Datei Check-Counts).
+
+### Reproduzieren
+
+```bash
+bash scripts/firma/setup/install-typst.sh    # Typst via cargo, ~5 Min
+
+# veraPDF installieren (veraPDF Consortium, MPL 2.0)
+# Auto-Install: https://verapdf.org/software/  → verapdf-installer.zip
+
+# ein Angebot rendern + validieren
+node scripts/firma/firma.mjs report quote --data .firma/finance/quotes/QT-20260514-001/data.json --out .firma/finance/quotes/QT-20260514-001/QT-20260514-001.pdf
+VERAPDF_BIN=/pfad/zu/verapdf npm run bench:pdfa
+```
+
+---
+
 ## Geplante Benchmarks
 
 | # | Tool | Methodik | Status |
@@ -369,8 +424,8 @@ Ohne Trivy läuft der Benchmark trotzdem (npm-audit-only), markiert den Trivy-Bl
 | 2 | ICM (Layered Loading) | A/B Layered vs Monolithic auf Triage-Workspace | ✅ done |
 | 3 | Lighthouse 12 auf Dashboard | 3 Routen × 3 Runs, Perf/A11y/BP/SEO + Web Vitals | ✅ done |
 | 4 | axe-core Standalone | Volle WCAG 2.1 AA auf allen 6 Routen | ✅ done |
-| 5 | npm audit + Trivy | OWASP A06 / CVE-Datenbank auf Repo + Lockfiles | ✅ done (oben) |
-| 6 | veraPDF (PDF/A-2) | ISO 19005-2 Validierung der Typst-Outputs | offen (Iteration A.4) |
+| 5 | npm audit + Trivy | OWASP A06 / CVE-Datenbank auf Repo + Lockfiles | ✅ done |
+| 6 | veraPDF (PDF/A-2) | ISO 19005-2 Validierung der Typst-Outputs | ✅ done (oben) |
 | 7 | Manuelle Tastatur-Tour | Tab-Reihenfolge + Focus-Visibility auf allen 6 Routen | offen (Iteration A.2-followup) |
 | 8 | token-cache (State-Reminder) | A/B noop vs local-Fingerprint auf 50 `firma status`-Runs | offen (Phase 2.5) |
 | 9 | MemPalace (Recall) | Latency p50/p99 + Genauigkeit auf 100 Customer-Queries | offen (Phase 5) |

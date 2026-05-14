@@ -15,7 +15,8 @@
     "bench:icm": "node scripts/firma/benchmarks/icm-vs-monolithic.mjs",
     "bench:lighthouse": "node scripts/firma/benchmarks/lighthouse-dashboard.mjs",
     "bench:axe": "node scripts/firma/benchmarks/axe-dashboard.mjs",
-    "bench:security": "node scripts/firma/benchmarks/security-audit.mjs"
+    "bench:security": "node scripts/firma/benchmarks/security-audit.mjs",
+    "bench:pdfa": "node scripts/firma/benchmarks/pdfa-validation.mjs"
   },
   "dependencies": {
     "tiktoken": "^1.0.20"

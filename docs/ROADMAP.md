@@ -103,7 +103,9 @@ Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisi
 - [x] **A.1** — Lighthouse CI auf `/`, `/tools`, `/reports` · Standard: Lighthouse 12 (Google, Apache 2.0) + Core Web Vitals · Snapshot: `docs/benchmarks/lighthouse-dashboard-2026-05-14.json` · Ergebnis: **100/100/100/100 mean** (Perf / A11y / BP / SEO)
 - [x] **A.2** — axe-core Standalone gegen alle 6 Routen · Standard: axe-core 4.11.4 (Deque, MPL 2.0) + WCAG 2.1 A + AA · Snapshot: `docs/benchmarks/axe-dashboard-2026-05-14.json` · Ergebnis: **0 Violations** (nach Fix für `scrollable-region-focusable` auf `/reports`)
 - [x] **A.3** — `npm audit` + Trivy CVE-Scan auf Repo · Standard: OWASP Top 10 A06:2021 + CVE/GHSA/OSV · Snapshot: `docs/benchmarks/security-audit-2026-05-14.json` · Ergebnis: **0 CVEs, 0 Secrets** (nach Fix von 6 npm-audit-Findings via `postcss`+`tmp` overrides)
-- [ ] **A.4** — PDF/A-2 Validierung der Typst-Outputs · Standard: veraPDF (MPL 2.0), ISO 19005-2
+- [x] **A.4** — veraPDF PDF/A-2 Validierung der Typst-Outputs · Standard: ISO 19005-2:2011 (PDF/A-2b) via veraPDF (MPL 2.0) · Snapshot: `docs/benchmarks/pdfa-validation-2026-05-14.json` · Ergebnis: **PASS, 6989/0** (nach Fix: `--pdf-standard a-2b` als Default in `renderTypst`)
+
+**Iteration A abgeschlossen** — bis auf den manuellen A11y-Followup (Tastatur-Tour, siehe `docs/BENCHMARKS.md` #7). Vier anerkannte Standards (Lighthouse, axe-core, OWASP A06, ISO 19005-2) liefern jetzt ehrliche, reproduzierbare Aussagen über den Stack.
 
 **Methodik:** Jeder Snapshot wird mit `npm run bench:<name>` reproduzierbar, landet in `docs/benchmarks/` mit stabilem JSON-Schema, und nennt Tool-Version + Methodology in der Datei selbst.
 

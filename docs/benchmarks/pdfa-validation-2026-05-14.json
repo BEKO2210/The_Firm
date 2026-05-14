@@ -1,0 +1,51 @@
+{
+  "schema": "firma-bench/pdfa-validation/1",
+  "methodology": {
+    "tool": "veraPDF veraPDF 1.30.1 (veraPDF Consortium, MPL 2.0)",
+    "standard": "ISO 19005-2:2011 (PDF/A-2 Level B)",
+    "flavour": "2b",
+    "scope": [
+      ".firma/finance/quotes",
+      "docs/quotes"
+    ],
+    "rationale": "PDF/A-2b garantiert revisionssichere Langzeitarchivierung (GoBD, §147 AO 10 Jahre): alle Fonts eingebettet, keine externen Abhängigkeiten, deterministisches Rendering.",
+    "caveat": "Level B ('basic') prüft visuelle Reproduzierbarkeit. Level A ('accessible') würde zusätzlich Tagged-PDF / Strukturbaum fordern — bewusst nicht Teil dieses Benchmarks, da Typst aktuell kein PDF/A-2a erzeugt."
+  },
+  "timestamp": "2026-05-14T11:58:56.216Z",
+  "node_version": "v22.22.2",
+  "repo": {
+    "root": "/home/user/The_Firm",
+    "branch": "claude/iteration-a-enterprise-bN3Gz",
+    "commit": "e047347d786b5aa8f019e3492de4e166cdb1aca3"
+  },
+  "verapdf_available": true,
+  "pdfs_found": 2,
+  "results": [
+    {
+      "file": ".firma/finance/quotes/QT-20260514-001/QT-20260514-001.pdf",
+      "compliant": true,
+      "passed_checks": 6989,
+      "failed_checks": 0,
+      "passed_rules": 144,
+      "failed_rules": 0,
+      "failed_rule_details": [],
+      "raw_available": true
+    },
+    {
+      "file": "docs/quotes/QT-20260514-001.pdf",
+      "compliant": true,
+      "passed_checks": 6989,
+      "failed_checks": 0,
+      "passed_rules": 144,
+      "failed_rules": 0,
+      "failed_rule_details": [],
+      "raw_available": true
+    }
+  ],
+  "totals": {
+    "validated": 2,
+    "compliant": 2,
+    "non_compliant": 0,
+    "all_compliant": true
+  }
+}
