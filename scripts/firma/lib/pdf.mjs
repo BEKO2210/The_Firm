@@ -4,10 +4,13 @@
 // Default-Binary unter tools/typst/bin/typst.
 //
 // API:
-//   await renderTypst({ template, data, outPath })
+//   await renderTypst({ template, data, outPath, pdfStandard })
 //     template: absoluter Pfad zur .typ-Datei
 //     data: serialisierbares Objekt (wird als JSON an Typst per sys.inputs übergeben)
 //     outPath: absoluter Pfad für die fertige .pdf-Datei
+//     pdfStandard: PDF-Konformitätsstufe, default "a-2b" (PDF/A-2 Level B,
+//                  ISO 19005-2 — revisionssicher archivierbar, GoBD/§147 AO).
+//                  null setzen für Standard-PDF ohne Archiv-Konformität.
 //
 // Wirft Error mit stderr, wenn Typst nicht installiert ist oder das Template fehlschlägt.
 
@@ -33,7 +36,7 @@ export async function getTypstVersion(typstBin = DEFAULT_TYPST) {
   });
 }
 
-export async function renderTypst({ template, data, outPath, typstBin = DEFAULT_TYPST }) {
+export async function renderTypst({ template, data, outPath, typstBin = DEFAULT_TYPST, pdfStandard = "a-2b" }) {
   if (!template) throw new Error("renderTypst: template path required");
   if (!outPath) throw new Error("renderTypst: outPath required");
   if (!(await isTypstAvailable(typstBin))) {
@@ -51,6 +54,11 @@ export async function renderTypst({ template, data, outPath, typstBin = DEFAULT_
     "--root", path.dirname(template),
     "--input", `data=${jsonString}`,
   ];
+  // PDF/A-Konformität: Angebote + Rechnungen müssen revisionssicher archivierbar
+  // sein (GoBD, §147 AO — 10 Jahre Aufbewahrung). Default a-2b.
+  if (pdfStandard) {
+    args.push("--pdf-standard", pdfStandard);
+  }
   await new Promise((resolve, reject) => {
     const c = spawn(typstBin, args);
     let err = "";

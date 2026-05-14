@@ -9,13 +9,13 @@
     "scope": "npm audit: root + website (prod + dev deps) · Trivy: fs-Scan über Repo, node_modules/.next ausgenommen",
     "caveat": "Dependency-Scanning erfasst bekannte CVEs in deklarierten Paketen. Es ersetzt KEINEN Code-Audit, Pen-Test oder SAST. 0 Findings = kein bekanntes CVE, nicht 'sicher'."
   },
-  "timestamp": "2026-05-14T11:41:31.883Z",
+  "timestamp": "2026-05-14T12:01:41.334Z",
   "node_version": "v22.22.2",
   "npm_version": "10.9.7",
   "repo": {
     "root": "/home/user/The_Firm",
     "branch": "claude/iteration-a-enterprise-bN3Gz",
-    "commit": "dd4b7fd40f4288e27d02c3bf9ea831ea81b4f509"
+    "commit": "e047347d786b5aa8f019e3492de4e166cdb1aca3"
   },
   "npm_audit": {
     "root": {
