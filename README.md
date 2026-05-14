@@ -93,7 +93,7 @@ Details: [docs/RATIONALE.md](docs/RATIONALE.md).
 |------:|-----|:------:|
 | 0 | Initial Architecture | ✅ |
 | 1 | CLAUDE.md + State-Model + CLI v0.1 | ✅ |
-| 2 | Dashboard MVP **+ rtk-ai Integration** (Token sparen) | ⏳ |
+| 2 | Dashboard MVP (4 Seiten) **+ rtk-ai Integration + Benchmark** | ✅ |
 | 3 | Tiefer Token-Sparen + Interpreted-CM-PoC | ⏳ |
 | 4 | PDFCraft + erstes Angebot-PDF | ⏳ |
 | 5 | MemPalace (persistentes Memory) | ⏳ |

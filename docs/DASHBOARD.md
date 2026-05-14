@@ -6,10 +6,25 @@ Eine zentrale GUI, die ein Nicht-Techniker in 10 Minuten verstehen + bedienen ka
 
 ## Stack-Entscheidung
 
-**Wiederverwendung des bestehenden `website/`-Next.js-Stacks**, aber:
-- Anbindung an `.firma/state.json` (real) statt simulierte 50-MA-Daten
-- Klare Sim/Real-Trennung pro Seite
-- Mobile-tauglich (Belkis arbeitet auch vom Phone)
+**Implementiert in `website/`** (Phase 2 MVP, lauffähig):
+
+- Next.js 16 (App Router) + React 19
+- Tailwind 4 (via `@tailwindcss/postcss`)
+- TypeScript strict
+- Server Components lesen `.firma/` direkt vom Filesystem (kein API-Layer für MVP)
+- Mobile-tauglich (flex-wrap, 44px Touch-Targets)
+
+Run: `cd website && npm install && npm run dev` → http://localhost:3000
+
+## Status (Phase 2 MVP)
+
+| Route | Status |
+|-------|:------:|
+| `/` Home | ✅ implementiert (Stats, Real/Forecast getrennt, Token-Gauge) |
+| `/inbox` | ✅ implementiert (Listet `.firma/inbox/*.md`) |
+| `/approvals` | ✅ implementiert (Pending + Decided aus `.firma/approvals/`) |
+| `/tokens` | ✅ implementiert (Runs, Hit-rate, Top-Commands, Letzte 20) |
+| `/customers`, `/tickets`, `/finance`, `/agents`, `/graph`, `/documents`, `/settings` | Phase 2.5 / 3 |
 
 ## Screens
 

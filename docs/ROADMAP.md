@@ -49,13 +49,13 @@ Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisi
 
 **Dashboard MVP:**
 
-- [ ] Next.js 15 Setup in `website/`
-- [ ] `/` Home liest aus `state.json` v2
-- [ ] `/inbox` mit echten Files
-- [ ] `/approvals` mit Approve/Reject + Audit-Log
-- [ ] `/tokens` mit Gauge
-- [ ] File-Watcher für Auto-Refresh (SSE)
-- [ ] Mobile-Test (375px Viewport)
+- [x] Next.js 16 + React 19 + Tailwind 4 Setup in `website/`
+- [x] `/` Home liest aus `state.json` v2 (Stats + Real/Forecast getrennt + Token-Gauge)
+- [x] `/inbox` mit echten Files (`.firma/inbox/*.md`)
+- [x] `/approvals` (Pending + Decided aus `.firma/approvals/`) — Approve/Reject als Server Action: offen
+- [x] `/tokens` mit Gauge + Top-Commands + Letzte 20 Runs (aus `runs.jsonl`)
+- [ ] File-Watcher für Auto-Refresh (SSE) — Phase 2.5
+- [ ] Mobile-Test (375px Viewport) — Phase 2.5
 
 **rtk-ai Integration (parallel):**
 
@@ -170,7 +170,7 @@ Falls eine Integration fehlschlägt:
 
 - [ ] `firma init` läuft fehlerfrei ✅
 - [ ] `firma status` liefert plausible Ausgabe ✅
-- [ ] Dashboard MVP läuft (Phase 2)
+- [x] Dashboard MVP läuft (Phase 2 · `cd website && npm run dev`)
 - [ ] Token-Verbrauch pro Routine-Run < 4k (Phase 3)
 - [ ] Erstes echtes Angebot-PDF raus (Phase 4)
 - [ ] Approval-Flow ≥ 5× durchlaufen
