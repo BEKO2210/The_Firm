@@ -16,7 +16,8 @@ dist/
 
 # Third-party tools (cloned + built locally per Approval; see docs/INTEGRATION_BLUEPRINT.md)
 # Install via: bash scripts/firma/setup/install-rtk.sh
-tools/
+# Only top-level tools/ — sub-paths like website/app/tools/ are app routes and must be tracked.
+/tools/
 
 # Logs
 *.log
