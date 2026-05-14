@@ -1,0 +1,62 @@
+{
+  "schema": "firma-bench/security-audit/1",
+  "methodology": {
+    "tools": [
+      "npm audit (GitHub Advisory Database)",
+      "Trivy Version: 0.70.0 (Aqua Security, Apache 2.0)"
+    ],
+    "standard": "OWASP Top 10 A06:2021 (Vulnerable & Outdated Components) + CVE / GHSA / OSV",
+    "scope": "npm audit: root + website (prod + dev deps) · Trivy: fs-Scan über Repo, node_modules/.next ausgenommen",
+    "caveat": "Dependency-Scanning erfasst bekannte CVEs in deklarierten Paketen. Es ersetzt KEINEN Code-Audit, Pen-Test oder SAST. 0 Findings = kein bekanntes CVE, nicht 'sicher'."
+  },
+  "timestamp": "2026-05-14T11:41:31.883Z",
+  "node_version": "v22.22.2",
+  "npm_version": "10.9.7",
+  "repo": {
+    "root": "/home/user/The_Firm",
+    "branch": "claude/iteration-a-enterprise-bN3Gz",
+    "commit": "dd4b7fd40f4288e27d02c3bf9ea831ea81b4f509"
+  },
+  "npm_audit": {
+    "root": {
+      "severity_counts": {
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "info": 0,
+        "total": 0
+      },
+      "advisories": []
+    },
+    "website": {
+      "severity_counts": {
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "info": 0,
+        "total": 0
+      },
+      "advisories": []
+    }
+  },
+  "trivy": {
+    "version": "Version: 0.70.0",
+    "severity_counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "total": 0
+    },
+    "secrets": 0,
+    "findings": []
+  },
+  "totals": {
+    "npm_audit_vulnerabilities": 0,
+    "trivy_vulnerabilities": 0,
+    "trivy_secrets": 0,
+    "clean": true
+  }
+}

@@ -284,6 +284,83 @@ Port 3000 muss frei sein.
 
 ---
 
+## Benchmark 5 · Security-Audit (npm audit + Trivy CVE-Scan)
+
+**Standard:** OWASP Top 10 **A06:2021 — Vulnerable and Outdated Components** · CVE / GHSA / OSV-Datenbanken.
+**Tools:**
+- `npm audit` (GitHub Advisory Database) — root + website, **prod + dev dependencies**
+- **Trivy** (Aqua Security, Apache 2.0) — `fs`-Scan über das Repo, Scanner `vuln` + `secret`, `--include-dev-deps`, `node_modules`/`.next` ausgenommen
+
+**Harness:** `scripts/firma/benchmarks/security-audit.mjs` · Run: `npm run bench:security`.
+**Trivy-Auflösung:** `$TRIVY_BIN` → `trivy` in PATH → graceful skip (kein Fake-Ergebnis, analog zum Typst-SKIP im Smoke-Test).
+**Exit-Code:** nicht-null bei Critical/High — damit CI scharf schalten kann.
+
+### Ergebnis (Run 2026-05-14)
+
+npm audit:
+
+| Scope    | Critical | High | Moderate | Low | Total |
+|----------|---------:|-----:|---------:|----:|------:|
+| root     | 0 | 0 | 0 | 0 | 0 |
+| website  | 0 | 0 | 0 | 0 | 0 |
+
+Trivy 0.70.0 (fs-Scan, vuln + secret, incl. dev-deps):
+
+| Critical | High | Medium | Low | Total | Secrets |
+|---------:|-----:|-------:|----:|------:|--------:|
+| 0 | 0 | 0 | 0 | 0 | 0 |
+
+### Honest finding
+
+Der **erste `npm audit`-Lauf auf `website/` zeigte 6 Findings** (4 low, 2 moderate):
+
+| Paket | Severity | Kette | CVE-Kern |
+|-------|----------|-------|----------|
+| `tmp` | low | `@lhci/cli → inquirer → external-editor → tmp@0.0.33` + `@lhci/cli → tmp@0.1.0` | arbitrary temp file/dir write via Symlink (`dir`-Parameter) |
+| `external-editor`, `inquirer`, `@lhci/cli` | low | transitiv über `tmp` | — (Root-Cause ist `tmp`) |
+| `postcss` | moderate | `next → postcss@8.4.31` | XSS via unescaped `</style>` im CSS-Stringify-Output (< 8.5.10) |
+| `next` | moderate | — | nur geflaggt **wegen** des `postcss`-Sub-Deps |
+
+`npm audit fix` schlug für alle einen **destruktiven Major-Downgrade** vor (`@lhci/cli → 0.1.0`, `next → 9.3.3`) — unbrauchbar. Stattdessen sauber gelöst mit `overrides` in `website/package.json`:
+
+```json
+"overrides": {
+  "postcss": "^8.5.14",
+  "tmp": "^0.2.5"
+}
+```
+
+- `postcss ^8.5.14` — `@tailwindcss/postcss` nutzte bereits 8.5.14; nur `next`s gebündeltes 8.4.31 war alt. 8.4 → 8.5 ist ein Minor-Bump innerhalb Major 8, semver-kompatibel. Build + Typecheck verifiziert grün.
+- `tmp ^0.2.5` — `tmp` ist der Root-Cause aller 4 low-Findings; ein Override räumt die komplette Kette. `tmp` wird nur in `inquirer`s interaktivem Editor-Prompt benutzt, den unser nicht-interaktiver `lhci collect`-Flow nie auslöst.
+
+Nach den Overrides: **0/0/0/0** auf root + website. Trivy bestätigt unabhängig **0 CVEs + 0 Secrets**.
+
+### Wichtiger Disclaimer
+
+> Dependency-Scanning erfasst **bekannte CVEs in deklarierten Paketen**. Es ersetzt **keinen** Code-Audit, Pen-Test oder SAST. `0 Findings` heißt „kein bekanntes CVE", nicht „sicher". OWASP A06 ist nur **eine** der zehn Kategorien — A01 (Access Control), A03 (Injection) etc. brauchen eigene Prüfungen.
+
+### Stable Snapshot
+
+`docs/benchmarks/security-audit-2026-05-14.json` (Provenance: tool-Versionen + commit-hash + node/npm-Version + vollständige Advisory-Liste).
+
+### Reproduzieren
+
+```bash
+npm install && (cd website && npm install)
+
+# Trivy installieren (Aqua Security, Apache 2.0)
+curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
+# Audit
+npm run bench:security
+# oder mit explizitem Trivy-Pfad:
+TRIVY_BIN=/pfad/zu/trivy npm run bench:security
+```
+
+Ohne Trivy läuft der Benchmark trotzdem (npm-audit-only), markiert den Trivy-Block aber als `skipped`.
+
+---
+
 ## Geplante Benchmarks
 
 | # | Tool | Methodik | Status |
@@ -291,8 +368,8 @@ Port 3000 muss frei sein.
 | 1 | rtk-ai (Output-Filter) | A/B raw vs rtk auf 10 Commands | ✅ done |
 | 2 | ICM (Layered Loading) | A/B Layered vs Monolithic auf Triage-Workspace | ✅ done |
 | 3 | Lighthouse 12 auf Dashboard | 3 Routen × 3 Runs, Perf/A11y/BP/SEO + Web Vitals | ✅ done |
-| 4 | axe-core Standalone | Volle WCAG 2.1 AA auf allen 6 Routen | ✅ done (oben) |
-| 5 | npm audit + Trivy | OWASP Top 10 / CVE-Datenbank auf Repo + Lockfiles | offen (Iteration A.3) |
+| 4 | axe-core Standalone | Volle WCAG 2.1 AA auf allen 6 Routen | ✅ done |
+| 5 | npm audit + Trivy | OWASP A06 / CVE-Datenbank auf Repo + Lockfiles | ✅ done (oben) |
 | 6 | veraPDF (PDF/A-2) | ISO 19005-2 Validierung der Typst-Outputs | offen (Iteration A.4) |
 | 7 | Manuelle Tastatur-Tour | Tab-Reihenfolge + Focus-Visibility auf allen 6 Routen | offen (Iteration A.2-followup) |
 | 8 | token-cache (State-Reminder) | A/B noop vs local-Fingerprint auf 50 `firma status`-Runs | offen (Phase 2.5) |

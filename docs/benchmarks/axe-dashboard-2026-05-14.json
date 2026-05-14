@@ -12,12 +12,12 @@
     "runner": "Playwright Chromium headless, viewport 1280×900, waitUntil=networkidle",
     "caveat": "Automatisierte Audits erfassen typischerweise ~57 % der WCAG-Issues (Deque). Manuelle Prüfung bleibt nötig für Tastatur-Navigation, Screen-Reader-Flows, kognitive Last."
   },
-  "timestamp": "2026-05-14T02:59:07.707Z",
+  "timestamp": "2026-05-14T11:42:06.623Z",
   "node_version": "v22.22.2",
   "repo": {
     "root": "/home/user/The_Firm",
     "branch": "claude/iteration-a-enterprise-bN3Gz",
-    "commit": "a968d95eefca3b549ef1f5325e5b76d88d076ae7"
+    "commit": "dd4b7fd40f4288e27d02c3bf9ea831ea81b4f509"
   },
   "target": {
     "app": "firma-os-dashboard",
