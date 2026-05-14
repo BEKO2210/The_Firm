@@ -96,6 +96,17 @@ Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisi
 
 **Aufwand:** 1-2 Tage. **Pre-conditions:** Approval-Flow funktioniert (Phase 2).
 
+## Iteration A · Enterprise-Readiness des bestehenden Stacks
+
+**Ziel:** Den bestehenden Stack mit weltweit anerkannten Benchmarks belegen (kein Eigen-Score). Jede neue Behauptung steht auf anerkanntem Standard.
+
+- [x] **A.1** — Lighthouse CI auf `/`, `/tools`, `/reports` · Standard: Lighthouse 12 (Google, Apache 2.0) + Core Web Vitals · Snapshot: `docs/benchmarks/lighthouse-dashboard-2026-05-14.json` · Ergebnis: **100/100/100/100 mean** (Perf / A11y / BP / SEO)
+- [ ] **A.2** — axe-core Accessibility-Audit als separater Run (Lighthouse-A11y deckt nur ~30 % der axe-Regeln) · Standard: axe-core 4 (Deque, MPL 2.0) gegen WCAG 2.1 AA
+- [ ] **A.3** — `npm audit` + Trivy CVE-Scan auf Repo · Standard: OWASP Top 10, CVE-Datenbank
+- [ ] **A.4** — PDF/A-2 Validierung der Typst-Outputs · Standard: veraPDF (MPL 2.0), ISO 19005-2
+
+**Methodik:** Jeder Snapshot wird mit `npm run bench:<name>` reproduzierbar, landet in `docs/benchmarks/` mit stabilem JSON-Schema, und nennt Tool-Version + Methodology in der Datei selbst.
+
 ## Phase 5 · MemPalace · ⏸ Postponed
 
 **Entscheidung 2026-05-14:** zurückgestellt, bis es konkrete Wiederholungs-Queries gibt, die persistentes Memory rechtfertigen. Aktuell ist `.firma/customers/<slug>/` als Markdown-Folder ausreichend.

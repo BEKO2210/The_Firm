@@ -49,7 +49,7 @@ export default async function ToolsPage() {
                   </code>
                 )}
                 <div>
-                  <a href={`/docs/${t.docs.replace(/^docs\//, "")}`} className="text-xs text-[var(--color-accent)] hover:underline">
+                  <a href={`/docs/${t.docs.replace(/^docs\//, "")}`} className="text-xs text-[var(--color-accent-text)] hover:underline">
                     docs →
                   </a>
                 </div>

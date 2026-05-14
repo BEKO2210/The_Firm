@@ -1,0 +1,95 @@
+{
+  "schema": "firma-bench/lighthouse-dashboard/1",
+  "methodology": {
+    "tool": "lighthouse 12 + @lhci/cli",
+    "preset": "desktop",
+    "runs_per_url": 3,
+    "aggregator": "median pro URL/Kategorie + arithmetic mean über Routen",
+    "chrome": "Google Chrome for Testing 148.0.7778.96",
+    "caveat": "Performance hängt vom CPU/Network-Throttling-Profil ab. Nur Snapshots mit identischer schema-Version vergleichen."
+  },
+  "timestamp": "2026-05-14T02:27:14.583Z",
+  "node_version": "v22.22.2",
+  "repo": {
+    "root": "/home/user/The_Firm",
+    "branch": "claude/iteration-a-enterprise-bN3Gz",
+    "commit": "0f938cafbef39d2e7c6a0359de58488fcc623ef0"
+  },
+  "target": {
+    "app": "firma-os-dashboard",
+    "base_url": "http://localhost:3000",
+    "routes": [
+      "/",
+      "/tools",
+      "/reports"
+    ]
+  },
+  "per_route": [
+    {
+      "route": "/",
+      "runs": 3,
+      "lighthouse_version": "12.6.1",
+      "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "web_vitals_ms": {
+        "lcp": 506.9979,
+        "tbt": 0,
+        "cls": 0,
+        "fcp": 219.99790000000002,
+        "speed_index": 219.99790000000002,
+        "tti": 506.9979000000001
+      }
+    },
+    {
+      "route": "/tools",
+      "runs": 3,
+      "lighthouse_version": "12.6.1",
+      "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "web_vitals_ms": {
+        "lcp": 504.6667,
+        "tbt": 0,
+        "cls": 0,
+        "fcp": 214.6667,
+        "speed_index": 214.6667,
+        "tti": 504.6667
+      }
+    },
+    {
+      "route": "/reports",
+      "runs": 3,
+      "lighthouse_version": "12.6.1",
+      "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "web_vitals_ms": {
+        "lcp": 507.5172,
+        "tbt": 0,
+        "cls": 0,
+        "fcp": 214.5172,
+        "speed_index": 214.5172,
+        "tti": 507.51720000000006
+      }
+    }
+  ],
+  "overall_mean": {
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 1,
+    "seo": 1
+  }
+}

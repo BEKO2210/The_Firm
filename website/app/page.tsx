@@ -77,7 +77,7 @@ export default async function HomePage() {
       <section className="card">
         <header className="flex items-center justify-between mb-3">
           <h2 className="font-semibold text-lg">Token-Budget heute</h2>
-          <Link href="/tokens" className="text-sm text-[var(--color-accent)] hover:underline">Details →</Link>
+          <Link href="/tokens" className="text-sm text-[var(--color-accent-text)] hover:underline">Details →</Link>
         </header>
         <Gauge spent={state.tokens.spend_today} budget={state.tokens.budget_per_run_default} cap={state.tokens.budget_per_run_hard_cap} />
         <p className="text-sm text-[var(--color-muted)] mt-3">
@@ -89,7 +89,7 @@ export default async function HomePage() {
         <div className="card">
           <header className="flex items-center justify-between mb-3">
             <h2 className="font-semibold text-lg">Tools</h2>
-            <Link href="/tools" className="text-sm text-[var(--color-accent)] hover:underline">Details →</Link>
+            <Link href="/tools" className="text-sm text-[var(--color-accent-text)] hover:underline">Details →</Link>
           </header>
           <ul className="space-y-1.5 text-sm">
             {tools.map((t) => (
@@ -105,7 +105,7 @@ export default async function HomePage() {
         <div className="card">
           <header className="flex items-center justify-between mb-3">
             <h2 className="font-semibold text-lg">Reports</h2>
-            <Link href="/reports" className="text-sm text-[var(--color-accent)] hover:underline">Details →</Link>
+            <Link href="/reports" className="text-sm text-[var(--color-accent-text)] hover:underline">Details →</Link>
           </header>
           <div className="text-sm space-y-1.5">
             <div className="flex justify-between">
