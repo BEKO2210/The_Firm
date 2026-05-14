@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { readState, readTokenRuns, summarizeRuns } from "@/lib/firma";
+import { readState, readTokenRuns, summarizeRuns, getToolStatuses, listQuotes } from "@/lib/firma";
 
 export const dynamic = "force-dynamic";
 
@@ -9,6 +9,8 @@ export default async function HomePage() {
   const state = await readState();
   const runs = await readTokenRuns();
   const sum = summarizeRuns(runs);
+  const tools = await getToolStatuses();
+  const quotes = await listQuotes();
 
   if (!state) {
     return (
@@ -81,6 +83,42 @@ export default async function HomePage() {
         <p className="text-sm text-[var(--color-muted)] mt-3">
           Sessions: {sum.total_runs} · Total Tokens: {fmt(sum.total_tokens)} · Cache hit-rate: {sum.hit_rate === null ? "—" : `${(sum.hit_rate * 100).toFixed(1)}%`}
         </p>
+      </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="card">
+          <header className="flex items-center justify-between mb-3">
+            <h2 className="font-semibold text-lg">Tools</h2>
+            <Link href="/tools" className="text-sm text-[var(--color-accent)] hover:underline">Details →</Link>
+          </header>
+          <ul className="space-y-1.5 text-sm">
+            {tools.map((t) => (
+              <li key={t.name} className="flex items-center justify-between">
+                <span className="font-medium">{t.name}</span>
+                <span className={t.installed ? "text-[var(--color-real)]" : "text-[var(--color-danger)]"}>
+                  {t.installed ? "● " + (t.version ?? "ok") : "○ fehlt"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="card">
+          <header className="flex items-center justify-between mb-3">
+            <h2 className="font-semibold text-lg">Reports</h2>
+            <Link href="/reports" className="text-sm text-[var(--color-accent)] hover:underline">Details →</Link>
+          </header>
+          <div className="text-sm space-y-1.5">
+            <div className="flex justify-between">
+              <span>Angebote</span>
+              <span className="font-medium">{quotes.length}</span>
+            </div>
+            {quotes.slice(0, 3).map((q) => (
+              <div key={q.id} className="text-xs text-[var(--color-muted)] truncate">
+                {q.id} · {q.customer ?? "?"} · {q.total ?? "—"}
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   );

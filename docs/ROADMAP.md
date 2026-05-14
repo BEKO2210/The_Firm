@@ -11,8 +11,8 @@ Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisi
 | 2 | 1-2 Wochen | Dashboard MVP **+ rtk-ai Integration** (Token sparen) | ⏳ |
 | 3 | 1 Woche | Tiefer Token-Sparen + Interpreted-CM PoC | ⏳ |
 | 4 | 1-2 Tage | Typst + Erstes Angebot-PDF (PDFCraft verworfen wegen AGPL) | ✅ |
-| 5 | 1-2 Wochen | MemPalace (persistentes Memory) | ⏳ |
-| 6 | 1-2 Wochen | Ruflo (Multi-Agent live, wenn Volumen) | ⏳ |
+| 5 | — | MemPalace (persistentes Memory) | ⏸ postponed |
+| 6 | — | Ruflo (Multi-Agent live, wenn Volumen) | ⏸ postponed |
 | 7 | laufend | Monetarisierung tief (echte Verkäufe) | laufend |
 | 8 | nach Bedarf | Erweiterungen (Graphify, agent-browser, …) | optional |
 
@@ -96,30 +96,22 @@ Aufbau von Firma OS in 8 Phasen — vom ersten Setup bis zur stabilen Monetarisi
 
 **Aufwand:** 1-2 Tage. **Pre-conditions:** Approval-Flow funktioniert (Phase 2).
 
-## Phase 5 · MemPalace (persistentes Memory)
+## Phase 5 · MemPalace · ⏸ Postponed
 
-**Ziel:** Wissen über Customers, Tickets, Entscheidungen persistent halten — über Sessions hinweg.
+**Entscheidung 2026-05-14:** zurückgestellt, bis es konkrete Wiederholungs-Queries gibt, die persistentes Memory rechtfertigen. Aktuell ist `.firma/customers/<slug>/` als Markdown-Folder ausreichend.
 
-- [ ] [MemPalace](https://github.com/MemPalace/mempalace) Repo verstehen
-- [ ] Schema-Mapping: `.firma/customers/`, `.firma/tickets/` → MemPalace-Entities
-- [ ] Adapter in `scripts/firma/memory.mjs`
-- [ ] Migration: bestehende `.firma/`-Daten einlesen
-- [ ] Recall-Test: „Was haben wir mit Customer X letzten Monat besprochen?"
+**Trigger zum Reaktivieren:**
+- mind. 3 reale Customers
+- mind. 5 dokumentierte "Was haben wir letztes Mal mit X besprochen?"-Momente
+- erkennbarer Kosten/Zeit-Schmerz, der Memory rechtfertigt
 
-**Aufwand:** 1-2 Wochen. **Pre-conditions:** Phase 4 läuft, erste reale Customers existieren.
+## Phase 6 · Ruflo (Multi-Agent) · ⏸ Postponed
 
-## Phase 6 · Ruflo (Multi-Agent live)
+**Entscheidung 2026-05-14:** zurückgestellt. Single-Agent (Claude Code) deckt alle aktuellen Workflows ab. Multi-Agent kommt erst, wenn echtes Volumen es rechtfertigt — und MemPalace verfügbar ist (gemeinsames Memory ist Voraussetzung).
 
-**Nur wenn Volumen es rechtfertigt.** Single-Agent bleibt Default.
-
-- [ ] [Ruflo](https://github.com/ruvnet/ruflo) Evaluation
-- [ ] Multi-Agent-Setup: auditor + pricing + customer-success parallel
-- [ ] Pro-Agent Token-Budget
-- [ ] Memory-Bridge zu MemPalace
-- [ ] Smoke-Test über 1 Woche
-- [ ] Entscheidung: produktiv oder verwerfen?
-
-**Aufwand:** 1-2 Wochen. **Pre-conditions:** Phase 5 abgeschlossen, mindestens 3 parallele reale Workflows aktiv.
+**Trigger zum Reaktivieren:**
+- mind. 3 parallele Workflows mit messbarer Wartezeit zwischen Agent-Calls
+- Phase 5 abgeschlossen
 
 ## Phase 7 · Monetarisierung tief
 
