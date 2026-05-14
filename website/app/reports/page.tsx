@@ -96,7 +96,11 @@ export default async function ReportsPage() {
                       </div>
                     )}
                   </div>
-                  <pre className="text-xs bg-[var(--color-surface-2)] p-2 rounded max-w-xs overflow-x-auto">
+                  <pre
+                    tabIndex={0}
+                    aria-label={`Totals für ${b.filename}`}
+                    className="text-xs bg-[var(--color-surface-2)] p-2 rounded max-w-xs overflow-x-auto"
+                  >
                     {JSON.stringify(b.totals, null, 2)}
                   </pre>
                 </div>

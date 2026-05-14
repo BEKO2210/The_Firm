@@ -228,16 +228,73 @@ Voraussetzung: Port 3000 frei. `lhci collect` startet `next start` selbst.
 
 ---
 
+## Benchmark 4 · axe-core WCAG 2.1 AA auf allen Dashboard-Routen
+
+**Standard:** axe-core 4 (Deque Systems, MPL 2.0) + WCAG 2.1 Level A + AA (W3C Recommendation).
+**Begründung (warum zusätzlich zu Lighthouse):** Lighthouse läuft nur einen Subset der axe-Regeln (ca. 30–40 der ~90 Stand 2026). Für eine ehrliche WCAG-2.1-AA-Aussage brauchen wir den vollständigen axe-Run.
+**Harness:** `scripts/firma/benchmarks/axe-dashboard.mjs` · Run: `npm run bench:axe`.
+**Methodik:**
+
+- Runner spawnt `next start` direkt (nicht via `npm start`, das SIGTERM nicht zuverlässig durchreicht) und schließt das Prozess-Gruppen-Tree am Ende sauber.
+- Playwright Chromium headless, Viewport 1280×900, `waitUntil=networkidle` pro Route.
+- axe-core mit Tags `wcag2a, wcag2aa, wcag21a, wcag21aa` → die offizielle WCAG-A + AA-Regelmenge in Level 2.0 + 2.1.
+- 6 Routen: `/`, `/inbox`, `/approvals`, `/tokens`, `/tools`, `/reports`.
+
+### Ergebnis (Run 2026-05-14)
+
+| Route       | Violations | Critical | Serious | Moderate | Minor | Incomplete | Passes |
+|-------------|-----------:|---------:|--------:|---------:|------:|-----------:|-------:|
+| `/`          | 0 | 0 | 0 | 0 | 0 | 1 | 19 |
+| `/inbox`     | 0 | 0 | 0 | 0 | 0 | 1 | 17 |
+| `/approvals` | 0 | 0 | 0 | 0 | 0 | 1 | 17 |
+| `/tokens`    | 0 | 0 | 0 | 0 | 0 | 1 | 17 |
+| `/tools`     | 0 | 0 | 0 | 0 | 0 | 1 | 19 |
+| `/reports`   | 0 | 0 | 0 | 0 | 0 | 2 | 20 |
+| **Σ**         | **0** | **0** | **0** | **0** | **0** | **7** | — |
+
+### Honest finding
+
+Der erste Lauf zeigte **1 serious violation auf `/reports`**:
+
+- **`scrollable-region-focusable`** (WCAG 2.1.1 Keyboard, Level A · EN 301 549 9.2.1.1)
+  Der `<pre>`-Block mit JSON-Totals hatte `overflow-x-auto`, war aber nicht per Tastatur fokussierbar. Tastatur-Only-Nutzer konnten den abgeschnittenen Inhalt nicht scrollen.
+  **Fix:** `tabIndex={0}` + `aria-label={"Totals für …"}` am `<pre>` (`website/app/reports/page.tsx:99`). Re-Run: 0 Violations.
+
+Die 7 `incomplete` Items sind axe-Hinweise auf Regeln, die in Chromium headless nicht abschließend prüfbar sind (typisch: `color-contrast` auf gemischten Backgrounds, `scrollable-region-focusable` auf hover-only Containern). Sie sind **keine** Verletzungen, sondern „bitte manuell verifizieren".
+
+### Wichtiger Disclaimer
+
+> Automatisierte A11y-Audits erfassen typischerweise **~57 % der WCAG-Issues** (Deque-Studie 2021). Vollständige WCAG-AA-Conformance braucht manuelle Prüfung — insbesondere Tastatur-Navigation, Screen-Reader-Flows, kognitive Last, fokus-sichtbare Reihenfolge.
+
+Heißt: 0 axe-violations ≠ „barrierefrei", sondern „kein automatisch findbarer Verstoß". Für die enterprise-Aussage müssen die incomplete-Items + eine manuelle Tastatur-Tour auf allen 6 Routen dokumentiert werden (Iteration A.2-followup, noch offen).
+
+### Stable Snapshot
+
+`docs/benchmarks/axe-dashboard-2026-05-14.json` (Provenance: axe-core-Version + commit-hash + node-version + branch).
+
+### Reproduzieren
+
+```bash
+(cd website && npm install && npm run build)
+(cd website && npx playwright install chromium)
+npm run bench:axe
+```
+
+Port 3000 muss frei sein.
+
+---
+
 ## Geplante Benchmarks
 
 | # | Tool | Methodik | Status |
 |--:|------|----------|:------:|
 | 1 | rtk-ai (Output-Filter) | A/B raw vs rtk auf 10 Commands | ✅ done |
 | 2 | ICM (Layered Loading) | A/B Layered vs Monolithic auf Triage-Workspace | ✅ done |
-| 3 | Lighthouse 12 auf Dashboard | 3 Routen × 3 Runs, Perf/A11y/BP/SEO + Web Vitals | ✅ done (oben) |
-| 4 | axe-core Standalone | Volle WCAG 2.1 AA-Regelmenge auf allen 6 Routen | offen (Iteration A.2) |
+| 3 | Lighthouse 12 auf Dashboard | 3 Routen × 3 Runs, Perf/A11y/BP/SEO + Web Vitals | ✅ done |
+| 4 | axe-core Standalone | Volle WCAG 2.1 AA auf allen 6 Routen | ✅ done (oben) |
 | 5 | npm audit + Trivy | OWASP Top 10 / CVE-Datenbank auf Repo + Lockfiles | offen (Iteration A.3) |
 | 6 | veraPDF (PDF/A-2) | ISO 19005-2 Validierung der Typst-Outputs | offen (Iteration A.4) |
-| 7 | token-cache (State-Reminder) | A/B noop vs local-Fingerprint auf 50 `firma status`-Runs | offen (Phase 2.5) |
-| 8 | MemPalace (Recall) | Latency p50/p99 + Genauigkeit auf 100 Customer-Queries | offen (Phase 5) |
-| 9 | Ruflo (Multi-Agent) | Token-Sum + Time-to-Result auf 1-Agent vs 3-Agent Workflow | offen (Phase 6) |
+| 7 | Manuelle Tastatur-Tour | Tab-Reihenfolge + Focus-Visibility auf allen 6 Routen | offen (Iteration A.2-followup) |
+| 8 | token-cache (State-Reminder) | A/B noop vs local-Fingerprint auf 50 `firma status`-Runs | offen (Phase 2.5) |
+| 9 | MemPalace (Recall) | Latency p50/p99 + Genauigkeit auf 100 Customer-Queries | offen (Phase 5) |
+| 10 | Ruflo (Multi-Agent) | Token-Sum + Time-to-Result auf 1-Agent vs 3-Agent Workflow | offen (Phase 6) |

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start -p 3000",
     "typecheck": "tsc --noEmit",
-    "bench:lighthouse": "node ../scripts/firma/benchmarks/lighthouse-dashboard.mjs"
+    "bench:lighthouse": "node ../scripts/firma/benchmarks/lighthouse-dashboard.mjs",
+    "bench:axe": "node ../scripts/firma/benchmarks/axe-dashboard.mjs"
   },
   "dependencies": {
     "next": "^16.2.6",
@@ -15,11 +16,13 @@
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
     "@lhci/cli": "^0.15.1",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.10.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "axe-core": "^4.11.4",
     "playwright": "^1.60.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.2"
