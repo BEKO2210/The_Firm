@@ -169,12 +169,75 @@ Das ist **bewusst nicht Teil dieses Benchmarks**. Wir können nur das messen, wa
 
 ---
 
+## Benchmark 3 · Lighthouse 12 auf dem Dashboard
+
+**Standard:** Lighthouse 12 (Google, Apache 2.0) + Core Web Vitals (LCP, INP, CLS, TBT, FCP) + axe-core Subset für die Accessibility-Kategorie (Deque, MPL 2.0).
+**Harness:** `scripts/firma/benchmarks/lighthouse-dashboard.mjs` mit `@lhci/cli` als Orchestrator · Run: `npm run bench:lighthouse`.
+**Methodik:**
+
+- `next build` (Production) wird vorausgesetzt, dann startet `lhci collect` automatisch `next start`
+- 3 Routen × 3 Runs · Chrome for Testing via `CHROME_PATH` (z.B. Playwright-Chromium)
+- Preset `desktop`, nur die 4 Kategorien Performance/Accessibility/Best-Practices/SEO
+- Aggregation: Median pro URL+Kategorie, arithmetisches Mittel über die 3 Routen für Overall
+
+### Ergebnis (Run 2026-05-14)
+
+| Route     | Performance | Accessibility | Best Practices | SEO |
+|-----------|------------:|--------------:|---------------:|----:|
+| `/`        | 100 | 100 | 100 | 100 |
+| `/tools`   | 100 | 100 | 100 | 100 |
+| `/reports` | 100 | 100 | 100 | 100 |
+| **⌀ mean** | **100** | **100** | **100** | **100** |
+
+Core Web Vitals (Median, Lab, desktop preset):
+
+| Route     | LCP   | TBT  | CLS   | FCP   | TTI   |
+|-----------|------:|-----:|------:|------:|------:|
+| `/`        | 507 ms | 0 ms | 0.000 | 220 ms | 507 ms |
+| `/tools`   | 505 ms | 0 ms | 0.000 | 215 ms | 505 ms |
+| `/reports` | 508 ms | 0 ms | 0.000 | 215 ms | 508 ms |
+
+Alle LCP-Werte deutlich unter 2 500 ms (Web-Vitals-Threshold "good"), TBT 0 ms, CLS 0.
+
+### Honest finding
+
+- Der **erste Lauf zeigte 100/97/96/100** — zwei echte Befunde:
+  1. **A11y `color-contrast` (WCAG 1.4.3, AA)** — Accent-Farbe `#2563eb` für Link-Text war auf dunklem Surface zu dunkel (~3.5:1, AA fordert ≥4.5:1). Fix: zweite Variable `--color-accent-text: #60a5fa` für Text-Accent, `--color-accent` bleibt für Button-Backgrounds (white-on-blue).
+  2. **Best-Practices `errors-in-console`** — fehlende `/favicon.ico` (404). Fix: `app/favicon.ico` (16×16 ICO programmatisch generiert) + `app/icon.svg` für moderne Browser.
+- Nach den zwei Fixes: **100/100/100/100 auf allen drei Routen**, drei Runs pro URL stabil.
+- Vor jedem Snapshot wird der vorherige `.lighthouseci/`-Output gelöscht — keine Mittelung über alte Runs.
+
+### Stable Snapshot
+
+`docs/benchmarks/lighthouse-dashboard-2026-05-14.json` (Provenance: commit-hash + Chrome-Version + node-version + Lighthouse-Version aus den LHR-Reports).
+
+### Reproduzieren
+
+```bash
+# 1. Production Build
+(cd website && npm run build)
+
+# 2. Chrome verfügbar machen (Playwright-Chromium reicht)
+(cd website && npx playwright install chromium)
+
+# 3. Benchmark
+CHROME_PATH=/opt/pw-browsers/chromium-*/chrome-linux64/chrome npm run bench:lighthouse
+```
+
+Voraussetzung: Port 3000 frei. `lhci collect` startet `next start` selbst.
+
+---
+
 ## Geplante Benchmarks
 
 | # | Tool | Methodik | Status |
 |--:|------|----------|:------:|
 | 1 | rtk-ai (Output-Filter) | A/B raw vs rtk auf 10 Commands | ✅ done |
-| 2 | ICM (Layered Loading) | A/B Layered vs Monolithic auf Triage-Workspace | ✅ done (oben) |
-| 3 | token-cache (State-Reminder) | A/B noop vs local-Fingerprint auf 50 `firma status`-Runs | offen (Phase 2.5) |
-| 4 | MemPalace (Recall) | Latency p50/p99 + Genauigkeit auf 100 Customer-Queries | offen (Phase 5) |
-| 5 | Ruflo (Multi-Agent) | Token-Sum + Time-to-Result auf 1-Agent vs 3-Agent Workflow | offen (Phase 6) |
+| 2 | ICM (Layered Loading) | A/B Layered vs Monolithic auf Triage-Workspace | ✅ done |
+| 3 | Lighthouse 12 auf Dashboard | 3 Routen × 3 Runs, Perf/A11y/BP/SEO + Web Vitals | ✅ done (oben) |
+| 4 | axe-core Standalone | Volle WCAG 2.1 AA-Regelmenge auf allen 6 Routen | offen (Iteration A.2) |
+| 5 | npm audit + Trivy | OWASP Top 10 / CVE-Datenbank auf Repo + Lockfiles | offen (Iteration A.3) |
+| 6 | veraPDF (PDF/A-2) | ISO 19005-2 Validierung der Typst-Outputs | offen (Iteration A.4) |
+| 7 | token-cache (State-Reminder) | A/B noop vs local-Fingerprint auf 50 `firma status`-Runs | offen (Phase 2.5) |
+| 8 | MemPalace (Recall) | Latency p50/p99 + Genauigkeit auf 100 Customer-Queries | offen (Phase 5) |
+| 9 | Ruflo (Multi-Agent) | Token-Sum + Time-to-Result auf 1-Agent vs 3-Agent Workflow | offen (Phase 6) |

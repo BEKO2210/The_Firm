@@ -9,6 +9,8 @@
   --color-muted: #98a2af;
   --color-accent: #2563eb;
   --color-accent-hover: #1d4ed8;
+  /* Brighter shade for text/links on dark surfaces — WCAG 2.1 AA on #14181c (≈8:1). */
+  --color-accent-text: #60a5fa;
   --color-real: #10b981;
   --color-sim: #f59e0b;
   --color-danger: #ef4444;

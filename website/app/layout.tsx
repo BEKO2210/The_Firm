@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <header className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
           <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-4">
             <Link href="/" className="font-bold text-lg tracking-tight">
-              <span className="text-[var(--color-accent)]">●</span> Firma OS
+              <span className="text-[var(--color-accent-text)]">●</span> Firma OS
               <span className="ml-3 text-sm font-normal text-[var(--color-muted)]">{firmName}</span>
             </Link>
             <nav className="flex gap-1 flex-wrap">
