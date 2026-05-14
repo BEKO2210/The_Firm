@@ -131,7 +131,7 @@ scripts/
 - [ ] Hard-Stop-Rule dokumentiert ✅
 - [ ] 8 Agent-Specs vorhanden ✅
 - [ ] 10 Architektur-Dokumente vorhanden ✅
-- [ ] Dashboard MVP läuft ⏳ Phase 2
+- [x] Dashboard MVP läuft ✅ Phase 2 (`/`, `/inbox`, `/approvals`, `/tokens`)
 - [ ] Erstes PDF-Angebot generierbar ⏳ Phase 4
 - [ ] Tokens pro Routine-Run < 4.000 ⏳ Phase 3
 
