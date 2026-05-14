@@ -107,12 +107,74 @@ Stable Snapshot pro Release: `docs/benchmarks/rtk-vs-raw-<datum>.json` (committe
 
 ---
 
+## Benchmark 2 · ICM (Interpreted-Context-Methodology) vs Monolithic Loading
+
+**Quelle:** [github.com/RinDig/Interpreted-Context-Methdology](https://github.com/RinDig/Interpreted-Context-Methdology)
+
+**Frage:** Wie viel Token-Last spart ICMs Layered-Loading pro Call gegenüber einem monolithischen Prompt, der alles auf einmal lädt?
+
+**Harness:** `scripts/firma/benchmarks/icm-vs-monolithic.mjs` · Run: `npm run bench:icm`
+
+**Workload:** `.firma/icm/triage/` Workspace (3 Stages: `01-classify` → `02-decide` → `03-action`), reale Firma-OS-Konventionen.
+
+### Ergebnis (Run 2026-05-14)
+
+| Stage              | Files | Tokens | KB    |
+|--------------------|------:|-------:|------:|
+| 01-classify        |     4 |  2 750 |   9.1 |
+| 02-decide          |     5 |  2 978 |   9.8 |
+| 03-action          |     6 |  3 211 |  10.6 |
+| **Σ layered (sum)** | — | **8 939** | — |
+| MONOLITHIC          | 10 | **4 462** | 14.7 |
+
+### Honest finding
+
+- **Peak Stage vs Monolithic:** **-28.0 %** weniger Tokens **pro Call** (3 211 vs 4 462)
+- **Σ Layered vs Monolithic:** **+100.3 %** mehr Tokens **insgesamt** über die ganze Pipeline (8 939 vs 4 462)
+
+Das ist der **eigentliche Trade-off von ICM**, der in der README nicht so klar steht:
+
+| Effekt | Pro-Call | Pipeline-Total |
+|--------|:--------:|:--------------:|
+| Token-Last | ↓ (-28 %) | ↑ (+100 %) |
+| Mögliche Modell-Qualität | besser (kompakterer Context, weniger "lost in the middle") | nicht in diesem Benchmark gemessen |
+| Human-Edit-Surface | klar (pro Stage ein Output-File) | klar |
+| Pipeline-Komplexität | höher (3 Calls + Stage-Output-Handoff) | höher |
+
+**Warum sind Σ Tokens höher?**
+Jede Stage lädt Layer 0 (`CLAUDE.md`) + Layer 1 (Workspace-CONTEXT.md) + ihre Layer 3 Referenzen erneut. Stage 02 lädt zusätzlich Stage 01 Output, Stage 03 lädt die Outputs von 01+02. Das ist Designed-Behavior in ICM (Stage-Chaining via Layer 4).
+
+### Wichtiger Disclaimer (Output-Qualität)
+
+Wir messen hier **nur Token-Last**, NICHT ob die Antworten besser oder schlechter werden. Output-Qualität braucht:
+
+- echte LLM-Calls
+- ein Bewertungs-Schema (z.B. Inter-Rater-Reliability über N Antworten)
+- mehrere Modelle für Cross-Validation
+
+Das ist **bewusst nicht Teil dieses Benchmarks**. Wir können nur das messen, was deterministisch zählbar ist. Das ehrlich zu sagen ist der Standard.
+
+### Wann ICM für Firma OS sinnvoll ist
+
+| Szenario | ICM lohnt sich? |
+|----------|:---------------:|
+| Triage einer Mail mit klaren Stages (klassifiziere → entscheide → handle) | **wahrscheinlich ja** (Edit-Surface + kompaktere Calls) |
+| One-shot-Frage an den Agent (z.B. "wie geht's mir heute?") | nein (Pipeline-Overhead nicht wert) |
+| Quote-Generation aus strukturiertem Input | **ja** (klares Stage-Modell) |
+| Code-Review eines Diffs | nein (passt nicht zum Layer-Modell) |
+
+### Stable Snapshot
+
+`docs/benchmarks/icm-vs-monolithic-2026-05-14.json` (Provenance: commit-hash + node-version).
+
+---
+
 ## Geplante Benchmarks
 
 | # | Tool | Methodik | Status |
 |--:|------|----------|:------:|
-| 1 | rtk-ai (Output-Filter) | A/B raw vs rtk auf 10 Commands | ✅ done (oben) |
-| 2 | token-cache (State-Reminder) | A/B noop vs local-Fingerprint auf 50 `firma status`-Runs | offen (Phase 2) |
-| 3 | Interpreted-Context-Methodology | A/B Triage-Entscheidungen ohne/mit reasoning layer | offen (Phase 3) |
+| 1 | rtk-ai (Output-Filter) | A/B raw vs rtk auf 10 Commands | ✅ done |
+| 2 | ICM (Layered Loading) | A/B Layered vs Monolithic auf Triage-Workspace | ✅ done (oben) |
+| 3 | token-cache (State-Reminder) | A/B noop vs local-Fingerprint auf 50 `firma status`-Runs | offen (Phase 2.5) |
 | 4 | MemPalace (Recall) | Latency p50/p99 + Genauigkeit auf 100 Customer-Queries | offen (Phase 5) |
 | 5 | Ruflo (Multi-Agent) | Token-Sum + Time-to-Result auf 1-Agent vs 3-Agent Workflow | offen (Phase 6) |
